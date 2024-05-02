@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 
-function TextAreaInput({labelTitle, labelStyle, type, containerStyle, defaultValue, placeholder, updateFormValue, updateType}){
+function TextAreaInput({labelTitle,  containerStyle, defaultValue, placeholder, updateFormValue, updateType}){
 
     const [value, setValue] = useState(defaultValue)
 
@@ -11,11 +11,11 @@ function TextAreaInput({labelTitle, labelStyle, type, containerStyle, defaultVal
     }
 
     return(
-        <div className={`form-control w-full ${containerStyle}`}>
+        <div className={`form-control w-full  ${containerStyle}`}>
             <label className="label">
-                <span className={"label-text text-base-content " + labelStyle}>{labelTitle}</span>
+                <span className={"label-text text-base-content text-lg"}>{labelTitle}</span>
             </label>
-            <textarea value={value} className="textarea textarea-bordered w-full" placeholder={placeholder || ""} onChange={(e) => updateInputValue(e.target.value)}></textarea>
+            <textarea value={value} className="textarea textarea-bordered w-full border bg-transparent px-4 py-3.5 pr-8 rounded-lg" placeholder={placeholder || ""} onChange={(e) => updateInputValue(e.target.value)}></textarea>
         </div>
     )
 }
