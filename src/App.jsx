@@ -5,6 +5,7 @@ import { themeChange } from 'theme-change'
 
 // Importing pages
 const Layout = lazy(() => import('./containers/Layout'))
+const DA = lazy(() => import('./pages/protected/DashboardCustomer'))
 const Login = lazy(() => import('./pages/Login'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
 const Register = lazy(() => import('./pages/Register'))
