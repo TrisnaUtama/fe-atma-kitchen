@@ -12,6 +12,7 @@ const AddProductPage = lazy(() =>
 const EditProdukPage = lazy(() =>
   import("../pages/protected/produk/EditProduk")
 );
+//bahanbaku
 const BahanBakuPage = lazy(() =>
   import("../pages/protected/bahanbaku/Bahanbaku")
 );
@@ -20,6 +21,16 @@ const addBahanbakuPage = lazy(() =>
 );
 const editBahanbakuPage = lazy(() =>
   import("../pages/protected/bahanbaku/editBahanbaku")
+);
+//penitip
+const PenitipPage = lazy(() =>
+  import("../pages/protected/penitip/Penitip")
+);
+const addPenitipPage = lazy(() =>
+  import("../pages/protected/penitip/addPenitip")
+);
+const editPenitipPage = lazy(() =>
+  import("../pages/protected/penitip/editPenitip")
 );
 
 const routes = [
@@ -43,6 +54,8 @@ const routes = [
     path: "/edit-produk/:id",
     component: EditProdukPage,
   },
+
+  //bahanbaku
   {
     path: "/bahanbaku",
     component: BahanBakuPage,
@@ -56,6 +69,19 @@ const routes = [
     component: editBahanbakuPage,
   },
 
+  //penitip
+  {
+    path: "/penitip",
+    component: PenitipPage,
+  },
+  {
+    path: "/add-penitip",
+    component: addPenitipPage,
+  },
+  {
+    path: "/edit-penitip/:id",
+    component: editPenitipPage,
+  },
 
 ];
 

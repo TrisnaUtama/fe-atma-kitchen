@@ -109,7 +109,7 @@ function EditBahanbakuPage() {
 
             <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
             <div className="modal-action">
-                <a className="btn btn-ghost" href="/produk">
+                <a className="btn btn-ghost" href="/bahanbaku">
                     Cancel
                 </a>
                 <button className="btn btn-primary px-6">Save</button>
