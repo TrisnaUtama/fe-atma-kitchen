@@ -12,6 +12,15 @@ const AddProductPage = lazy(() =>
 const EditProdukPage = lazy(() =>
   import("../pages/protected/produk/EditProduk")
 );
+const BahanBakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/Bahanbaku")
+);
+const addBahanbakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/addBahanbaku")
+);
+const editBahanbakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/editBahanbaku")
+);
 
 const routes = [
   {
@@ -34,6 +43,20 @@ const routes = [
     path: "/edit-produk/:id",
     component: EditProdukPage,
   },
+  {
+    path: "/bahanbaku",
+    component: BahanBakuPage,
+  },
+  {
+    path: "/add-bahanbaku",
+    component: addBahanbakuPage,
+  },
+  {
+    path: "/edit-bahanbaku/:id",
+    component: editBahanbakuPage,
+  },
+
+
 ];
 
 export default routes;
