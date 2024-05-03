@@ -42,6 +42,11 @@ const fetchData = async () => {
             icon: <Squares2X2Icon className={iconClasses} />,
             name: 'Dashboard MO',
           },
+          {
+            path: 'penitip',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Penitip',
+          },
         ];
       }
     } else {
@@ -51,6 +56,7 @@ const fetchData = async () => {
           icon: <Squares2X2Icon className={iconClasses} />,
           name: 'Dashboard User',
         },
+       
       ];
     }
     return routes;
