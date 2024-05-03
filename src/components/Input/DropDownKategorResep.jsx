@@ -21,8 +21,12 @@ function CategoryDropdown({
           {placeholder}
         </option>
         {options.map((category, index) => (
-          <option className="bg-gray-800 text-lg" key={index} value={category}>
-            {category}
+          <option
+            className="bg-gray-800 text-lg"
+            key={index}
+            value={category.id}
+          >
+            {category.nama_bahan_baku}
           </option>
         ))}
       </select>

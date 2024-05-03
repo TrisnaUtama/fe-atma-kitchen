@@ -37,6 +37,11 @@ const fetchData = async () => {
             icon: <Squares2X2Icon className={iconClasses} />,
             name: 'Dashboard MO',
           },
+          {
+            path: 'resep',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Resep',
+          },
         ];
       }
     } else {

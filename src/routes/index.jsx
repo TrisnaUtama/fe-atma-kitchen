@@ -12,6 +12,9 @@ const AddProductPage = lazy(() =>
 const EditProdukPage = lazy(() =>
   import("../pages/protected/produk/EditProduk")
 );
+const Resep = lazy(() => import('../pages/protected/resep/Resep'))
+const TambahResep = lazy(() => import('../pages/protected/resep/AddResep'))
+
 
 const routes = [
   {
@@ -33,6 +36,14 @@ const routes = [
   {
     path: "/edit-produk/:id",
     component: EditProdukPage,
+  },
+  {
+    path: '/resep', // the url
+    component: Resep, // view rendered
+  },
+  {
+    path: '/tambahResep', // the url
+    component: TambahResep, // view rendered
   },
 ];
 
