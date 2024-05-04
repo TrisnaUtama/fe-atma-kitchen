@@ -4,7 +4,8 @@ import {
   CONFIRMATION_MODAL_CLOSE_TYPES,
   MODAL_CLOSE_TYPES,
 } from "../../../utils/globalConstantUtil";
-import  deleteProduk  from "../../produk/hooks/deleteProduct";
+import deleteProduk from "../../produk/hooks/deleteProduct";
+import deletePembelian from "../../pembelian-bahan-baku/hooks/deletePembelian";
 import { showNotification } from "../headerSlice";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
@@ -16,6 +17,8 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PRODUK_DELETE) {
       dispatch(showNotification({ message: "Produk Deleted!", status: 1 }));
       deleteProduk(index);
+    } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PEMBELIAN_DELETE) {
+      deletePembelian(index);
     }
     closeModal();
   };

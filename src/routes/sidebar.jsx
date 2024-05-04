@@ -17,7 +17,7 @@ const fetchData = async () => {
     }
 
     if (userLogin.id_role !== false) {
-      if (userLogin.id_role === 3) {
+      if (userLogin.id_role === 2) {
         routes = [
           {
             path: 'dashboard',
@@ -29,13 +29,23 @@ const fetchData = async () => {
             icon: <Squares2X2Icon className={iconClasses} />,
             name: 'Produk',
           },
+          {
+            path: 'hampers',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Hampers',
+          },
         ];
-      } else if (userLogin.id_role === 2) {
+      } else if (userLogin.id_role === 3) {
         routes = [
           {
             path: 'dashboard',
             icon: <Squares2X2Icon className={iconClasses} />,
             name: 'Dashboard MO',
+          },
+          {
+            path: 'pembelianBahanBaku',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Pembelian Bahan Baku',
           },
         ];
       }

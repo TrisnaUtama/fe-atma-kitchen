@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import CalendarView from '../../components/CalendarView'
+import CalendarView from '../../components/CalenderView'
 import moment from 'moment'
 import { CALENDAR_INITIAL_EVENTS } from '../../utils/dummyData'
 import { useDispatch } from 'react-redux'
