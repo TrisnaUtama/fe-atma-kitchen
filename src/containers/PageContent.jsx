@@ -1,6 +1,6 @@
 import Header from "./Header"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import routes from '../routes'
+import fetchData from "../routes/index";
 import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
@@ -11,9 +11,18 @@ const Page404 = lazy(() => import('../pages/protected/404'))
 
 function PageContent(){
     const mainContentRef = useRef(null);
-    const {pageTitle} = useSelector(state => state.header)
+    const {pageTitle} = useSelector(state => state.header);
+    const [routes, setRoute] = useState([]);
 
 
+    useEffect(()=>{
+        const fetchRoutes = async () =>{
+          const fetchedRoutes = await fetchData();
+          setRoute(fetchedRoutes);
+        };
+        fetchRoutes();
+      })
+      
     // Scroll back to top on new page load
     useEffect(() => {
         mainContentRef.current.scroll({

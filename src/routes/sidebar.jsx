@@ -47,6 +47,11 @@ const fetchData = async () => {
             icon: <Squares2X2Icon className={iconClasses} />,
             name: 'Penitip',
           },
+          {
+            path: 'pengeluaran',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Pengeluaran',
+          },
         ];
       }
     } else {

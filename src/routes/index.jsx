@@ -1,5 +1,6 @@
 // All components mapping with path for internal routes
 import { lazy } from "react";
+import axios from "axios";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
@@ -23,9 +24,7 @@ const editBahanbakuPage = lazy(() =>
   import("../pages/protected/bahanbaku/editBahanbaku")
 );
 //penitip
-const PenitipPage = lazy(() =>
-  import("../pages/protected/penitip/Penitip")
-);
+const PenitipPage = lazy(() => import("../pages/protected/penitip/Penitip"));
 const addPenitipPage = lazy(() =>
   import("../pages/protected/penitip/addPenitip")
 );
@@ -33,56 +32,110 @@ const editPenitipPage = lazy(() =>
   import("../pages/protected/penitip/editPenitip")
 );
 
-const routes = [
-  {
-    path: "/dashboardCustomer", // the url
-    component: DasboardCustomer, // view rendered
-  },
-  {
-    path: "/dashboard",
-    component: Dashboard,
-  },
-  {
-    path: "/produk",
-    component: Produk,
-  },
-  {
-    path: "/add-produk",
-    component: AddProductPage,
-  },
-  {
-    path: "/edit-produk/:id",
-    component: EditProdukPage,
-  },
+//pengeluaran
+const PengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/Pengeluaran")
+);
+const addPengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/addPengeluaran")
+);
+const editPengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/editPengeluaran")
+);
 
-  //bahanbaku
-  {
-    path: "/bahanbaku",
-    component: BahanBakuPage,
-  },
-  {
-    path: "/add-bahanbaku",
-    component: addBahanbakuPage,
-  },
-  {
-    path: "/edit-bahanbaku/:id",
-    component: editBahanbakuPage,
-  },
+let routes = [];
+const token = localStorage.getItem("token");
 
-  //penitip
-  {
-    path: "/penitip",
-    component: PenitipPage,
-  },
-  {
-    path: "/add-penitip",
-    component: addPenitipPage,
-  },
-  {
-    path: "/edit-penitip/:id",
-    component: editPenitipPage,
-  },
+const fetchData = async () => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${ token }`;
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/v1/user");
+    const userLogin = response.data;
+    if (userLogin.id_saldo != null) {
+      userLogin.id_role = false;
+    } else {
+      userLogin.id_saldo = false;
+    }
 
-];
+    if (userLogin.id_role !== false) {
+      if (userLogin.id_role === 2) {
+        routes = [
+          {
+            path: "/dashboard",
+            component: Dashboard,
+          },
+          {
+            path: "/produk",
+            component: Produk,
+          },
+          {
+            path: "/add-produk",
+            component: AddProductPage,
+          },
+          {
+            path: "/edit-produk/:id",
+            component: EditProdukPage,
+          },
+          {
+            path: "/bahanbaku",
+            component: BahanBakuPage,
+          },
+          {
+            path: "/add-bahanbaku",
+            component: addBahanbakuPage,
+          },
+          {
+            path: "/edit-bahanbaku/:id",
+            component: editBahanbakuPage,
+          },
+        ];
+      } else if (userLogin.id_role === 3) {
+        routes = [
+          {
+            path: "/dashboard",
+            component: Dashboard,
+          },
+          {
+            path: "/penitip",
+            component: PenitipPage,
+          },
+          {
+            path: "/add-penitip",
+            component: addPenitipPage,
+          },
+          {
+            path: "/edit-penitip/:id",
+            component: editPenitipPage,
+          },
 
-export default routes;
+          //pengeluaranLain
+          {
+            path: "/pengeluaran",
+            component: PengeluaranPage,
+          },
+          {
+            path: "/add-pengeluaran",
+            component: addPengeluaranPage,
+          },
+          {
+            path: "/edit-pengeluaran/:id",
+            component: editPengeluaranPage,
+          },
+        ];
+      }
+    } else {
+      routes = [
+        {
+          path: "/dashboardCustomer",
+          component: DasboardCustomer,
+        },
+      ];
+    }
+    return routes;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return [];
+  }
+};
+
+export default fetchData;
