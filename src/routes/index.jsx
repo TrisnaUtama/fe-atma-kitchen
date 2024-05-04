@@ -13,6 +13,26 @@ const AddProductPage = lazy(() =>
 const EditProdukPage = lazy(() =>
   import("../pages/protected/produk/EditProduk")
 );
+//bahanbaku
+const BahanBakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/Bahanbaku")
+);
+const addBahanbakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/addBahanbaku")
+);
+const editBahanbakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/editBahanbaku")
+);
+//penitip
+const PenitipPage = lazy(() =>
+  import("../pages/protected/penitip/Penitip")
+);
+const addPenitipPage = lazy(() =>
+  import("../pages/protected/penitip/addPenitip")
+);
+const editPenitipPage = lazy(() =>
+  import("../pages/protected/penitip/editPenitip")
+);
 
 const Hampers = lazy(() => import("../pages/protected/hampers/Hampers"));
 
@@ -65,6 +85,18 @@ const fetchData = async () => {
             path: "/edit-produk/:id",
             component: EditProdukPage,
           },
+          {
+            path: "/bahanbaku",
+            component: BahanBakuPage,
+          },
+          {
+            path: "/add-bahanbaku",
+            component: addBahanbakuPage,
+          },
+          {
+            path: "/edit-bahanbaku/:id",
+            component: editBahanbakuPage,
+          },
         ];
       } else if (userLogin.id_role === 3) {
         routes = [
@@ -84,6 +116,18 @@ const fetchData = async () => {
             path: "/edit-pembelian/:id",
             component: EditPembelian,
           },
+          {
+            path: "/penitip",
+            component: PenitipPage,
+          },
+          {
+            path: "/add-penitip",
+            component: addPenitipPage,
+          },
+          {
+            path: "/edit-penitip/:id",
+            component: editPenitipPage,
+          },
         ];
       }
     } else {
@@ -102,44 +146,3 @@ const fetchData = async () => {
 };
 
 export default fetchData;
-
-// const routes = [
-//   {
-//     path: "/dashboardCustomer", // the url
-//     component: DasboardCustomer, // view rendered
-//   },
-//   {
-//     path: "/dashboard",
-//     component: Dashboard,
-//   },
-//   {
-//     path: "/hampers",
-//     component: Hampers,
-//   },
-//   {
-//     path: "/produk",
-//     component: Produk,
-//   },
-//   {
-//     path: "/add-produk",
-//     component: AddProductPage,
-//   },
-//   {
-//     path: "/edit-produk/:id",
-//     component: EditProdukPage,
-//   },
-//   {
-//     path: "/pembelianBahanBaku",
-//     component: PembelianBahanBaku,
-//   },
-//   {
-//     path: "/add-pembelian",
-//     component: AddPembelianBahanBaku,
-//   },
-//   {
-//     path: "/edit-pembelian/:id",
-//     component: EditPembelian,
-//   },
-// ];
-
-// export default routes;
