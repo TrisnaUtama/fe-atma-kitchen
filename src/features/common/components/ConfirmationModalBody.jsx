@@ -7,6 +7,7 @@ import {
 import deleteProduk from "../../produk/hooks/deleteProduct";
 import deletePembelian from "../../pembelian-bahan-baku/hooks/deletePembelian";
 import { showNotification } from "../headerSlice";
+import deletePengeluaran from "../../pengeluaranLain/hooks/deletePengeluaran";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
@@ -17,8 +18,14 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PRODUK_DELETE) {
       dispatch(showNotification({ message: "Produk Deleted!", status: 1 }));
       deleteProduk(index);
+
+    }else if(type === CONFIRMATION_MODAL_CLOSE_TYPES.PENGELUARAN_DELETE){
+      dispatch(showNotification({ message: "Pengeluaran Deleted!", status: 1 }));
+      deletePengeluaran(index);
+
     } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PEMBELIAN_DELETE) {
       deletePembelian(index);
+
     }
     closeModal();
   };
