@@ -30,7 +30,7 @@ function AddProductPage() {
   const [leadObj, setLeadObj] = useState(INITIAL_LEAD_OBJ);
   const [namaResepList, setNamaResepList] = useState([]);
   const [namaPenitipList, setNamaPenitipList] = useState([]);
-  const kategori = ["Cake", "Minuman", "Hampers", "Titipan", "Roti"];
+  const kategori = ["Cake", "Minuman", "Titipan", "Roti"];
   const { handlerAddProduk } = useHandlerAddProduk();
 
   useEffect(() => {
@@ -38,8 +38,8 @@ function AddProductPage() {
       try {
         const dataResep = await getResep();
         const namaResepList = dataResep.data.map((resep) => ({
-          id: resep.id,
-          nama: resep.nama_resep,
+          value: resep.id,
+          label: resep.nama_resep,
         }));
         setNamaResepList(namaResepList);
       } catch (error) {
@@ -54,8 +54,8 @@ function AddProductPage() {
       try {
         const dataPenitip = await getPenitip();
         const namaPenitipList = dataPenitip.data.map((penitip) => ({
-          id: penitip.id,
-          nama: penitip.nama,
+          value: penitip.id,
+          label: penitip.nama,
         }));
         setNamaPenitipList(namaPenitipList);
       } catch (error) {
@@ -80,9 +80,9 @@ function AddProductPage() {
     else if (leadObj.kategori.trim() === "")
       return setErrorMessage("kategori tidak boleh kosong!");
     else if (leadObj.kategori.trim() === "Titipan")
-      if (leadObj.stok.trim() == "") {
+      if (leadObj.stok.trim() === "") {
         return setErrorMessage("stok tidak boleh kosong!");
-      } else if (leadObj.id_penitip.trim() == "") {
+      } else if (leadObj.id_penitip.trim() === "") {
         return setErrorMessage("penitip tidak boleh kosong!");
       } else if (!leadObj.tanggal.trim()) {
         return setErrorMessage("tanggal tidak boleh kosong!");
@@ -99,7 +99,6 @@ function AddProductPage() {
       stok: leadObj.stok,
       tanggal: leadObj.tanggal,
     };
-    console.log(newLeadObj.kategori);
     await handlerAddProduk(newLeadObj);
     dispatch(showNotification({ message: "New Product Added!", status: 1 }));
   };

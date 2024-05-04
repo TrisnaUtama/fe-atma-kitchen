@@ -17,6 +17,7 @@ export default function useHandlerEdit(id) {
       stok,
       tanggal,
     } = formData;
+    
     const formDataObj = new FormData();
     formDataObj.append("nama_produk", nama_produk);
     formDataObj.append("id_penitip", id_penitip);

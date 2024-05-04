@@ -28,8 +28,8 @@ const TopSideButtons = ({ applySearch }) => {
         styleClass="mr-4"
         setSearchText={setSearchText}
       />
-      <a href="/add-produk" className="btn px-6 btn-sm normal-case btn-primary">
-        Add Produk
+      <a href="#" className="btn px-6 btn-sm normal-case btn-primary">
+        Add Hampers
       </a>
     </div>
   );
@@ -61,13 +61,33 @@ function Produk() {
     fetchProduk();
   }, []);
 
+  useEffect(() => {
+    const fetchProduk = async () => {
+      console.log(token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      try {
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/v1/produk/getAll"
+        );
+        const fetchedProduk = response.data.data;
+        console.log(fetchedProduk);
+        setProduk(fetchedProduk);
+        setTrans(fetchedProduk);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProduk();
+  }, []);
+
   const deleteCurentProduct = async (index) => {
     dispatch(
       openModal({
         title: "Confirmation",
         bodyType: MODAL_BODY_TYPES.CONFIRMATION,
         extraObject: {
-          message: `Are you sure you want to delete this product?`,
+          message: `Are you sure you want to delete this hampers?`,
           type: CONFIRMATION_MODAL_CLOSE_TYPES.PRODUK_DELETE,
           index,
         },
@@ -76,14 +96,14 @@ function Produk() {
   };
 
   const handleDeleteProduct = async (e) => {
-    await deleteCurentProduct(e);
+    const reload = await deleteCurentProduct(e);
+    if (reload) window.location.reload();
   };
 
   const applySearch = (value) => {
     let filteredTransactions = produk.filter((t) => {
       return (
-        t.nama_produk.toLowerCase().includes(value.toLowerCase()) ||
-        t.kategori.toLowerCase().includes(value.toLowerCase())
+        t.nama_hampers.toLowerCase().includes(value.toLowerCase())
       );
     });
     setTrans(filteredTransactions);
@@ -92,7 +112,7 @@ function Produk() {
   return (
     <>
       <TitleCard
-        title="List Produk"
+        title="List Hampers"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons applySearch={applySearch} />}>
         <div className="overflow-x-auto w-full">
@@ -100,7 +120,7 @@ function Produk() {
             <thead>
               <tr>
                 <th className="text-center">Gambar</th>
-                <th className="text-center">Nama Produk</th>
+                <th className="text-center">Nama Hampers</th>
                 <th className="text-center">Kategori</th>
                 <th className="text-center">Deskripsi</th>
                 <th className="text-center">Harga</th>

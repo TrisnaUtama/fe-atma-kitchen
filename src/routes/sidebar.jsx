@@ -30,9 +30,15 @@ const fetchData = async () => {
             name: 'Produk',
           },
           {
+
+            path: 'hampers',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Hampers',
+
             path: 'bahanbaku',
             icon: <Squares2X2Icon className={iconClasses} />,
             name: 'Bahan Baku',
+
           },
         ];
       } else if (userLogin.id_role === 3) {
@@ -43,6 +49,11 @@ const fetchData = async () => {
             name: 'Dashboard MO',
           },
           {
+
+            path: 'pembelianBahanBaku',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Pembelian Bahan Baku',
+
             path: 'penitip',
             icon: <Squares2X2Icon className={iconClasses} />,
             name: 'Penitip',

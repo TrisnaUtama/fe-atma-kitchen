@@ -32,6 +32,20 @@ const editPenitipPage = lazy(() =>
   import("../pages/protected/penitip/editPenitip")
 );
 
+const Hampers = lazy(() => import("../pages/protected/hampers/Hampers"));
+
+const PembelianBahanBaku = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/PemebelianBahanBaku")
+);
+
+const AddPembelianBahanBaku = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/AddPembelian")
+);
+
+const EditPembelian = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/EditPembelian")
+);
+
 //pengeluaran
 const PengeluaranPage = lazy(() =>
   import("../pages/protected/pengeluaranlain/Pengeluaran")
@@ -63,6 +77,10 @@ const fetchData = async () => {
           {
             path: "/dashboard",
             component: Dashboard,
+          },
+           {
+            path: "/hampers",
+            component: Hampers,
           },
           {
             path: "/produk",
@@ -107,6 +125,18 @@ const fetchData = async () => {
             path: "/edit-penitip/:id",
             component: editPenitipPage,
           },
+           {
+            path: "/pembelianBahanBaku",
+            component: PembelianBahanBaku,
+          },
+          {
+            path: "/add-pembelian",
+            component: AddPembelianBahanBaku,
+          },
+          {
+            path: "/edit-pembelian/:id",
+            component: EditPembelian,
+          },
 
           //pengeluaranLain
           {
@@ -120,14 +150,19 @@ const fetchData = async () => {
           {
             path: "/edit-pengeluaran/:id",
             component: editPengeluaranPage,
+
+
           },
-        ];
+          ];
       }
+
     } else {
       routes = [
         {
           path: "/dashboardCustomer",
-          component: DasboardCustomer,
+
+          component: DasboardCustomer, 
+
         },
       ];
     }
@@ -138,4 +173,8 @@ const fetchData = async () => {
   }
 };
 
+
+
+
 export default fetchData;
+
