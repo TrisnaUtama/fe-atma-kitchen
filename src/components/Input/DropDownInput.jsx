@@ -15,10 +15,10 @@ function DropdownInput({ value, onChange, options, placeholder, labelTitle }) {
         </option>
         {options.map((option) => (
           <option
-            key={option.id}
-            value={option.id}
+            key={option.value}
+            value={option.value}
             className="bg-gray-800 text-lg">
-            {option.nama}
+            {option.label}
           </option>
         ))}
       </select>

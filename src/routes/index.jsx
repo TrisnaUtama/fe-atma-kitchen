@@ -1,5 +1,6 @@
 // All components mapping with path for internal routes
 import { lazy } from "react";
+import axios from "axios";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
@@ -33,56 +34,115 @@ const editPenitipPage = lazy(() =>
   import("../pages/protected/penitip/editPenitip")
 );
 
-const routes = [
-  {
-    path: "/dashboardCustomer", // the url
-    component: DasboardCustomer, // view rendered
-  },
-  {
-    path: "/dashboard",
-    component: Dashboard,
-  },
-  {
-    path: "/produk",
-    component: Produk,
-  },
-  {
-    path: "/add-produk",
-    component: AddProductPage,
-  },
-  {
-    path: "/edit-produk/:id",
-    component: EditProdukPage,
-  },
+const Hampers = lazy(() => import("../pages/protected/hampers/Hampers"));
 
-  //bahanbaku
-  {
-    path: "/bahanbaku",
-    component: BahanBakuPage,
-  },
-  {
-    path: "/add-bahanbaku",
-    component: addBahanbakuPage,
-  },
-  {
-    path: "/edit-bahanbaku/:id",
-    component: editBahanbakuPage,
-  },
+const PembelianBahanBaku = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/PemebelianBahanBaku")
+);
 
-  //penitip
-  {
-    path: "/penitip",
-    component: PenitipPage,
-  },
-  {
-    path: "/add-penitip",
-    component: addPenitipPage,
-  },
-  {
-    path: "/edit-penitip/:id",
-    component: editPenitipPage,
-  },
+const AddPembelianBahanBaku = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/AddPembelian")
+);
 
-];
+const EditPembelian = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/EditPembelian")
+);
 
-export default routes;
+let routes = [];
+const token = localStorage.getItem("token");
+
+const fetchData = async () => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/v1/user");
+    const userLogin = response.data;
+    if (userLogin.id_saldo != null) {
+      userLogin.id_role = false;
+    } else {
+      userLogin.id_saldo = false;
+    }
+
+    if (userLogin.id_role !== false) {
+      if (userLogin.id_role === 2) {
+        routes = [
+          {
+            path: "/dashboard",
+            component: Dashboard,
+          },
+          {
+            path: "/hampers",
+            component: Hampers,
+          },
+          {
+            path: "/produk",
+            component: Produk,
+          },
+          {
+            path: "/add-produk",
+            component: AddProductPage,
+          },
+          {
+            path: "/edit-produk/:id",
+            component: EditProdukPage,
+          },
+          {
+            path: "/bahanbaku",
+            component: BahanBakuPage,
+          },
+          {
+            path: "/add-bahanbaku",
+            component: addBahanbakuPage,
+          },
+          {
+            path: "/edit-bahanbaku/:id",
+            component: editBahanbakuPage,
+          },
+        ];
+      } else if (userLogin.id_role === 3) {
+        routes = [
+          {
+            path: "/dashboard",
+            component: Dashboard,
+          },
+          {
+            path: "/pembelianBahanBaku",
+            component: PembelianBahanBaku,
+          },
+          {
+            path: "/add-pembelian",
+            component: AddPembelianBahanBaku,
+          },
+          {
+            path: "/edit-pembelian/:id",
+            component: EditPembelian,
+          },
+          {
+            path: "/penitip",
+            component: PenitipPage,
+          },
+          {
+            path: "/add-penitip",
+            component: addPenitipPage,
+          },
+          {
+            path: "/edit-penitip/:id",
+            component: editPenitipPage,
+          },
+        ];
+      }
+    } else {
+      routes = [
+        {
+          path: "/dashboardCustomer",
+          component: DasboardCustomer, 
+        },
+      ];
+    }
+    return routes;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return [];
+  }
+};
+
+export default fetchData;

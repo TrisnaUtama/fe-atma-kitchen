@@ -14,5 +14,6 @@ module.exports = Object.freeze({
 
     CONFIRMATION_MODAL_CLOSE_TYPES : {
         PRODUK_DELETE : "PRODUK_DELETE",
+        PEMBELIAN_DELETE : "PEMBELIAN_DELETE",
     },
 });
