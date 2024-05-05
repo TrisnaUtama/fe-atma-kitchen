@@ -10,6 +10,7 @@ import deletePenitip from "../../penitip/hooks/deletePenitip";
 import deleteBahanBaku from "../../bahanBaku/hooks/deleteBahanbaku";
 import deleteHampers from "../../hampers/hooks/deleteHampers";
 import { showNotification } from "../headerSlice";
+import deletePengeluaran from "../../pengeluaranLain/hooks/deletePengeluaran";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
@@ -20,8 +21,14 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PRODUK_DELETE) {
       dispatch(showNotification({ message: "Produk Deleted!", status: 1 }));
       deleteProduk(index);
+
+    }else if(type === CONFIRMATION_MODAL_CLOSE_TYPES.PENGELUARAN_DELETE){
+      dispatch(showNotification({ message: "Pengeluaran Deleted!", status: 1 }));
+      deletePengeluaran(index);
+
     } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PEMBELIAN_DELETE) {
       deletePembelian(index);
+
     } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PENITIP_DELETE) {
       deletePenitip(index);
     } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.BAHAN_BAKU_DELETE) {

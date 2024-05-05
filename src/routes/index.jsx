@@ -46,16 +46,28 @@ const EditPembelian = lazy(() =>
   import("../pages/protected/pembelian-bahan-baku/EditPembelian")
 );
 
+
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
 const EditHampers = lazy(() =>
   import("../pages/protected/hampers/EditHampers")
+                         
+//pengeluaran
+const PengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/Pengeluaran")
+);
+const addPengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/addPengeluaran")
+);
+const editPengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/editPengeluaran")
+
 );
 
 let routes = [];
 const token = localStorage.getItem("token");
 
 const fetchData = async () => {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  axios.defaults.headers.common["Authorization"] = `Bearer ${ token }`;
   try {
     const response = await axios.get("http://127.0.0.1:8000/api/v1/user");
     const userLogin = response.data;
@@ -72,7 +84,7 @@ const fetchData = async () => {
             path: "/dashboard",
             component: Dashboard,
           },
-          {
+           {
             path: "/hampers",
             component: Hampers,
           },
@@ -116,18 +128,6 @@ const fetchData = async () => {
             component: Dashboard,
           },
           {
-            path: "/pembelianBahanBaku",
-            component: PembelianBahanBaku,
-          },
-          {
-            path: "/add-pembelian",
-            component: AddPembelianBahanBaku,
-          },
-          {
-            path: "/edit-pembelian/:id",
-            component: EditPembelian,
-          },
-          {
             path: "/penitip",
             component: PenitipPage,
           },
@@ -139,13 +139,44 @@ const fetchData = async () => {
             path: "/edit-penitip/:id",
             component: editPenitipPage,
           },
-        ];
+           {
+            path: "/pembelianBahanBaku",
+            component: PembelianBahanBaku,
+          },
+          {
+            path: "/add-pembelian",
+            component: AddPembelianBahanBaku,
+          },
+          {
+            path: "/edit-pembelian/:id",
+            component: EditPembelian,
+          },
+
+          //pengeluaranLain
+          {
+            path: "/pengeluaran",
+            component: PengeluaranPage,
+          },
+          {
+            path: "/add-pengeluaran",
+            component: addPengeluaranPage,
+          },
+          {
+            path: "/edit-pengeluaran/:id",
+            component: editPengeluaranPage,
+
+
+          },
+          ];
       }
+
     } else {
       routes = [
         {
           path: "/dashboardCustomer",
+
           component: DasboardCustomer,
+
         },
       ];
     }
@@ -156,4 +187,8 @@ const fetchData = async () => {
   }
 };
 
+
+
+
 export default fetchData;
+
