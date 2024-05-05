@@ -6,6 +6,10 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import {
+  CONFIRMATION_MODAL_CLOSE_TYPES,
+  MODAL_BODY_TYPES,
+} from "../../utils/globalConstantUtil";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import PencilSquare from "@heroicons/react/24/outline/PencilSquareIcon";
 
@@ -25,66 +29,83 @@ const TopSideButtons = ({ applySearch }) => {
         setSearchText={setSearchText}
       />
       <a
-        href="/tambahResep"
+        href="/addKaryawan"
         className="btn px-6 btn-sm normal-case btn-primary"
       >
-        Tambah Resep
+        Add Karyawan
       </a>
     </div>
   );
 };
 
-function Resep() {
-  const [showModal, setShowModal] = useState(false); // State untuk mengontrol visibilitas modal
-  const [modalType, setModalType] = useState("");
+function Karyawan() {
   const token = localStorage.getItem("token");
   const [trans, setTrans] = useState([]);
-  const [resep, setResep] = useState([]);
+  const [karyawan, setKaryawan] = useState([]); // Changed variable name here
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProduk = async () => {
+    const fetchKaryawan = async () => {
       console.log(token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/v1/resep/getAll"
+          "http://127.0.0.1:8000/api/v1/pegawai/getAll"
         );
-        const fetchedResep = response.data.data;
-        console.log(fetchedResep);
-        setResep(fetchedResep);
-        setTrans(fetchedResep);
+        const fetchedKaryawan = response.data.data;
+        console.log(fetchedKaryawan);
+        setKaryawan(fetchedKaryawan);
+        setTrans(fetchedKaryawan);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchProduk();
+    fetchKaryawan();
   }, []);
 
   useEffect(() => {
-    const fetchProduk = async () => {
+    const fetchKaryawan = async () => {
       console.log(token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/v1/resep/getAll"
+          "http://127.0.0.1:8000/api/v1/pegawai/getAll"
         );
-        const fetchedProduk = response.data.data;
-        console.log(fetchedProduk);
-        setResep(fetchedProduk);
-        setTrans(fetchedProduk);
+        const fetchedKaryawan = response.data.data;
+        console.log(fetchedKaryawan);
+        setKaryawan(fetchedKaryawan);
+        setTrans(fetchedKaryawan);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchProduk();
+    fetchKaryawan();
   }, []);
-  const deleteCurentResep = async (id) => {
+
+  const deleteCurentProduct = async (index) => {
+    dispatch(
+      openModal({
+        title: "Confirmation",
+        bodyType: MODAL_BODY_TYPES.CONFIRMATION,
+        extraObject: {
+          message: `Are you sure you want to delete this product?`,
+          type: CONFIRMATION_MODAL_CLOSE_TYPES.PRODUK_DELETE,
+          index,
+        },
+      })
+    );
+  };
+  const handleDeleteProduct = async (id) => {
+    const reload = await deleteCurentPegawai(id);
+    if (reload) window.location.reload();
+  };
+
+  const deleteCurentPegawai = async (id) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/api/v1/resep/${id}`
+        `http://127.0.0.1:8000/api/v1/pegawai/${id}`
       );
       if (response.status === 200) {
         return true; // Jika berhasil dihapus, kembalikan true
@@ -95,25 +116,35 @@ function Resep() {
     return false; // Jika gagal, kembalikan false
   };
 
-  const handleDeleteResep = async (id) => {
-    const reload = await deleteCurentResep(id);
-    if (reload) window.location.reload();
-  };
-
   const applySearch = (value) => {
-    let filteredTransactions = resep.filter((t) => {
+    let filteredTransactions = karyawan.filter((t) => {
       return (
-        t.nama_resep.toLowerCase().includes(value.toLowerCase()) ||
-        t.nama_resep.toLowerCase().includes(value.toLowerCase())
+        t.nama.toLowerCase().includes(value.toLowerCase()) ||
+        t.nama.toLowerCase().includes(value.toLowerCase())
       );
     });
     setTrans(filteredTransactions);
   };
 
+  const getRoleName = (roleId) => {
+    switch (roleId) {
+      case 1:
+        return "Owner";
+      case 2:
+        return "Admin";
+      case 3:
+        return "Manager Operasional";
+      case 4:
+        return "Pattisier";
+      default:
+        return "Unknown Role";
+    }
+  };
+
   return (
     <>
       <TitleCard
-        title="List Resep"
+        title="List Karyawan"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons applySearch={applySearch} />}
       >
@@ -121,28 +152,39 @@ function Resep() {
           <table className="table w-full">
             <thead>
               <tr>
-                <th className="text-center">Nama Resep</th>
+                <th className="text-center">Jabatan</th>
+                <th className="text-center">Nama</th>
+                <th className="text-center">Email</th>
+                <th className="text-center">Alamat</th>
+                <th className="text-center">No Telepon</th>
+                <th className="text-center">Gender</th>
               </tr>
             </thead>
             <tbody>
               {trans.map((l, k) => {
                 return (
                   <tr key={k}>
-                    <td className="text-center">{l.nama_resep}</td>
+                    <td>
+                      <div className="text-center">
+                        {getRoleName(l.id_role)}
+                      </div>
+                    </td>
+                    <td className="text-center">{l.nama}</td>
+                    <td className="text-center">{l.email}</td>
+                    <td className="text-center">{l.alamat}</td>
+                    <td className="text-center">{l.no_telpn}</td>
+                    <td className="text-center">{l.gender}</td>
                     <td>
                       <button
                         className="btn btn-square btn-ghost"
-                        onClick={() => handleDeleteResep(l.id)}
+                        onClick={() => handleDeleteProduct(l.id)}
                       >
                         <TrashIcon className="w-5" />
                       </button>
                     </td>
                     <td>
                       <Link
-                        to={{
-                          pathname: `/editResep/${l.id}`,
-                          state: { nama_resep: l.nama_resep },
-                        }}
+                        to={`/editKaryawan/${l.id}`}
                         className="btn btn-square btn-ghost"
                       >
                         <PencilSquare className="w-5" />
@@ -159,4 +201,4 @@ function Resep() {
   );
 }
 
-export default Resep;
+export default Karyawan;

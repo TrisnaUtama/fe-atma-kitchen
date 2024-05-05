@@ -1,17 +1,31 @@
 import Header from "./HeaderCust";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import routes from "../routes";
 import { Suspense, lazy } from "react";
 import { useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
-import SuspenseContent from "./SuspenseContent"
-import DashboardCustomer from "../pages/protected/DashboardCustomer";
+import { useEffect, useRef, useState } from "react";
+import SuspenseContent from "./SuspenseContent";
+import getRoutes from "../routes/index";
 
 const Page404 = lazy(() => import("../pages/protected/404"));
 
 function PageContent() {
   const mainContentRef = useRef(null);
   const { pageTitle } = useSelector((state) => state.header);
+  const [routes, setRoutes] = useState([]);
+
+  // Scroll back to top on new page load
+
+  useEffect(() => {
+    const fetchedRoutes = async () => {
+      try {
+        const fetchedRoutes = await getRoutes();
+        setRoutes(fetchedRoutes);
+      } catch (error) {
+        console.log("error fetching routes : " + error);
+      }
+    };
+    fetchedRoutes();
+  }, []);
 
   // Scroll back to top on new page load
   useEffect(() => {
@@ -26,7 +40,8 @@ function PageContent() {
       <Header />
       <main
         className="flex-1 overflow-y-auto md:pt-4 pt-4 px-6  bg-base-200"
-        ref={mainContentRef}>
+        ref={mainContentRef}
+      >
         {/* <DashboardCustomer /> */}
         <Suspense fallback={<SuspenseContent />}>
           <Routes>
