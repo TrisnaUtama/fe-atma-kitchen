@@ -132,14 +132,14 @@ function Produk() {
                     <td className="text-center">{l.kategori}</td>
                     <td className="text-center">{l.deskripsi}</td>
                     <td className="text-center">${l.harga}</td>
-                    <td className="text-center">
+                    <td className="text-end">
                       <button
                         className="btn btn-square btn-ghost"
                         onClick={() => handleDeleteProduct(l.id)}>
                         <TrashIcon className="w-5" />
                       </button>
                     </td>
-                    <td className="text-center">
+                    <td className="text-start">
                       <Link
                         to={`/edit-produk/${l.id}`}
                         className="btn btn-square btn-ghost">

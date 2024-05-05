@@ -101,37 +101,35 @@ function PemebelianBahanBaku() {
               <tr>
                 <th className="text-center">Nama Bahan</th>
                 <th className="text-center">Jumlah</th>
-                <th className="text-center">harga</th>
-                <th colSpan={2} className="text-center">
+                <th className="text-center">Harga</th>
+                <th className="text-center" colSpan={2}>
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
               {Array.isArray(trans) &&
-                trans.map((l, k) => {
-                  return (
-                    <tr key={k}>
-                      <td className="text-center">{l.nama}</td>
-                      <td className="text-center">{l.jumlah}</td>
-                      <td className="text-center">{l.harga}</td>
-                      <td className="text-end">
-                        <button
-                          className="btn btn-square btn-ghost"
-                          onClick={() => handleDeletePembelian(l.id)}>
-                          <TrashIcon className="w-5" />
-                        </button>
-                      </td>
-                      <td className="text-start">
-                        <Link
-                          to={`/edit-pembelian/${l.id}`}
-                          className="btn btn-square btn-ghost">
-                          <PencilSquare className="w-5" />
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
+                trans.map((item, index) => (
+                  <tr key={index}>
+                    <td className="text-center">{item.nama}</td>
+                    <td className="text-center">{item.jumlah}</td>
+                    <td className="text-center">{item.harga}</td>
+                    <td className="text-end">
+                      <button
+                        className="btn btn-square btn-ghost"
+                        onClick={() => handleDeletePembelian(item.id)}>
+                        <TrashIcon className="w-5" />
+                      </button>
+                    </td>
+                    <td className="text-start">
+                      <Link
+                        to={`/edit-pembelian/${item.id}`}
+                        className="btn btn-square btn-ghost">
+                        <PencilSquare className="w-5" />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

@@ -24,9 +24,7 @@ const editBahanbakuPage = lazy(() =>
   import("../pages/protected/bahanbaku/editBahanbaku")
 );
 //penitip
-const PenitipPage = lazy(() =>
-  import("../pages/protected/penitip/Penitip")
-);
+const PenitipPage = lazy(() => import("../pages/protected/penitip/Penitip"));
 const addPenitipPage = lazy(() =>
   import("../pages/protected/penitip/addPenitip")
 );
@@ -46,6 +44,11 @@ const AddPembelianBahanBaku = lazy(() =>
 
 const EditPembelian = lazy(() =>
   import("../pages/protected/pembelian-bahan-baku/EditPembelian")
+);
+
+const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
+const EditHampers = lazy(() =>
+  import("../pages/protected/hampers/EditHampers")
 );
 
 let routes = [];
@@ -72,6 +75,14 @@ const fetchData = async () => {
           {
             path: "/hampers",
             component: Hampers,
+          },
+          {
+            path: "/add-hampers",
+            component: AddHampers,
+          },
+          {
+            path: "/edit-hampers/:id",
+            component: EditHampers,
           },
           {
             path: "/produk",
@@ -134,7 +145,7 @@ const fetchData = async () => {
       routes = [
         {
           path: "/dashboardCustomer",
-          component: DasboardCustomer, 
+          component: DasboardCustomer,
         },
       ];
     }
