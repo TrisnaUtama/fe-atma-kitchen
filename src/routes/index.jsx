@@ -46,6 +46,11 @@ const EditPembelian = lazy(() =>
   import("../pages/protected/pembelian-bahan-baku/EditPembelian")
 );
 
+
+const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
+const EditHampers = lazy(() =>
+  import("../pages/protected/hampers/EditHampers")
+                         
 //pengeluaran
 const PengeluaranPage = lazy(() =>
   import("../pages/protected/pengeluaranlain/Pengeluaran")
@@ -55,6 +60,7 @@ const addPengeluaranPage = lazy(() =>
 );
 const editPengeluaranPage = lazy(() =>
   import("../pages/protected/pengeluaranlain/editPengeluaran")
+
 );
 
 let routes = [];
@@ -81,6 +87,14 @@ const fetchData = async () => {
            {
             path: "/hampers",
             component: Hampers,
+          },
+          {
+            path: "/add-hampers",
+            component: AddHampers,
+          },
+          {
+            path: "/edit-hampers/:id",
+            component: EditHampers,
           },
           {
             path: "/produk",
@@ -161,7 +175,7 @@ const fetchData = async () => {
         {
           path: "/dashboardCustomer",
 
-          component: DasboardCustomer, 
+          component: DasboardCustomer,
 
         },
       ];

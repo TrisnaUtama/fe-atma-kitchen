@@ -1,14 +1,14 @@
-import Squares2X2Icon from '@heroicons/react/24/outline/Squares2X2Icon';
-import axios from 'axios';
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
+import axios from "axios";
 
 const iconClasses = `h-6 w-6`;
 const token = localStorage.getItem("token");
 let routes = [];
 
 const fetchData = async () => {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/v1/user');
+    const response = await axios.get("http://127.0.0.1:8000/api/v1/user");
     const userLogin = response.data;
     if (userLogin.id_saldo != null) {
       userLogin.id_role = false;
@@ -20,43 +20,42 @@ const fetchData = async () => {
       if (userLogin.id_role === 2) {
         routes = [
           {
-            path: 'dashboard',
+            path: "dashboard",
             icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Dashboard Admin',
+            name: "Dashboard Admin",
           },
           {
-            path: 'produk',
+            path: "produk",
             icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Produk',
+            name: "Produk",
           },
           {
-
-            path: 'hampers',
+            path: "hampers",
             icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Hampers',
-
-            path: 'bahanbaku',
+            name: "Hampers",
+          },
+          {
+            path: "bahanbaku",
             icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Bahan Baku',
-
+            name: "Bahan Baku",
           },
         ];
       } else if (userLogin.id_role === 3) {
         routes = [
           {
-            path: 'dashboard',
+            path: "dashboard",
             icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Dashboard MO',
+            name: "Dashboard MO",
           },
           {
-
-            path: 'pembelianBahanBaku',
+            path: "pembelianBahanBaku",
             icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Pembelian Bahan Baku',
-
-            path: 'penitip',
+            name: "Pembelian Bahan Baku",
+          },
+          {
+            path: "penitip",
             icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Penitip',
+            name: "Penitip",
           },
           {
             path: 'pengeluaran',
@@ -68,19 +67,17 @@ const fetchData = async () => {
     } else {
       routes = [
         {
-          path: 'dashboard',
+          path: "dashboard",
           icon: <Squares2X2Icon className={iconClasses} />,
-          name: 'Dashboard User',
+          name: "Dashboard User",
         },
-       
       ];
     }
     return routes;
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error("Error fetching user data:", error);
     return [];
   }
-}
+};
 
 export default fetchData;
-

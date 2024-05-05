@@ -28,7 +28,7 @@ const TopSideButtons = ({ applySearch }) => {
         styleClass="mr-4"
         setSearchText={setSearchText}
       />
-      <a href="#" className="btn px-6 btn-sm normal-case btn-primary">
+      <a href="add-hampers" className="btn px-6 btn-sm normal-case btn-primary">
         Add Hampers
       </a>
     </div>
@@ -38,7 +38,7 @@ const TopSideButtons = ({ applySearch }) => {
 function Produk() {
   const token = localStorage.getItem("token");
   const [trans, setTrans] = useState([]);
-  const [produk, setProduk] = useState([]);
+  const [hampers, setHampers] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,12 +47,12 @@ function Produk() {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/v1/produk/getAll"
+          "http://127.0.0.1:8000/api/v1/hampers/getAll"
         );
-        const fetchedProduk = response.data.data;
-        console.log(fetchedProduk);
-        setProduk(fetchedProduk);
-        setTrans(fetchedProduk);
+        const fetchedHampers = response.data.data;
+        console.log(fetchedHampers);
+        setHampers(fetchedHampers);
+        setTrans(fetchedHampers);
       } catch (error) {
         console.error(error);
       }
@@ -61,50 +61,28 @@ function Produk() {
     fetchProduk();
   }, []);
 
-  useEffect(() => {
-    const fetchProduk = async () => {
-      console.log(token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/v1/produk/getAll"
-        );
-        const fetchedProduk = response.data.data;
-        console.log(fetchedProduk);
-        setProduk(fetchedProduk);
-        setTrans(fetchedProduk);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchProduk();
-  }, []);
-
-  const deleteCurentProduct = async (index) => {
+  const deleteHampers = async (index) => {
     dispatch(
       openModal({
         title: "Confirmation",
         bodyType: MODAL_BODY_TYPES.CONFIRMATION,
         extraObject: {
           message: `Are you sure you want to delete this hampers?`,
-          type: CONFIRMATION_MODAL_CLOSE_TYPES.PRODUK_DELETE,
+          type: CONFIRMATION_MODAL_CLOSE_TYPES.HAMPERS_DELETE,
           index,
         },
       })
     );
   };
 
-  const handleDeleteProduct = async (e) => {
-    const reload = await deleteCurentProduct(e);
+  const handlerDeleteHampers = async (e) => {
+    const reload = await deleteHampers(e);
     if (reload) window.location.reload();
   };
 
   const applySearch = (value) => {
-    let filteredTransactions = produk.filter((t) => {
-      return (
-        t.nama_hampers.toLowerCase().includes(value.toLowerCase())
-      );
+    let filteredTransactions = hampers.filter((t) => {
+      return t.nama_hampers.toLowerCase().includes(value.toLowerCase());
     });
     setTrans(filteredTransactions);
   };
@@ -121,7 +99,6 @@ function Produk() {
               <tr>
                 <th className="text-center">Gambar</th>
                 <th className="text-center">Nama Hampers</th>
-                <th className="text-center">Kategori</th>
                 <th className="text-center">Deskripsi</th>
                 <th className="text-center">Harga</th>
                 <th colSpan={2} className="text-center">
@@ -139,7 +116,7 @@ function Produk() {
                           <div className="w-28 h-28 rounded-lg">
                             <img
                               src={
-                                "http://localhost:8000/storage/produk/" +
+                                "http://localhost:8000/storage/hampers/" +
                                 l.gambar
                               }
                               alt="Avatar"
@@ -148,20 +125,19 @@ function Produk() {
                         </div>
                       </div>
                     </td>
-                    <td className="text-center">{l.nama_produk}</td>
-                    <td className="text-center">{l.kategori}</td>
+                    <td className="text-center">{l.nama_hampers}</td>
                     <td className="text-center">{l.deskripsi}</td>
                     <td className="text-center">${l.harga}</td>
-                    <td className="text-center">
+                    <td className="text-end">
                       <button
                         className="btn btn-square btn-ghost"
-                        onClick={() => handleDeleteProduct(l.id)}>
+                        onClick={() => handlerDeleteHampers(l.id)}>
                         <TrashIcon className="w-5" />
                       </button>
                     </td>
-                    <td className="text-center">
+                    <td className="text-start">
                       <Link
-                        to={`/edit-produk/${l.id}`}
+                        to={`/edit-hampers/${l.id}`}
                         className="btn btn-square btn-ghost">
                         <PencilSquare className="w-5" />
                       </Link>

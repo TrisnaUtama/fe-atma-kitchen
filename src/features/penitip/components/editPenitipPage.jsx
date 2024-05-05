@@ -32,8 +32,6 @@ function EditPenitipPage() {
             return setErrorMessage("no telepon tidak boleh kosong!");
         else if (leadObj.email.trim() === "")
             return setErrorMessage("email tidak boleh kosong!");
-        else if (leadObj.profit === "")
-            return setErrorMessage("profit tidak boleh kosong!");
 
         let newLeadObj = {
             nama: leadObj.nama,

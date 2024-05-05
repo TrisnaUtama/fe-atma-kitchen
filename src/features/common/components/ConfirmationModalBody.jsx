@@ -6,6 +6,9 @@ import {
 } from "../../../utils/globalConstantUtil";
 import deleteProduk from "../../produk/hooks/deleteProduct";
 import deletePembelian from "../../pembelian-bahan-baku/hooks/deletePembelian";
+import deletePenitip from "../../penitip/hooks/deletePenitip";
+import deleteBahanBaku from "../../bahanBaku/hooks/deleteBahanbaku";
+import deleteHampers from "../../hampers/hooks/deleteHampers";
 import { showNotification } from "../headerSlice";
 import deletePengeluaran from "../../pengeluaranLain/hooks/deletePengeluaran";
 
@@ -26,6 +29,12 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PEMBELIAN_DELETE) {
       deletePembelian(index);
 
+    } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PENITIP_DELETE) {
+      deletePenitip(index);
+    } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.BAHAN_BAKU_DELETE) {
+      deleteBahanBaku(index);
+    } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.HAMPERS_DELETE) {
+      deleteHampers(index);
     }
     closeModal();
   };
