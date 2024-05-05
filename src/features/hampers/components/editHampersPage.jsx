@@ -11,6 +11,7 @@ import getbahanBaku from "../hooks/getAllBahanBaku";
 import getProduk from "../hooks/getAllProduk";
 import { useParams } from "react-router-dom";
 import useHandlerEditHampers from "../hooks/edithampers";
+import getSpecificHampers from "../hooks/getSpecificHampers";
 
 const INITIAL_LEAD_OBJ = {
   id_bahan_baku: [],
@@ -31,6 +32,7 @@ function AddHampersPage() {
   const [namaProdukList, setNamaProduk] = useState([]);
   const [dropdown, setDropdowwn] = useState([]);
   const kategori = ["Produk", "Bahan Baku"];
+  const [hampersData, setHampersData] = useState({});
   const { handlerEditHampers } = useHandlerEditHampers(id);
 
   useEffect(() => {
@@ -64,6 +66,19 @@ function AddHampersPage() {
     };
     fetchProduk();
   }, []);
+
+  useEffect(() => {
+    const fetchSpecificHampers = async () => {
+      try {
+        const specificData = await getSpecificHampers(id);
+        setHampersData(specificData.data);
+        console.log(specificData.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchSpecificHampers();
+  }, [id]);
 
   const saveNewHampers = async (e) => {
     e.preventDefault();
@@ -141,7 +156,7 @@ function AddHampersPage() {
           updateType="nama_hampers"
           containerStyle="mt-4"
           labelTitle="Nama Hampers"
-          placeholder="masukkan nama hampers"
+          placeholder={hampersData.nama_hampers}
           updateFormValue={updateFormValue}
         />
         <InputText
@@ -150,7 +165,7 @@ function AddHampersPage() {
           updateType="harga"
           containerStyle="mt-4"
           labelTitle="Harga Hampers"
-          placeholder="masukkan harga hampers"
+          placeholder={hampersData.harga}
           updateFormValue={updateFormValue}
         />
       </div>
@@ -171,7 +186,7 @@ function AddHampersPage() {
             updateType="deskripsi"
             containerStyle="mt-4"
             labelTitle="Deskripsi"
-            placeholder="Masukkan deskripsi"
+            placeholder={hampersData.deskripsi}
             updateFormValue={updateFormValue}
           />
         </div>
@@ -186,7 +201,8 @@ function AddHampersPage() {
               style={{ objectFit: "contain" }}
             />
           ) : (
-            <h1> Image Preview</h1>
+
+            <h1>Image Preview</h1>
           )}
         </div>
       </div>

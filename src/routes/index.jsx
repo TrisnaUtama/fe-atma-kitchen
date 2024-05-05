@@ -50,7 +50,7 @@ const EditPembelian = lazy(() =>
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
 const EditHampers = lazy(() =>
   import("../pages/protected/hampers/EditHampers")
-                         
+);
 //pengeluaran
 const PengeluaranPage = lazy(() =>
   import("../pages/protected/pengeluaranlain/Pengeluaran")

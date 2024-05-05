@@ -65,12 +65,18 @@ function AddHampersPage() {
 
   const saveNewHampers = async (e) => {
     e.preventDefault();
-    // if (leadObj.harga.trim() === "")
-    //   return setErrorMessage("harga tidak boleh kosong!");
-    // else if (leadObj.id_bahan_baku.trim() === "")
-    //   return setErrorMessage("bahan_baku tidak boleh kosong!");
-    // else if (leadObj.jumlah.trim() === "")
-    //   return setErrorMessage("jumlah tidak boleh kosong!");
+    if (leadObj.nama_hampers.trim() === "")
+      return setErrorMessage("nama hampers tidak boleh kosong!");
+    else if (leadObj.harga.trim() === "")
+      return setErrorMessage("harga tidak boleh kosong!");
+    else if (!leadObj.gambar)
+      return setErrorMessage("gambar tidak boleh kosong!");
+    else if (leadObj.deskripsi.trim() === "")
+      return setErrorMessage("deskripsi tidak boleh kosong!");
+    else if (leadObj.id_bahan_baku.length === 0)
+      return setErrorMessage("bahan baku tidak boleh kosong");
+    else if (leadObj.id_produk.length === 0)
+      return setErrorMessage("produk tidak boleh kosong");
 
     let newLeadObj = {
       ...leadObj,
@@ -209,7 +215,11 @@ function AddHampersPage() {
             {selectedCategory === "Produk" ? (
               <div>
                 <DropdownInput
-                  value={leadObj.id_produk[i]}
+                  value={
+                    leadObj.id_produk[i] !== undefined
+                      ? leadObj.id_produk[i]
+                      : ""
+                  }
                   onChange={(e) => handleProdukChange(e, i)}
                   options={namaProdukList}
                   placeholder="Pilih produk"
@@ -219,7 +229,11 @@ function AddHampersPage() {
             ) : (
               <div>
                 <DropdownInput
-                  value={leadObj.id_bahan_baku[i]}
+                  value={
+                    leadObj.id_bahan_baku[i] !== undefined
+                      ? leadObj.id_bahan_baku[i]
+                      : ""
+                  }
                   onChange={(e) => handleBahanBakuChange(e, i)}
                   options={namaBahanBakuList}
                   placeholder="Pilih Bahan Baku"
