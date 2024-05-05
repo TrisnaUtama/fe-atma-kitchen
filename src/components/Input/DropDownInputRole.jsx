@@ -9,7 +9,7 @@ function DropdownInput({ value, onChange, options, placeholder, labelTitle }) {
         </span>
       </label>
       <select
-        value={Array.isArray(value) ? value[0] : value}
+        value={value}
         onChange={onChange}
         className="select select-bordered w-full border bg-transparent px-4 py-3 pr-8 rounded-lg g"
       >
@@ -18,10 +18,11 @@ function DropdownInput({ value, onChange, options, placeholder, labelTitle }) {
         </option>
         {options.map((option) => (
           <option
-            key={option.value}
-            value={option.value}
-            className="bg-gray-800 text-lg">
-            {option.label}
+            key={option.id}
+            value={option.id}
+            className="bg-gray-800 text-lg"
+          >
+            {option.nama}
           </option>
         ))}
       </select>

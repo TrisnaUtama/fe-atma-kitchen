@@ -25,7 +25,7 @@ function InputText({
       </label>
       <input
         type={type || "text"}
-        value={value}
+        value={value || ""}
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
         className="input input-bordered w-full border bg-transparent px-4 py-3.5 pr-8 rounded-lg "

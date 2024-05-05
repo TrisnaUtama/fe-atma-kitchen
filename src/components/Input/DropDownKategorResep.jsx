@@ -1,6 +1,10 @@
-import React from "react";
-
-function DropdownInput({ value, onChange, options, placeholder, labelTitle }) {
+function CategoryDropdown({
+  value,
+  onChange,
+  options,
+  placeholder,
+  labelTitle,
+}) {
   return (
     <div className="relative inline-block text-left mt-4 w-full">
       <label className="label">
@@ -9,19 +13,20 @@ function DropdownInput({ value, onChange, options, placeholder, labelTitle }) {
         </span>
       </label>
       <select
-        value={Array.isArray(value) ? value[0] : value}
+        value={value}
         onChange={onChange}
         className="select select-bordered w-full border bg-transparent px-4 py-3 pr-8 rounded-lg g"
       >
         <option value="" className="bg-gray-800 text-lg">
           {placeholder}
         </option>
-        {options.map((option) => (
+        {options.map((category, index) => (
           <option
-            key={option.value}
-            value={option.value}
-            className="bg-gray-800 text-lg">
-            {option.label}
+            className="bg-gray-800 text-lg"
+            key={index}
+            value={category.id}
+          >
+            {category.nama_bahan_baku}
           </option>
         ))}
       </select>
@@ -29,4 +34,4 @@ function DropdownInput({ value, onChange, options, placeholder, labelTitle }) {
   );
 }
 
-export default DropdownInput;
+export default CategoryDropdown;
