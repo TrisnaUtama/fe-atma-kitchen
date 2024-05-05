@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import axios from "axios";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Karyawan = lazy(() => import("../pages/protected/karyawan/karyawan"));
@@ -18,6 +19,56 @@ const AddProductPage = lazy(() =>
 const EditProdukPage = lazy(() =>
   import("../pages/protected/produk/EditProduk")
 );
+
+const BahanBakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/Bahanbaku")
+);
+const addBahanbakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/addBahanbaku")
+);
+const editBahanbakuPage = lazy(() =>
+  import("../pages/protected/bahanbaku/editBahanbaku")
+);
+//penitip
+const PenitipPage = lazy(() => import("../pages/protected/penitip/Penitip"));
+const addPenitipPage = lazy(() =>
+  import("../pages/protected/penitip/addPenitip")
+);
+const editPenitipPage = lazy(() =>
+  import("../pages/protected/penitip/editPenitip")
+);
+
+const Hampers = lazy(() => import("../pages/protected/hampers/Hampers"));
+
+const PembelianBahanBaku = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/PemebelianBahanBaku")
+);
+
+const AddPembelianBahanBaku = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/AddPembelian")
+);
+
+const EditPembelian = lazy(() =>
+  import("../pages/protected/pembelian-bahan-baku/EditPembelian")
+);
+
+
+const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
+const EditHampers = lazy(() =>
+  import("../pages/protected/hampers/EditHampers")
+);
+//pengeluaran
+const PengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/Pengeluaran")
+);
+const addPengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/addPengeluaran")
+);
+const editPengeluaranPage = lazy(() =>
+  import("../pages/protected/pengeluaranlain/editPengeluaran")
+
+);
+
 const Resep = lazy(() => import("../pages/protected/resep/Resep"));
 const TambahResep = lazy(() => import("../pages/protected/resep/AddResep"));
 const EditResep = lazy(() => import("../pages/protected/resep/EditResep"));
@@ -36,6 +87,46 @@ const getRoutes = () => {
   let routes = [];
   if (userType === "admin") {
     routes = [
+           {
+            path: "/dashboard",
+            component: Dashboard,
+          },
+           {
+            path: "/hampers",
+            component: Hampers,
+          },
+          {
+            path: "/add-hampers",
+            component: AddHampers,
+          },
+          {
+            path: "/edit-hampers/:id",
+            component: EditHampers,
+          },
+          {
+            path: "/produk",
+            component: Produk,
+          },
+          {
+            path: "/add-produk",
+            component: AddProductPage,
+          },
+          {
+            path: "/edit-produk/:id",
+            component: EditProdukPage,
+          },
+          {
+            path: "/bahanbaku",
+            component: BahanBakuPage,
+          },
+          {
+            path: "/add-bahanbaku",
+            component: addBahanbakuPage,
+          },
+          {
+            path: "/edit-bahanbaku/:id",
+            component: editBahanbakuPage,
+          },
       {
         path: "/resep", // the url
         component: Resep, // view rendered
@@ -76,6 +167,50 @@ const getRoutes = () => {
     return routes;
   } else if (userType === "mo") {
     routes = [
+      {
+            path: "/dashboard",
+            component: Dashboard,
+          },
+          {
+            path: "/penitip",
+            component: PenitipPage,
+          },
+          {
+            path: "/add-penitip",
+            component: addPenitipPage,
+          },
+          {
+            path: "/edit-penitip/:id",
+            component: editPenitipPage,
+          },
+           {
+            path: "/pembelianBahanBaku",
+            component: PembelianBahanBaku,
+          },
+          {
+            path: "/add-pembelian",
+            component: AddPembelianBahanBaku,
+          },
+          {
+            path: "/edit-pembelian/:id",
+            component: EditPembelian,
+          },
+
+          //pengeluaranLain
+          {
+            path: "/pengeluaran",
+            component: PengeluaranPage,
+          },
+          {
+            path: "/add-pengeluaran",
+            component: addPengeluaranPage,
+          },
+          {
+            path: "/edit-pengeluaran/:id",
+            component: editPengeluaranPage,
+
+
+          },
       {
         path: "/dashboard",
         component: Dashboard,

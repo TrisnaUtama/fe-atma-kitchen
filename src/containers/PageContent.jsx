@@ -1,3 +1,4 @@
+
 import Header from "./Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import getRoutes from "../routes/index";
@@ -5,6 +6,7 @@ import { Suspense, lazy } from "react";
 import SuspenseContent from "./SuspenseContent";
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+
 
 const Page404 = lazy(() => import("../pages/protected/404"));
 

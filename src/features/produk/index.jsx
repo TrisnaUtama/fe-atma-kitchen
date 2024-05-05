@@ -61,26 +61,6 @@ function Produk() {
     fetchProduk();
   }, []);
 
-  useEffect(() => {
-    const fetchProduk = async () => {
-      console.log(token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/v1/produk/getAll"
-        );
-        const fetchedProduk = response.data.data;
-        console.log(fetchedProduk);
-        setProduk(fetchedProduk);
-        setTrans(fetchedProduk);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchProduk();
-  }, []);
-
   const deleteCurentProduct = async (index) => {
     dispatch(
       openModal({
@@ -96,15 +76,14 @@ function Produk() {
   };
 
   const handleDeleteProduct = async (e) => {
-    const reload = await deleteCurentProduct(e);
-    if (reload) window.location.reload();
+    await deleteCurentProduct(e);
   };
 
   const applySearch = (value) => {
     let filteredTransactions = produk.filter((t) => {
       return (
         t.nama_produk.toLowerCase().includes(value.toLowerCase()) ||
-        t.nama_produk.toLowerCase().includes(value.toLowerCase())
+        t.kategori.toLowerCase().includes(value.toLowerCase())
       );
     });
     setTrans(filteredTransactions);
@@ -125,14 +104,17 @@ function Produk() {
                 <th className="text-center">Kategori</th>
                 <th className="text-center">Deskripsi</th>
                 <th className="text-center">Harga</th>
+                <th colSpan={2} className="text-center">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
               {trans.map((l, k) => {
                 return (
                   <tr key={k}>
-                    <td>
-                      <div className="flex items-center space-x-3">
+                    <td className="text-center">
+                      <div className="   space-x-3">
                         <div className="avatar">
                           <div className="w-28 h-28 rounded-lg">
                             <img
@@ -150,14 +132,14 @@ function Produk() {
                     <td className="text-center">{l.kategori}</td>
                     <td className="text-center">{l.deskripsi}</td>
                     <td className="text-center">${l.harga}</td>
-                    <td>
+                    <td className="text-end">
                       <button
                         className="btn btn-square btn-ghost"
                         onClick={() => handleDeleteProduct(l.id)}>
                         <TrashIcon className="w-5" />
                       </button>
                     </td>
-                    <td>
+                    <td className="text-start">
                       <Link
                         to={`/edit-produk/${l.id}`}
                         className="btn btn-square btn-ghost">

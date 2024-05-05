@@ -38,7 +38,7 @@ function EditProductPage() {
   const [namaResepList, setNamaResepList] = useState([]);
   const [namaPenitipList, setNamaPenitipList] = useState([]);
   const [dataProduk, setdataProduk] = useState({});
-  const kategori = ["Cake", "Minuman", "Hampers", "Titipan", "Roti"];
+  const kategori = ["Cake", "Minuman", "Titipan", "Roti"];
   const { handlerEditProduk } = useHandlerEditProduk(id);
   const { handlerEditLimit } = useHandlerEditLimit(dataProduk.id);
 
@@ -47,8 +47,8 @@ function EditProductPage() {
       try {
         const dataResep = await getResep();
         const namaResepList = dataResep.data.map((resep) => ({
-          id: resep.id,
-          nama: resep.nama_resep,
+          value: resep.id,
+          label: resep.nama_resep,
         }));
         setNamaResepList(namaResepList);
       } catch (error) {
@@ -63,8 +63,8 @@ function EditProductPage() {
       try {
         const dataPenitip = await getPenitip();
         const namaPenitipList = dataPenitip.data.map((penitip) => ({
-          id: penitip.id,
-          nama: penitip.nama,
+          value: penitip.id,
+          label: penitip.nama,
         }));
         setNamaPenitipList(namaPenitipList);
       } catch (error) {
@@ -84,7 +84,7 @@ function EditProductPage() {
       }
     };
     fetchSpecificProduk();
-  }, []);
+  }, [id]);
 
   const saveNewProduk = async (e) => {
     e.preventDefault();
@@ -101,9 +101,9 @@ function EditProductPage() {
     else if (leadObj.kategori.trim() === "")
       return setErrorMessage("kategori tidak boleh kosong!");
     else if (leadObj.kategori.trim() === "Titipan")
-      if (leadObj.stok.trim() == "") {
+      if (leadObj.stok=== 0) {
         return setErrorMessage("stok tidak boleh kosong!");
-      } else if (leadObj.id_penitip.trim() == "") {
+      } else if (leadObj.id_penitip.trim() === "") {
         return setErrorMessage("penitip tidak boleh kosong!");
       } else if (!leadObj.tanggal.trim()) {
         return setErrorMessage("tanggal tidak boleh kosong!");
@@ -126,10 +126,10 @@ function EditProductPage() {
       tanggal_limit: leadObj.tanggal_limit,
     };
 
-    console.log(newLeadObj);
-    console.log(LimitObj);
     await handlerEditProduk(newLeadObj);
-    await handlerEditLimit(LimitObj);
+    if (LimitObj.tanggal_limit !== "" && LimitObj.limit !== "") {
+      await handlerEditLimit(LimitObj);
+    }
     dispatch(showNotification({ message: "Updated Product !", status: 1 }));
   };
 
@@ -182,7 +182,7 @@ function EditProductPage() {
       </div>
 
       {leadObj.kategori === "Titipan" && (
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 gap-8">
           <DropdownInput
             value={leadObj.id_penitip}
             onChange={HandlePenitipChange}
@@ -197,7 +197,6 @@ function EditProductPage() {
             updateType="tanggal"
             containerStyle="mt-4"
             labelTitle="Tanggal Penitipan"
-            placeholder={dataProduk.tanggal}
             updateFormValue={updateFormValue}
           />
         </div>
@@ -208,7 +207,7 @@ function EditProductPage() {
           value={leadObj.id_resep}
           onChange={handleResepChange}
           options={namaResepList}
-          placeholder={dataProduk.id_resep}
+          placeholder="Pilih Resep"
           labelTitle="Resep"
         />
 
@@ -290,10 +289,12 @@ function EditProductPage() {
         </div>
       </div>
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
-      <button className="btn btn-primary px-6 mr-2">Save</button>
-      <a className="btn btn-ghost" href="/produk">
-        Cancel
-      </a>
+      <div className="flex justify-end items-end">
+        <button className="btn btn-primary px-6 mr-2">Save</button>
+        <a className="btn btn-ghost" href="/produk">
+          Cancel
+        </a>
+      </div>
     </form>
   );
 }

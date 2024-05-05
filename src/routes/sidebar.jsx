@@ -22,9 +22,34 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Resep",
     },
+      {
+            path: "hampers",
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: "Hampers",
+          },
+          {
+            path: "bahanbaku",
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: "Bahan Baku",
+          },
   ];
 } else if (userType === "mo") {
   routes = [
+    {
+            path: "pembelianBahanBaku",
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: "Pembelian Bahan Baku",
+          },
+          {
+            path: "penitip",
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: "Penitip",
+          },
+          {
+            path: 'pengeluaran',
+            icon: <Squares2X2Icon className={iconClasses} />,
+            name: 'Pengeluaran',
+          },
     {
       path: "dashboard",
       icon: <Squares2X2Icon className={iconClasses} />,
@@ -60,77 +85,3 @@ if (userType === "admin") {
 }
 
 export default routes;
-// const fetchData = async () => {
-//   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-//   try {
-//     const response = await axios.get("http://127.0.0.1:8000/api/v1/user");
-//     const userLogin = response.data;
-//     if (userLogin.id_saldo != null) {
-//       userLogin.id_role = false;
-//     } else {
-//       userLogin.id_saldo = false;
-//     }
-
-//     if (userLogin.id_role !== false) {
-//       if (userLogin.id_role === 3) {
-//         routes = [
-//           {
-//             path: "dashboard",
-//             icon: <Squares2X2Icon className={iconClasses} />,
-//             name: "Dashboard Admin",
-//           },
-//           {
-//             path: "karyawan",
-//             icon: <Squares2X2Icon className={iconClasses} />,
-//             name: "Karyawan",
-//           },
-//         ];
-//       } else if (userLogin.id_role === 2) {
-//         routes = [
-//           {
-//             path: "dashboard",
-//             icon: <Squares2X2Icon className={iconClasses} />,
-//             name: "Dashboard MO",
-//           },
-//           {
-//             path: "produk",
-//             icon: <Squares2X2Icon className={iconClasses} />,
-//             name: "Produk",
-//           },
-//           {
-//             path: "resep",
-//             icon: <Squares2X2Icon className={iconClasses} />,
-//             name: "Resep",
-//           },
-//         ];
-//       } else {
-//         routes = [
-//           {
-//             path: "dashboard",
-//             icon: <Squares2X2Icon className={iconClasses} />,
-//             name: "Dashboard Owner",
-//           },
-//           {
-//             path: "Gaji",
-//             icon: <Squares2X2Icon className={iconClasses} />,
-//             name: "Gaji & Bonus",
-//           },
-//         ];
-//       }
-//     } else {
-//       routes = [
-//         {
-//           path: "dashboard",
-//           icon: <Squares2X2Icon className={iconClasses} />,
-//           name: "Dashboard User",
-//         },
-//       ];
-//     }
-//     return routes;
-//   } catch (error) {
-//     console.error("Error fetching user data:", error);
-//     return [];
-//   }
-// };
-
-// export default fetchData;
