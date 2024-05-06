@@ -30,7 +30,8 @@ const TopSideButtons = ({ applySearch }) => {
       />
       <a
         href="/add-pembelian"
-        className="btn px-6 btn-sm normal-case btn-primary">
+        className="btn px-6 btn-sm normal-case btn-primary"
+      >
         Add Pembelian
       </a>
     </div>
@@ -84,7 +85,7 @@ function PemebelianBahanBaku() {
 
   const applySearch = (value) => {
     let filteredTransactions = pemebelianBahanBaku.filter((t) => {
-      return t.id_bahan_baku;
+      return t.nama.toLowerCase().includes(value.toLowerCase());
     });
     setTrans(filteredTransactions);
   };
@@ -94,7 +95,8 @@ function PemebelianBahanBaku() {
       <TitleCard
         title="List Pembelian Bahan Baku"
         topMargin="mt-2"
-        TopSideButtons={<TopSideButtons applySearch={applySearch} />}>
+        TopSideButtons={<TopSideButtons applySearch={applySearch} />}
+      >
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <thead>
@@ -117,14 +119,16 @@ function PemebelianBahanBaku() {
                     <td className="text-end">
                       <button
                         className="btn btn-square btn-ghost"
-                        onClick={() => handleDeletePembelian(item.id)}>
+                        onClick={() => handleDeletePembelian(item.id)}
+                      >
                         <TrashIcon className="w-5" />
                       </button>
                     </td>
                     <td className="text-start">
                       <Link
                         to={`/edit-pembelian/${item.id}`}
-                        className="btn btn-square btn-ghost">
+                        className="btn btn-square btn-ghost"
+                      >
                         <PencilSquare className="w-5" />
                       </Link>
                     </td>

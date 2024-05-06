@@ -10,7 +10,7 @@ if (userType === "admin") {
     {
       path: "dashboard",
       icon: <Squares2X2Icon className={iconClasses} />,
-      name: "Dashboard MO",
+      name: "Dashboard Admin",
     },
     {
       path: "produk",
@@ -22,38 +22,38 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Resep",
     },
-      {
-            path: "hampers",
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: "Hampers",
-          },
-          {
-            path: "bahanbaku",
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: "Bahan Baku",
-          },
+    {
+      path: "hampers",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Hampers",
+    },
+    {
+      path: "bahanbaku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Bahan Baku",
+    },
   ];
 } else if (userType === "mo") {
   routes = [
     {
-            path: "pembelianBahanBaku",
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: "Pembelian Bahan Baku",
-          },
-          {
-            path: "penitip",
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: "Penitip",
-          },
-          {
-            path: 'pengeluaran',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Pengeluaran',
-          },
-    {
       path: "dashboard",
       icon: <Squares2X2Icon className={iconClasses} />,
-      name: "Dashboard Admin",
+      name: "Dashboard Mo",
+    },
+    {
+      path: "pembelianBahanBaku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Pembelian Bahan Baku",
+    },
+    {
+      path: "penitip",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Penitip",
+    },
+    {
+      path: "pengeluaran",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Pengeluaran",
     },
     {
       path: "karyawan",

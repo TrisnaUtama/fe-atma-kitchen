@@ -8,12 +8,12 @@ export default function useHandlerEdit(id) {
   const handlerEditBahanBaku = useCallback(async (formData) => {
     const {
       nama_bahan_baku,
-      stok,
+      // stok,
       satuan,
     } = formData;
     const formDataObj = new FormData();
     formDataObj.append("nama_bahan_baku", nama_bahan_baku);
-    formDataObj.append("stok", stok);
+    // formDataObj.append("stok", stok);
     formDataObj.append("satuan", satuan);
     formDataObj.append('_method', 'patch');
 

@@ -9,7 +9,7 @@ import getPengeluaran from "../hooks/pengeluaran";
 
 const INITIAL_LEAD_OBJ = {
   nama_pengeluaran: "",
-  total_pengeluaran: "",
+  total_pengeluaran: 0,
   tanggal_pembelian: "",
 };
 
@@ -22,20 +22,20 @@ function EditPengeluaranPage() {
 
   const editPengeluaran = async (e) => {
     e.preventDefault();
+    console.log(leadObj);
     if (leadObj.nama_pengeluaran.trim() === "")
       return setErrorMessage("nama pengeluaran tidak boleh kosong!");
-    else if (leadObj.total_pengeluaran.trim() === "")
+    else if (!leadObj.total_pengeluaran)
       return setErrorMessage("total tidak boleh kosong!");
-    else if (leadObj.tanggal_pembelian.trim() === "")
+    else if (!leadObj.tanggal_pembelian)
       return setErrorMessage("tanggal tidak boleh kosong!");
-
     let newLeadObj = {
       nama_pengeluaran: leadObj.nama_pengeluaran,
       total_pengeluaran: leadObj.total_pengeluaran,
-      tanggal_pembelian: leadObj.tanggal_pembelian,
+      tanggal_pembelian: leadObj.tanggal_pembelian.toString(),
     };
-    await handlerEditPengeluaran(newLeadObj);
     dispatch(showNotification({ message: "New Pengeluaran Updated!", status: 1 }));
+    await handlerEditPengeluaran(newLeadObj);
   };
 
   useEffect(() => {

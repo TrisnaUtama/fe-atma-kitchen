@@ -7,6 +7,7 @@ const deletePengeluaran = async (id) => {
       `http://127.0.0.1:8000/api/v1/pengeluaranLain/${id}`
     );
     console.log(response.data);
+    window.location.href = "/pengeluaran";
     return response.data;
   } catch (error) {
     console.log(error.response.data);

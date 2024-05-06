@@ -46,8 +46,8 @@ function EditKaryawanPage() {
   const saveNewKaryawan = async (e) => {
     e.preventDefault();
     console.log(lead);
-    if (lead.gaji === 0) return setErrorMessage("Gaji cannot be empty!");
-    else if (lead.bonus === 0)
+    if (!lead.gaji) return setErrorMessage("Gaji cannot be empty!");
+    else if (!lead.bonus)
       return setErrorMessage("Bonus cannot be empty!");
 
     let newLeadObj = {

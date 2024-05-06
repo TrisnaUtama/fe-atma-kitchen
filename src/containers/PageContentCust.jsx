@@ -27,18 +27,6 @@ function PageContent() {
     fetchedRoutes();
   }, []);
 
-  const [routes, setRoute] = useState([]);
-
-
-  useEffect(()=>{
-    const fetchRoutes = async () =>{
-      const fetchedRoutes = await fetchData();
-      setRoute(fetchedRoutes);
-    };
-    fetchRoutes();
-  })
-
-
 
   // Scroll back to top on new page load
   useEffect(() => {

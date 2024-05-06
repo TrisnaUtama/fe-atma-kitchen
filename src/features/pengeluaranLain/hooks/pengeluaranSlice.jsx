@@ -6,22 +6,20 @@ export default function useAddPengeluaran() {
   const [validation, setValidation] = useState();
   const navigate = useNavigate();
   const handlerAddPengeluaran = useCallback(async (formData) => {
-    const {
-      nama_pengeluaran,
-      total_pengeluaran,
-      tanggal_pembelian,
-    } = formData;
+    const { nama_pengeluaran, total_pengeluaran, tanggal_pembelian } = formData;
     const formDataObj = new FormData();
     formDataObj.append("nama_pengeluaran", nama_pengeluaran);
     formDataObj.append("total_pengeluaran", total_pengeluaran);
     formDataObj.append("tanggal_pembelian", tanggal_pembelian);
 
     try {
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const response = await axios.post(
         `http://127.0.0.1:8000/api/v1/pengeluaranLain/add`,
         formDataObj
       );
-      navigate('/pengeluaran')
+      navigate("/pengeluaran");
       console.log(response.data);
     } catch (error) {
       setValidation(error.response.data);

@@ -6,12 +6,7 @@ export default function useAddPenitip() {
   const [validation, setValidation] = useState();
   const navigate = useNavigate();
   const handlerAddPenitip = useCallback(async (formData) => {
-    const {
-      nama,
-      no_telpn,
-      email,
-      profit,
-    } = formData;
+    const { nama, no_telpn, email, profit } = formData;
     const formDataObj = new FormData();
     formDataObj.append("nama", nama);
     formDataObj.append("no_telpn", no_telpn);
@@ -19,11 +14,13 @@ export default function useAddPenitip() {
     formDataObj.append("profit", profit);
 
     try {
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const response = await axios.post(
         `http://127.0.0.1:8000/api/v1/penitip/addPenitip`,
         formDataObj
       );
-      navigate('/penitip')
+      navigate("/penitip");
       console.log(response.data);
     } catch (error) {
       setValidation(error.response.data);

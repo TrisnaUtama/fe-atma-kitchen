@@ -60,6 +60,7 @@ function ProfileSettings() {
   };
 
   const saveNewProfile = async (e) => {
+    console.log(user);
     e.preventDefault();
     if (user.nama.trim() === "")
       return setErrorMessage("nama produk tidak boleh kosong!");

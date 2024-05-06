@@ -151,6 +151,14 @@ function ProfileSettings() {
     });
     setAdditionalDropdowns(updatedDropdowns);
   };
+  const handleAditionalDropdownDelete = (index) => {
+    index.preventDefault();
+    const updateDropdown = [...additionalDropdowns];
+    updateDropdown.splice(index, 1);
+    setAdditionalDropdowns(updateDropdown);
+
+    setLeadObj({ ...leadObj, id_bahan_baku: updateDropdown });
+  };
 
   // console.log(leadObj.nama_resep);
   // console.log(additionalDropdowns);
@@ -216,6 +224,13 @@ function ProfileSettings() {
               onClick={handleTambahDropdown}
             >
               Tambah Dropdown
+            </button>
+            <button
+              className="btn btn-error mt-2 ms-2"
+              onClick={handleAditionalDropdownDelete}
+            >
+              {" "}
+              delete dropdown
             </button>
           </div>
         </TitleCard>
