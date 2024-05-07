@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
+const UbahPassword = lazy(() => import('../pages/ubahPassword'))
 const DasboardCustomer = lazy(() =>
   import("../pages/protected/DashboardCustomer")
 );
@@ -59,6 +60,7 @@ const editPengeluaranPage = lazy(() =>
 
 let routes = [];
 const token = localStorage.getItem("token");
+const tokenParams = localStorage.getItem("tokenUbah")
 
 const fetchData = async () => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${ token }`;
@@ -70,7 +72,7 @@ const fetchData = async () => {
     } else {
       userLogin.id_saldo = false;
     }
-
+    
     if (userLogin.id_role !== false) {
       if (userLogin.id_role === 2) {
         routes = [
@@ -78,7 +80,7 @@ const fetchData = async () => {
             path: "/dashboard",
             component: Dashboard,
           },
-           {
+          {
             path: "/hampers",
             component: Hampers,
           },
@@ -125,7 +127,7 @@ const fetchData = async () => {
             path: "/edit-penitip/:id",
             component: editPenitipPage,
           },
-           {
+          {
             path: "/pembelianBahanBaku",
             component: PembelianBahanBaku,
           },
@@ -137,7 +139,7 @@ const fetchData = async () => {
             path: "/edit-pembelian/:id",
             component: EditPembelian,
           },
-
+          
           //pengeluaranLain
           {
             path: "/pengeluaran",
@@ -150,19 +152,21 @@ const fetchData = async () => {
           {
             path: "/edit-pengeluaran/:id",
             component: editPengeluaranPage,
-
-
+            
+            
           },
-          ];
+        ];
       }
-
+      
     } else {
       routes = [
         {
           path: "/dashboardCustomer",
-
           component: DasboardCustomer, 
-
+        },
+        {
+          path: `/forgot-password/change-password?token=${tokenParams}`,
+          component: UbahPassword, 
         },
       ];
     }

@@ -72,7 +72,6 @@ const fetchData = async () => {
           icon: <Squares2X2Icon className={iconClasses} />,
           name: 'Dashboard User',
         },
-       
       ];
     }
     return routes;

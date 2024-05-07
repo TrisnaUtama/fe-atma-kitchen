@@ -6,6 +6,7 @@ import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
+const UbahPassword = lazy(() => import('../pages/ubahPassword'))
 
 const Page404 = lazy(() => import('../pages/protected/404'))
 
@@ -52,7 +53,8 @@ function PageContent() {
                         }
 
                         {/* Redirecting unknown url to 404 page */}
-                        <Route path="*" element={<Page404 />} />
+                        {/* <Route path="*" element={<Page404 />} /> */}
+                        <Route path="/forgot-password/change-password/:token" element={<UbahPassword/>} />
                     </Routes>
                 </Suspense>
                 <div className="h-16"></div>
