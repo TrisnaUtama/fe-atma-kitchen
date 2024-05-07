@@ -6,22 +6,20 @@ export default function useAddBahanBaku() {
   const [validation, setValidation] = useState();
   const navigate = useNavigate();
   const handlerAddBahanBaku = useCallback(async (formData) => {
-    const {
-      nama_bahan_baku,
-      stok,
-      satuan,
-    } = formData;
+    const { nama_bahan_baku, satuan } = formData;
     const formDataObj = new FormData();
     formDataObj.append("nama_bahan_baku", nama_bahan_baku);
-    formDataObj.append("stok", stok);
+    // formDataObj.append("stok", stok);
     formDataObj.append("satuan", satuan);
 
     try {
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const response = await axios.post(
         `http://127.0.0.1:8000/api/v1/bahanbaku/add`,
         formDataObj
       );
-      navigate('/bahanbaku')
+      navigate("/bahanbaku");
       console.log(response.data);
     } catch (error) {
       setValidation(error.response.data);

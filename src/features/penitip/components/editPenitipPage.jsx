@@ -12,7 +12,7 @@ const INITIAL_LEAD_OBJ = {
     nama: "",
     no_telpn: "",
     email: "",
-    profit: "",
+    profit: 0,
 };
 
 function EditPenitipPage() {
@@ -32,7 +32,7 @@ function EditPenitipPage() {
             return setErrorMessage("no telepon tidak boleh kosong!");
         else if (leadObj.email.trim() === "")
             return setErrorMessage("email tidak boleh kosong!");
-        else if (leadObj.profit === "")
+        else if (!leadObj.profit)
             return setErrorMessage("profit tidak boleh kosong!");
 
         let newLeadObj = {

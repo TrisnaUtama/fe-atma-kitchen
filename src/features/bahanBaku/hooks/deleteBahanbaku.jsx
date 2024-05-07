@@ -6,6 +6,8 @@ const deleteBahanbaku = async (id) => {
     const response = await axios.delete(
       `http://127.0.0.1:8000/api/v1/bahanbaku/${id}`
     );
+
+    window.location.href = "/bahanbaku";
     console.log(response.data);
     return response.data;
   } catch (error) {

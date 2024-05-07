@@ -38,7 +38,7 @@ function EditProductPage() {
   const [namaResepList, setNamaResepList] = useState([]);
   const [namaPenitipList, setNamaPenitipList] = useState([]);
   const [dataProduk, setdataProduk] = useState({});
-  const kategori = ["Cake", "Minuman", "Hampers", "Titipan", "Roti"];
+  const kategori = ["Cake", "Minuman", "Titipan", "Roti"];
   const { handlerEditProduk } = useHandlerEditProduk(id);
   const { handlerEditLimit } = useHandlerEditLimit(dataProduk.id);
 

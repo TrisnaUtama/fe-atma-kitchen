@@ -1,31 +1,31 @@
 import Header from "./HeaderCust";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import { Suspense, lazy } from "react";
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import SuspenseContent from "./SuspenseContent";
-import fetchData from "../routes/index";
-const UbahPassword = lazy(() => import('../pages/ubahPassword'))
-
+import getRoutes from "../routes/index";
 
 const Page404 = lazy(() => import("../pages/protected/404"));
 
 function PageContent() {
   const mainContentRef = useRef(null);
   const { pageTitle } = useSelector((state) => state.header);
+  const [routes, setRoutes] = useState([]);
 
-  const [routes, setRoute] = useState([]);
+  // Scroll back to top on new page load
 
-
-  useEffect(()=>{
-    const fetchRoutes = async () =>{
-      const fetchedRoutes = await fetchData();
-      setRoute(fetchedRoutes);
+  useEffect(() => {
+    const fetchedRoutes = async () => {
+      try {
+        const fetchedRoutes = await getRoutes();
+        setRoutes(fetchedRoutes);
+      } catch (error) {
+        console.log("error fetching routes : " + error);
+      }
     };
-    fetchRoutes();
-  })
-
+    fetchedRoutes();
+  }, []);
 
 
   // Scroll back to top on new page load
@@ -41,7 +41,8 @@ function PageContent() {
       <Header />
       <main
         className="flex-1 overflow-y-auto md:pt-4 pt-4 px-6  bg-base-200"
-        ref={mainContentRef}>
+        ref={mainContentRef}
+      >
         {/* <DashboardCustomer /> */}
         <Suspense fallback={<SuspenseContent />}>
           <Routes>
@@ -55,9 +56,7 @@ function PageContent() {
                 />
               );
             })}
-            // {/* Redirecting unknown url to 404 page */}
-            {/* <Route path="*" element={<Page404 />} /> */}
-            <Route path="/forgot-password/change-password/:token" element={<UbahPassword/>} />
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </Suspense>
         <div className="h-16"></div>

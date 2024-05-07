@@ -30,7 +30,8 @@ const TopSideButtons = ({ applySearch }) => {
       />
       <a
         href="/add-pembelian"
-        className="btn px-6 btn-sm normal-case btn-primary">
+        className="btn px-6 btn-sm normal-case btn-primary"
+      >
         Add Pembelian
       </a>
     </div>
@@ -84,7 +85,7 @@ function PemebelianBahanBaku() {
 
   const applySearch = (value) => {
     let filteredTransactions = pemebelianBahanBaku.filter((t) => {
-      return t.id_bahan_baku;
+      return t.nama.toLowerCase().includes(value.toLowerCase());
     });
     setTrans(filteredTransactions);
   };
@@ -94,44 +95,45 @@ function PemebelianBahanBaku() {
       <TitleCard
         title="List Pembelian Bahan Baku"
         topMargin="mt-2"
-        TopSideButtons={<TopSideButtons applySearch={applySearch} />}>
+        TopSideButtons={<TopSideButtons applySearch={applySearch} />}
+      >
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <thead>
               <tr>
                 <th className="text-center">Nama Bahan</th>
                 <th className="text-center">Jumlah</th>
-                <th className="text-center">harga</th>
-                <th colSpan={2} className="text-center">
+                <th className="text-center">Harga</th>
+                <th className="text-center" colSpan={2}>
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
               {Array.isArray(trans) &&
-                trans.map((l, k) => {
-                  return (
-                    <tr key={k}>
-                      <td className="text-center">{l.nama}</td>
-                      <td className="text-center">{l.jumlah}</td>
-                      <td className="text-center">{l.harga}</td>
-                      <td className="text-end">
-                        <button
-                          className="btn btn-square btn-ghost"
-                          onClick={() => handleDeletePembelian(l.id)}>
-                          <TrashIcon className="w-5" />
-                        </button>
-                      </td>
-                      <td className="text-start">
-                        <Link
-                          to={`/edit-pembelian/${l.id}`}
-                          className="btn btn-square btn-ghost">
-                          <PencilSquare className="w-5" />
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
+                trans.map((item, index) => (
+                  <tr key={index}>
+                    <td className="text-center">{item.nama}</td>
+                    <td className="text-center">{item.jumlah}</td>
+                    <td className="text-center">{item.harga}</td>
+                    <td className="text-end">
+                      <button
+                        className="btn btn-square btn-ghost"
+                        onClick={() => handleDeletePembelian(item.id)}
+                      >
+                        <TrashIcon className="w-5" />
+                      </button>
+                    </td>
+                    <td className="text-start">
+                      <Link
+                        to={`/edit-pembelian/${item.id}`}
+                        className="btn btn-square btn-ghost"
+                      >
+                        <PencilSquare className="w-5" />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

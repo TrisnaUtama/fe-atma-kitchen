@@ -24,14 +24,14 @@ function AddBahanbakuPage() {
         e.preventDefault();
         if (leadObj.nama_bahan_baku.trim() === "")
             return setErrorMessage("nama bahan baku tidak boleh kosong!");
-        else if (leadObj.stok.trim() === "")
-            return setErrorMessage("stok tidak boleh kosong!");
+        // else if (leadObj.stok.trim() === "")
+        //     return setErrorMessage("stok tidak boleh kosong!");
         else if (leadObj.satuan.trim() === "")
             return setErrorMessage("satuan tidak boleh kosong!");
 
         let newLeadObj = {
             nama_bahan_baku: leadObj.nama_bahan_baku,
-            stok: leadObj.stok,
+            // stok: leadObj.stok,
             satuan: leadObj.satuan,
         };
         await handlerAddBahanBaku(newLeadObj);
@@ -77,7 +77,7 @@ function AddBahanbakuPage() {
 
 
 
-            <div className="grid grid-cols-3 gap-8">
+            {/* <div className="grid grid-cols-3 gap-8">
                 <InputText
                     type="number"
                     defaultValue={leadObj.stok}
@@ -87,7 +87,7 @@ function AddBahanbakuPage() {
                     placeholder="masukkan stok bahan baku"
                     updateFormValue={updateFormValue}
                 />
-            </div>
+            </div> */}
 
             <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
             <div className="modal-action">
