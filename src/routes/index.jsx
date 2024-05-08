@@ -53,6 +53,16 @@ const EditPembelian = lazy(() =>
   import("../pages/protected/pembelian-bahan-baku/EditPembelian")
 );
 
+//cari&DataCustomer
+const DataCustomer = lazy(()=>
+  import("../pages/protected/adminCustomer/historyCustomer")
+);
+
+const historyPesanan = lazy(()=>
+import("../pages/protected/adminCustomer/detailPesanan")
+);
+
+
 
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
 const EditHampers = lazy(() =>
@@ -67,30 +77,7 @@ const addPengeluaranPage = lazy(() =>
 );
 const editPengeluaranPage = lazy(() =>
   import("../pages/protected/pengeluaranlain/editPengeluaran")
-
 );
-
-<<<<<<< HEAD
-let routes = [];
-const token = localStorage.getItem("token");
-const tokenParams = localStorage.getItem("tokenUbah")
-
-const fetchData = async () => {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${ token }`;
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/v1/user");
-    const userLogin = response.data;
-    if (userLogin.id_saldo != null) {
-      userLogin.id_role = false;
-    } else {
-      userLogin.id_saldo = false;
-    }
-    
-    if (userLogin.id_role !== false) {
-      if (userLogin.id_role === 2) {
-        routes = [
-          {
-=======
 const Resep = lazy(() => import("../pages/protected/resep/Resep"));
 const TambahResep = lazy(() => import("../pages/protected/resep/AddResep"));
 const EditResep = lazy(() => import("../pages/protected/resep/EditResep"));
@@ -109,47 +96,46 @@ const getRoutes = () => {
   let routes = [];
   if (userType === "admin") {
     routes = [
-           {
->>>>>>> stagging
-            path: "/dashboard",
-            component: Dashboard,
-          },
-          {
-            path: "/hampers",
-            component: Hampers,
-          },
-          {
-            path: "/add-hampers",
-            component: AddHampers,
-          },
-          {
-            path: "/edit-hampers/:id",
-            component: EditHampers,
-          },
-          {
-            path: "/produk",
-            component: Produk,
-          },
-          {
-            path: "/add-produk",
-            component: AddProductPage,
-          },
-          {
-            path: "/edit-produk/:id",
-            component: EditProdukPage,
-          },
-          {
-            path: "/bahanbaku",
-            component: BahanBakuPage,
-          },
-          {
-            path: "/add-bahanbaku",
-            component: addBahanbakuPage,
-          },
-          {
-            path: "/edit-bahanbaku/:id",
-            component: editBahanbakuPage,
-          },
+      {
+        path: "/dashboard",
+        component: Dashboard,
+      },
+      {
+        path: "/hampers",
+        component: Hampers,
+      },
+      {
+        path: "/add-hampers",
+        component: AddHampers,
+      },
+      {
+        path: "/edit-hampers/:id",
+        component: EditHampers,
+      },
+      {
+        path: "/produk",
+        component: Produk,
+      },
+      {
+        path: "/add-produk",
+        component: AddProductPage,
+      },
+      {
+        path: "/edit-produk/:id",
+        component: EditProdukPage,
+      },
+      {
+        path: "/bahanbaku",
+        component: BahanBakuPage,
+      },
+      {
+        path: "/add-bahanbaku",
+        component: addBahanbakuPage,
+      },
+      {
+        path: "/edit-bahanbaku/:id",
+        component: editBahanbakuPage,
+      },
       {
         path: "/resep", // the url
         component: Resep, // view rendered
@@ -186,71 +172,61 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
+       {
+        path: "/customer",
+        component: DataCustomer,
+      },
+      {
+        path: "/detailPesanan/:id",
+        component: historyPesanan,
+      }
     ];
     return routes;
   } else if (userType === "mo") {
     routes = [
       {
-            path: "/dashboard",
-            component: Dashboard,
-          },
-          {
-            path: "/penitip",
-            component: PenitipPage,
-          },
-          {
-            path: "/add-penitip",
-            component: addPenitipPage,
-          },
-          {
-            path: "/edit-penitip/:id",
-            component: editPenitipPage,
-          },
-          {
-            path: "/pembelianBahanBaku",
-            component: PembelianBahanBaku,
-          },
-          {
-            path: "/add-pembelian",
-            component: AddPembelianBahanBaku,
-          },
-          {
-            path: "/edit-pembelian/:id",
-            component: EditPembelian,
-          },
-          
-          //pengeluaranLain
-          {
-            path: "/pengeluaran",
-            component: PengeluaranPage,
-          },
-          {
-            path: "/add-pengeluaran",
-            component: addPengeluaranPage,
-          },
-          {
-            path: "/edit-pengeluaran/:id",
-            component: editPengeluaranPage,
-            
-            
-          },
-<<<<<<< HEAD
-        ];
-      }
-      
-    } else {
-      routes = [
-        {
-          path: "/dashboardCustomer",
-          component: DasboardCustomer, 
-        },
-        {
-          path: `/forgot-password/change-password?token=${tokenParams}`,
-          component: UbahPassword, 
-        },
-      ];
-    }
-=======
+        path: "/dashboard",
+        component: Dashboard,
+      },
+      {
+        path: "/penitip",
+        component: PenitipPage,
+      },
+      {
+        path: "/add-penitip",
+        component: addPenitipPage,
+      },
+      {
+        path: "/edit-penitip/:id",
+        component: editPenitipPage,
+      },
+      {
+        path: "/pembelianBahanBaku",
+        component: PembelianBahanBaku,
+      },
+      {
+        path: "/add-pembelian",
+        component: AddPembelianBahanBaku,
+      },
+      {
+        path: "/edit-pembelian/:id",
+        component: EditPembelian,
+      },
+
+      //pengeluaranLain
+      {
+        path: "/pengeluaran",
+        component: PengeluaranPage,
+      },
+      {
+        path: "/add-pengeluaran",
+        component: addPengeluaranPage,
+      },
+      {
+        path: "/edit-pengeluaran/:id",
+        component: editPengeluaranPage,
+
+      },
       {
         path: "/dashboard",
         component: Dashboard,
@@ -275,6 +251,8 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
+
+     
     ];
     return routes;
   } else if (userType === "owner") {
@@ -316,7 +294,6 @@ const getRoutes = () => {
         component: UpdateProfile, // view renderedss
       },
     ];
->>>>>>> stagging
     return routes;
   }
 };

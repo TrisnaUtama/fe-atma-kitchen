@@ -5,82 +5,6 @@ const iconClasses = `h-6 w-6`;
 const userType = localStorage.getItem("userType");
 let routes = [];
 
-<<<<<<< HEAD
-const fetchData = async () => {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  try {
-    const response = await axios.get('http://127.0.0.1:8000/api/v1/user');
-    const userLogin = response.data;
-    if (userLogin.id_saldo != null) {
-      userLogin.id_role = false;
-    } else {
-      userLogin.id_saldo = false;
-    }
-
-    if (userLogin.id_role !== false) {
-      if (userLogin.id_role === 2) {
-        routes = [
-          {
-            path: 'dashboard',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Dashboard Admin',
-          },
-          {
-            path: 'produk',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Produk',
-          },
-          {
-
-            path: 'hampers',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Hampers',
-
-            path: 'bahanbaku',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Bahan Baku',
-
-          },
-        ];
-      } else if (userLogin.id_role === 3) {
-        routes = [
-          {
-            path: 'dashboard',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Dashboard MO',
-          },
-          {
-
-            path: 'pembelianBahanBaku',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Pembelian Bahan Baku',
-
-            path: 'penitip',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Penitip',
-          },
-          {
-            path: 'pengeluaran',
-            icon: <Squares2X2Icon className={iconClasses} />,
-            name: 'Pengeluaran',
-          },
-        ];
-      }
-    } else {
-      routes = [
-        {
-          path: 'dashboard',
-          icon: <Squares2X2Icon className={iconClasses} />,
-          name: 'Dashboard User',
-        },
-      ];
-    }
-    return routes;
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    return [];
-  }
-=======
 if (userType === "admin") {
   routes = [
     {
@@ -108,6 +32,12 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Bahan Baku",
     },
+
+    {
+      path: "customer",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Data Customer",
+    }
   ];
 } else if (userType === "mo") {
   routes = [
@@ -158,7 +88,6 @@ if (userType === "admin") {
       name: "Dashboard User",
     },
   ];
->>>>>>> stagging
 }
 
 export default routes;
