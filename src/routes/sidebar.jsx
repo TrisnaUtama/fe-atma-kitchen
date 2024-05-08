@@ -32,6 +32,12 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Bahan Baku",
     },
+
+    {
+      path: "customer",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Data Customer",
+    }
   ];
 } else if (userType === "mo") {
   routes = [
