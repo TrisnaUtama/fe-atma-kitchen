@@ -102,7 +102,10 @@ function Header() {
           <div className="dropdown dropdown-end ml-4">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people" alt="profile" />
+                <img
+                  src={"http://localhost:8000/storage/avatar.png"}
+                  alt="profile"
+                />
               </div>
             </label>
             <ul
@@ -111,9 +114,9 @@ function Header() {
             >
               <li className="justify-between">
                 <Link to={"/settingProfile"}>Profile Setting</Link>
-                </li>
+              </li>
               <li className="">
-                <Link to={"/app/settings-billing"}>Bill History</Link>
+                <Link to={"/transcationHistory"}>Transcation History</Link>
               </li>
               <div className="divider mt-0 mb-0"></div>
               <li>

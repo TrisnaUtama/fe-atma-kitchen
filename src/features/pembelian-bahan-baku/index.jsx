@@ -85,7 +85,10 @@ function PemebelianBahanBaku() {
 
   const applySearch = (value) => {
     let filteredTransactions = pemebelianBahanBaku.filter((t) => {
-      return t.nama.toLowerCase().includes(value.toLowerCase());
+      return (
+        t.nama.toLowerCase().includes(value.toLowerCase()) ||
+        t.nama.toLowerCase().includes(value.toLowerCase())
+      );
     });
     setTrans(filteredTransactions);
   };

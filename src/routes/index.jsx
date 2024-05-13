@@ -62,8 +62,6 @@ const historyPesanan = lazy(()=>
 import("../pages/protected/adminCustomer/detailPesanan")
 );
 
-
-
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
 const EditHampers = lazy(() =>
   import("../pages/protected/hampers/EditHampers")
@@ -84,6 +82,9 @@ const EditResep = lazy(() => import("../pages/protected/resep/EditResep"));
 const SettingProfile = lazy(() =>
   import("../pages/protected/profile/profileSetting")
 );
+const TranscationHistory = lazy(() =>
+  import("../pages/protected/profile/transactionHistory"));
+
 const UpdateProfile = lazy(() =>
   import("../pages/protected/profile/editProfile")
 );
@@ -225,7 +226,6 @@ const getRoutes = () => {
       {
         path: "/edit-pengeluaran/:id",
         component: editPengeluaranPage,
-
       },
       {
         path: "/dashboard",
@@ -292,6 +292,10 @@ const getRoutes = () => {
       {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
+      },
+      {
+        path: "/transcationHistory",
+        component: TranscationHistory,
       },
     ];
     return routes;
