@@ -10,6 +10,7 @@ const EditKaryawanPage = lazy(() =>
   import("../pages/protected/karyawan/editKaryawan")
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
+const UbahPassword = lazy(() => import('../pages/ubahPassword'))
 const DasboardCustomer = lazy(() =>
   import("../pages/protected/DashboardCustomer")
 );
@@ -52,6 +53,15 @@ const EditPembelian = lazy(() =>
   import("../pages/protected/pembelian-bahan-baku/EditPembelian")
 );
 
+//cari&DataCustomer
+const DataCustomer = lazy(()=>
+  import("../pages/protected/adminCustomer/historyCustomer")
+);
+
+const historyPesanan = lazy(()=>
+import("../pages/protected/adminCustomer/detailPesanan")
+);
+
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
 const EditHampers = lazy(() =>
   import("../pages/protected/hampers/EditHampers")
@@ -66,7 +76,6 @@ const addPengeluaranPage = lazy(() =>
 const editPengeluaranPage = lazy(() =>
   import("../pages/protected/pengeluaranlain/editPengeluaran")
 );
-
 const Resep = lazy(() => import("../pages/protected/resep/Resep"));
 const TambahResep = lazy(() => import("../pages/protected/resep/AddResep"));
 const EditResep = lazy(() => import("../pages/protected/resep/EditResep"));
@@ -164,6 +173,14 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
+       {
+        path: "/customer",
+        component: DataCustomer,
+      },
+      {
+        path: "/detailPesanan/:id",
+        component: historyPesanan,
+      }
     ];
     return routes;
   } else if (userType === "mo") {
@@ -234,6 +251,8 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
+
+     
     ];
     return routes;
   } else if (userType === "owner") {

@@ -8,6 +8,7 @@ const Layout = lazy(() => import('./containers/Layout'))
 const Login = lazy(() => import('./pages/Login'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
 const Register = lazy(() => import('./pages/Register'))
+const UbahPassword = lazy(() => import('./pages/ubahPassword'))
 
 
 function App() {
@@ -22,10 +23,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password/change-password/:token" element={<UbahPassword/>} />
           <Route path="/register" element={<Register />} />
-
           <Route path="/*" element={<Layout />} />
-
         </Routes>
       </Router>
     </>

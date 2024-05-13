@@ -1,4 +1,5 @@
 
+
 import Header from "./Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import getRoutes from "../routes/index";
@@ -35,6 +36,8 @@ function PageContent() {
     });
   }, [pageTitle]);
 
+
+    
   return (
     <div className="drawer-content flex flex-col ">
       <Header />
@@ -54,6 +57,7 @@ function PageContent() {
                 />
               );
             })}
+
 
             {/* Redirecting unknown url to 404 page */}
             <Route path="*" element={<Page404 />} />

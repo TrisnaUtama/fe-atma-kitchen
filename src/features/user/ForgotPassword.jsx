@@ -4,34 +4,39 @@ import LandingIntro from './LandingIntro'
 import ErrorText from  '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
 import CheckCircleIcon  from '@heroicons/react/24/solid/CheckCircleIcon'
+import { sendEmailRequest } from '../../app/auth'
 
-function ForgotPassword(){
-
-    const INITIAL_USER_OBJ = {
-        emailId : ""
-    }
+ function ForgotPassword(){
 
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [linkSent, setLinkSent] = useState(false)
-    const [userObj, setUserObj] = useState(INITIAL_USER_OBJ)
+    const [email, setEmail] = useState("")
 
-    const submitForm = (e) =>{
+    async function submitForm  (e) {
         e.preventDefault()
         setErrorMessage("")
+        console.log("frtvftr");
 
-        if(userObj.emailId.trim() === "")return setErrorMessage("Email Id is required! (use any value)")
+        if(email.trim() === "")return setErrorMessage("Email Id is required! (use any value)")
         else{
             setLoading(true)
-            // Call API to send password reset link
+            const response = await sendEmailRequest(email);
+            console.log(response);
+            if(response.status == 200){
+                setLinkSent(true);
+            }
+
             setLoading(false)
             setLinkSent(true)
         }
     }
 
-    const updateFormValue = ({updateType, value}) => {
+    const updateFormValue = ({ value}) => {
         setErrorMessage("")
-        setUserObj({...userObj, [updateType] : value})
+        setEmail(value)
+        
+        console.log(value);
     }
 
     return(
@@ -63,7 +68,7 @@ function ForgotPassword(){
 
                                 <div className="mb-4">
 
-                                    <InputText type="emailId" defaultValue={userObj.emailId} updateType="emailId" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue}/>
+                                    <InputText type="emailId" name="emailId" id="emailID" updateType="emailId" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue}/>
 
 
                                 </div>
