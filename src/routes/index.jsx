@@ -10,6 +10,7 @@ const EditKaryawanPage = lazy(() =>
   import("../pages/protected/karyawan/editKaryawan")
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
+const UbahPassword = lazy(() => import('../pages/ubahPassword'))
 const DasboardCustomer = lazy(() =>
   import("../pages/protected/DashboardCustomer")
 );
@@ -52,6 +53,14 @@ const EditPembelian = lazy(() =>
   import("../pages/protected/pembelian-bahan-baku/EditPembelian")
 );
 
+//cari&DataCustomer
+const DataCustomer = lazy(()=>
+  import("../pages/protected/adminCustomer/historyCustomer")
+);
+
+const historyPesanan = lazy(()=>
+import("../pages/protected/adminCustomer/detailPesanan")
+);
 
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
 const EditHampers = lazy(() =>
@@ -66,15 +75,16 @@ const addPengeluaranPage = lazy(() =>
 );
 const editPengeluaranPage = lazy(() =>
   import("../pages/protected/pengeluaranlain/editPengeluaran")
-
 );
-
 const Resep = lazy(() => import("../pages/protected/resep/Resep"));
 const TambahResep = lazy(() => import("../pages/protected/resep/AddResep"));
 const EditResep = lazy(() => import("../pages/protected/resep/EditResep"));
 const SettingProfile = lazy(() =>
   import("../pages/protected/profile/profileSetting")
 );
+const TranscationHistory = lazy(() =>
+  import("../pages/protected/profile/transactionHistory"));
+
 const UpdateProfile = lazy(() =>
   import("../pages/protected/profile/editProfile")
 );
@@ -87,46 +97,46 @@ const getRoutes = () => {
   let routes = [];
   if (userType === "admin") {
     routes = [
-           {
-            path: "/dashboard",
-            component: Dashboard,
-          },
-           {
-            path: "/hampers",
-            component: Hampers,
-          },
-          {
-            path: "/add-hampers",
-            component: AddHampers,
-          },
-          {
-            path: "/edit-hampers/:id",
-            component: EditHampers,
-          },
-          {
-            path: "/produk",
-            component: Produk,
-          },
-          {
-            path: "/add-produk",
-            component: AddProductPage,
-          },
-          {
-            path: "/edit-produk/:id",
-            component: EditProdukPage,
-          },
-          {
-            path: "/bahanbaku",
-            component: BahanBakuPage,
-          },
-          {
-            path: "/add-bahanbaku",
-            component: addBahanbakuPage,
-          },
-          {
-            path: "/edit-bahanbaku/:id",
-            component: editBahanbakuPage,
-          },
+      {
+        path: "/dashboard",
+        component: Dashboard,
+      },
+      {
+        path: "/hampers",
+        component: Hampers,
+      },
+      {
+        path: "/add-hampers",
+        component: AddHampers,
+      },
+      {
+        path: "/edit-hampers/:id",
+        component: EditHampers,
+      },
+      {
+        path: "/produk",
+        component: Produk,
+      },
+      {
+        path: "/add-produk",
+        component: AddProductPage,
+      },
+      {
+        path: "/edit-produk/:id",
+        component: EditProdukPage,
+      },
+      {
+        path: "/bahanbaku",
+        component: BahanBakuPage,
+      },
+      {
+        path: "/add-bahanbaku",
+        component: addBahanbakuPage,
+      },
+      {
+        path: "/edit-bahanbaku/:id",
+        component: editBahanbakuPage,
+      },
       {
         path: "/resep", // the url
         component: Resep, // view rendered
@@ -163,54 +173,60 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
+       {
+        path: "/customer",
+        component: DataCustomer,
+      },
+      {
+        path: "/detailPesanan/:id",
+        component: historyPesanan,
+      }
     ];
     return routes;
   } else if (userType === "mo") {
     routes = [
       {
-            path: "/dashboard",
-            component: Dashboard,
-          },
-          {
-            path: "/penitip",
-            component: PenitipPage,
-          },
-          {
-            path: "/add-penitip",
-            component: addPenitipPage,
-          },
-          {
-            path: "/edit-penitip/:id",
-            component: editPenitipPage,
-          },
-           {
-            path: "/pembelianBahanBaku",
-            component: PembelianBahanBaku,
-          },
-          {
-            path: "/add-pembelian",
-            component: AddPembelianBahanBaku,
-          },
-          {
-            path: "/edit-pembelian/:id",
-            component: EditPembelian,
-          },
+        path: "/dashboard",
+        component: Dashboard,
+      },
+      {
+        path: "/penitip",
+        component: PenitipPage,
+      },
+      {
+        path: "/add-penitip",
+        component: addPenitipPage,
+      },
+      {
+        path: "/edit-penitip/:id",
+        component: editPenitipPage,
+      },
+      {
+        path: "/pembelianBahanBaku",
+        component: PembelianBahanBaku,
+      },
+      {
+        path: "/add-pembelian",
+        component: AddPembelianBahanBaku,
+      },
+      {
+        path: "/edit-pembelian/:id",
+        component: EditPembelian,
+      },
 
-          //pengeluaranLain
-          {
-            path: "/pengeluaran",
-            component: PengeluaranPage,
-          },
-          {
-            path: "/add-pengeluaran",
-            component: addPengeluaranPage,
-          },
-          {
-            path: "/edit-pengeluaran/:id",
-            component: editPengeluaranPage,
-
-
-          },
+      //pengeluaranLain
+      {
+        path: "/pengeluaran",
+        component: PengeluaranPage,
+      },
+      {
+        path: "/add-pengeluaran",
+        component: addPengeluaranPage,
+      },
+      {
+        path: "/edit-pengeluaran/:id",
+        component: editPengeluaranPage,
+      },
       {
         path: "/dashboard",
         component: Dashboard,
@@ -235,6 +251,8 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
+
+     
     ];
     return routes;
   } else if (userType === "owner") {
@@ -274,6 +292,10 @@ const getRoutes = () => {
       {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
+      },
+      {
+        path: "/transcationHistory",
+        component: TranscationHistory,
       },
     ];
     return routes;

@@ -70,3 +70,35 @@ export default function useLoginHandler() {
 
   return { loginHandler, token, validation, userLogin };
 }
+
+export async function sendEmailRequest(email){
+    try{
+      const response = await fetch('http://localhost:8000/api/v1/lupaPassword/create',{
+        method: "POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email}),
+      });
+      const data = await response.json();
+      return {data, status: response.status};
+    }catch(error){
+      return error;
+    }
+}
+
+export async function sendValidateToken(token){
+  try{
+    const response = await fetch(`http://localhost:8000/api/v1/validate/${token}`,{
+      method: "GET",
+      headers:{
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+    });
+    const data = await response.json();
+    return {data, status: response.status};
+  }catch(error){
+    return error;
+  }
+}
