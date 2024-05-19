@@ -54,15 +54,18 @@ function Header() {
         <div className="flex-1">
           <label
             htmlFor="left-sidebar-drawer"
-            className="btn btn-primary drawer-button lg:hidden"
-          >
+            className="btn btn-primary drawer-button lg:hidden">
             <Bars3Icon className="h-5 inline-block w-5" />
           </label>
-          <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1>
+          <h1 className="text-2xl font-semibold ml-2">Hello There</h1>
         </div>
 
-        <div className="flex-none ">
+        <div className="justify-start flex-grow">
+          <Link to="dashboard"><span className="text-lg hover:text-gray-400">Produk</span></Link>
+        </div>
+        <div className="flex items-center">
           {/* Light and dark theme selection toogle **/}
+
           <label className="swap ">
             <input type="checkbox" />
             <SunIcon
@@ -86,8 +89,7 @@ function Header() {
           {/* Notification icon */}
           <button
             className="btn btn-ghost ml-4  btn-circle"
-            onClick={() => openNotification()}
-          >
+            onClick={() => openNotification()}>
             <div className="indicator">
               <BellIcon className="h-6 w-6" />
               {noOfNotifications > 0 ? (
@@ -97,7 +99,6 @@ function Header() {
               ) : null}
             </div>
           </button>
-
           {/* Profile icon, opening menu on click */}
           <div className="dropdown dropdown-end ml-4">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -107,11 +108,10 @@ function Header() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-            >
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
               <li className="justify-between">
                 <Link to={"/settingProfile"}>Profile Setting</Link>
-                </li>
+              </li>
               <li className="">
                 <Link to={"/app/settings-billing"}>Bill History</Link>
               </li>
