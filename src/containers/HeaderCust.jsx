@@ -7,8 +7,10 @@ import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
 import SunIcon from "@heroicons/react/24/outline/SunIcon";
 import { openRightDrawer } from "../features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
+import Avatar from "../assets/images/avatar.png";
 
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Header() {
   const dispatch = useDispatch();
@@ -16,6 +18,8 @@ function Header() {
   const [currentTheme, setCurrentTheme] = useState(
     localStorage.getItem("theme")
   );
+
+  const userLogin = JSON.parse(localStorage.getItem("userLogin"));
 
   useEffect(() => {
     themeChange(false);
@@ -52,16 +56,17 @@ function Header() {
       <div className="navbar sticky top-0 bg-base-100  z-10 shadow-md ">
         {/* Menu toogle for mobile view or small screen */}
         <div className="flex-1">
-          <label
-            htmlFor="left-sidebar-drawer"
-            className="btn btn-primary drawer-button lg:hidden">
-            <Bars3Icon className="h-5 inline-block w-5" />
-          </label>
-          <h1 className="text-2xl font-semibold ml-2">Hello There</h1>
+          <h1 className="text-2xl font-semibold ml-2">
+            Hello {userLogin.nama}
+          </h1>
         </div>
 
         <div className="justify-start flex-grow">
-          <Link to="dashboard"><span className="text-lg hover:text-gray-400">Produk</span></Link>
+          <Link to="dashboard">
+            <span className="transition-all ease-in-out delay-150 text-lg hover:-translate-y-1 hover:scale-110 hover:text-gray-50 hover:text-xl duration-300">
+              Produk
+            </span>
+          </Link>
         </div>
         <div className="flex items-center">
           {/* Light and dark theme selection toogle **/}
@@ -103,10 +108,7 @@ function Header() {
           <div className="dropdown dropdown-end ml-4">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img
-                  src={"http://localhost:8000/storage/avatar.png"}
-                  alt="profile"
-                />
+                <img src={Avatar} alt="profile" />
               </div>
             </label>
             <ul

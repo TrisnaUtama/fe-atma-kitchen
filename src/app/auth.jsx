@@ -9,8 +9,10 @@ export default function useLoginHandler() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") && userLogin.role === 1 && userLogin.role === 2 && userLogin.role === 3) {
       navigate("/dashboard");
+    }else{
+      navigate("/dashboardCustomer");
     }
   }, [navigate]);
 
@@ -34,6 +36,7 @@ export default function useLoginHandler() {
         setUserLogin(userData);
         setToken(accessToken);
         localStorage.setItem("token", accessToken);
+        localStorage.setItem("userLogin", JSON.stringify(userData));
 
         if (userData.id_saldo != null) {
           userData.id_role = false;
@@ -44,6 +47,7 @@ export default function useLoginHandler() {
         if (userData.id_saldo !== null && userData.id_role === false) {
           userType = "customer";
           localStorage.setItem("userType", userType);
+          console.log(userData);
           navigate("/dashboardCustomer");
         } else if (userData.id_role === 3 && userData.id_saldo === false) {
           userType = "mo";
