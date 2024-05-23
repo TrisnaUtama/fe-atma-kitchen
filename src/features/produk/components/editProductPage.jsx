@@ -90,8 +90,6 @@ function EditProductPage() {
     e.preventDefault();
     if (leadObj.nama_produk.trim() === "")
       return setErrorMessage("nama produk tidak boleh kosong!");
-    else if (leadObj.id_resep.trim() === "")
-      return setErrorMessage("resep tidak boleh kosong!");
     else if (leadObj.deskripsi.trim() === "")
       return setErrorMessage("deskripsi tidak boleh kosong!");
     else if (!leadObj.gambar)
@@ -101,9 +99,7 @@ function EditProductPage() {
     else if (leadObj.kategori.trim() === "")
       return setErrorMessage("kategori tidak boleh kosong!");
     else if (leadObj.kategori.trim() === "Titipan")
-      if (leadObj.stok=== 0) {
-        return setErrorMessage("stok tidak boleh kosong!");
-      } else if (leadObj.id_penitip.trim() === "") {
+      if (leadObj.id_penitip.trim() === "") {
         return setErrorMessage("penitip tidak boleh kosong!");
       } else if (!leadObj.tanggal.trim()) {
         return setErrorMessage("tanggal tidak boleh kosong!");

@@ -10,7 +10,7 @@ const EditKaryawanPage = lazy(() =>
   import("../pages/protected/karyawan/editKaryawan")
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
-const UbahPassword = lazy(() => import('../pages/ubahPassword'))
+const UbahPassword = lazy(() => import("../pages/ubahPassword"));
 
 const AddProductPage = lazy(() =>
   import("../pages/protected/produk/AddProduk")
@@ -52,12 +52,12 @@ const EditPembelian = lazy(() =>
 );
 
 //cari&DataCustomer
-const DataCustomer = lazy(()=>
+const DataCustomer = lazy(() =>
   import("../pages/protected/adminCustomer/historyCustomer")
 );
 
-const historyPesanan = lazy(()=>
-import("../pages/protected/adminCustomer/detailPesanan")
+const historyPesanan = lazy(() =>
+  import("../pages/protected/adminCustomer/detailPesanan")
 );
 
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
@@ -81,7 +81,8 @@ const SettingProfile = lazy(() =>
   import("../pages/protected/profile/profileSetting")
 );
 const TranscationHistory = lazy(() =>
-  import("../pages/protected/profile/transactionHistory"));
+  import("../pages/protected/profile/transactionHistory")
+);
 
 const UpdateProfile = lazy(() =>
   import("../pages/protected/profile/editProfile")
@@ -89,8 +90,13 @@ const UpdateProfile = lazy(() =>
 const GajiUpdate = lazy(() => import("../pages/protected/owner/editGaji"));
 const EditGaji = lazy(() => import("../pages/protected/owner/editGajiOwner"));
 
-// customer 
-const DashboardCust = lazy(() => import("../pages/protected/customer/Dashboard"));
+// customer
+const DashboardCust = lazy(() =>
+  import("../pages/protected/customer/Dashboard")
+);
+const DetailProduk = lazy(() =>
+  import("../pages/protected/customer/DetailProduk")
+);
 
 const userType = localStorage.getItem("userType");
 
@@ -174,14 +180,14 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
-       {
+      {
         path: "/customer",
         component: DataCustomer,
       },
       {
         path: "/detailPesanan/:id",
         component: historyPesanan,
-      }
+      },
     ];
     return routes;
   } else if (userType === "mo") {
@@ -252,8 +258,6 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
-
-     
     ];
     return routes;
   } else if (userType === "owner") {
@@ -285,6 +289,10 @@ const getRoutes = () => {
       {
         path: "/dashboardCustomer", // the url
         component: DashboardCust, // view rendered
+      },
+      {
+        path: "/detail-produk", // the url
+        component: DetailProduk, // view rendered
       },
       {
         path: "/settingProfile", // the url

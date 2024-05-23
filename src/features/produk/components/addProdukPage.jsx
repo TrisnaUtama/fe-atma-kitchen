@@ -13,13 +13,12 @@ import getPenitip from "../hooks/penitip";
 
 const INITIAL_LEAD_OBJ = {
   nama_produk: "",
-  id_penitip: "",
-  id_resep: "",
+  id_resep: 0,
+  id_penitip: 0,
   gambar: "",
   deskripsi: "",
   kategori: "",
   harga: "",
-  kategori: "",
   stok: "",
   tanggal: "",
 };
@@ -67,40 +66,42 @@ function AddProductPage() {
 
   const saveNewProduk = async (e) => {
     e.preventDefault();
-    if (leadObj.nama_produk.trim() === "")
-      return setErrorMessage("nama produk tidak boleh kosong!");
-    else if (leadObj.id_resep.trim() === "")
-      return setErrorMessage("resep tidak boleh kosong!");
-    else if (leadObj.deskripsi.trim() === "")
-      return setErrorMessage("deskripsi tidak boleh kosong!");
-    else if (!leadObj.gambar)
-      return setErrorMessage("gambar tidak boleh kosong!");
-    else if (leadObj.harga.trim() === "")
-      return setErrorMessage("harga tidak boleh kosong!");
-    else if (leadObj.kategori.trim() === "")
-      return setErrorMessage("kategori tidak boleh kosong!");
-    else if (leadObj.kategori.trim() === "Titipan")
-      if (leadObj.stok.trim() === "") {
-        return setErrorMessage("stok tidak boleh kosong!");
-      } else if (leadObj.id_penitip.trim() === "") {
-        return setErrorMessage("penitip tidak boleh kosong!");
-      } else if (!leadObj.tanggal.trim()) {
-        return setErrorMessage("tanggal tidak boleh kosong!");
-      }
 
-    let newLeadObj = {
+    if (!leadObj.nama_produk.trim())
+      return setErrorMessage("Nama produk tidak boleh kosong!");
+    if (!leadObj.deskripsi.trim())
+      return setErrorMessage("Deskripsi tidak boleh kosong!");
+    if (!leadObj.gambar) return setErrorMessage("Gambar tidak boleh kosong!");
+    if (!leadObj.harga) return setErrorMessage("Harga tidak boleh kosong!");
+    if (!leadObj.kategori.trim())
+      return setErrorMessage("Kategori tidak boleh kosong!");
+
+    if (leadObj.kategori.trim() === "Titipan") {
+      if (!leadObj.id_penitip)
+        return setErrorMessage("Penitip tidak boleh kosong!");
+      if (!leadObj.tanggal.trim())
+        return setErrorMessage("Tanggal tidak boleh kosong!");
+    }
+
+    const newLeadObj = {
       nama_produk: leadObj.nama_produk,
-      id_resep: leadObj.id_resep,
+      id_resep: leadObj.id_resep ? parseInt(leadObj.id_resep) : null,
       gambar: leadObj.gambar,
-      id_penitip: leadObj.id_penitip,
+      id_penitip: leadObj.id_penitip ? parseInt(leadObj.id_penitip) : null,
       deskripsi: leadObj.deskripsi,
       kategori: leadObj.kategori,
-      harga: leadObj.harga,
-      stok: leadObj.stok,
-      tanggal: leadObj.tanggal,
+      harga: parseInt(leadObj.harga) || 0,
+      stok: parseInt(leadObj.stok) || 0,
+      tanggal: leadObj.tanggal ? leadObj.tanggal : null,
     };
-    await handlerAddProduk(newLeadObj);
-    dispatch(showNotification({ message: "New Product Added!", status: 1 }));
+
+    console.log(newLeadObj);
+    try {
+      await handlerAddProduk(newLeadObj);
+      dispatch(showNotification({ message: "New Product Added!", status: 1 }));
+    } catch (error) {
+      setErrorMessage("Failed to add product: " + error.message);
+    }
   };
 
   const updateFormValue = ({ updateType, value }) => {
@@ -108,22 +109,28 @@ function AddProductPage() {
     if (updateType === "tanggal") {
       const dateObject = new Date(value);
       const formattedDate = dateObject.toISOString().split("T")[0];
-      setLeadObj({ ...leadObj, [updateType]: formattedDate });
+      setLeadObj((prevState) => ({
+        ...prevState,
+        [updateType]: formattedDate,
+      }));
     } else {
-      setLeadObj({ ...leadObj, [updateType]: value });
+      setLeadObj((prevState) => ({ ...prevState, [updateType]: value }));
     }
   };
 
   const handleResepChange = (event) => {
-    setLeadObj({ ...leadObj, id_resep: event.target.value });
+    setLeadObj((prevState) => ({ ...prevState, id_resep: event.target.value }));
   };
 
-  const HandlePenitipChange = (event) => {
-    setLeadObj({ ...leadObj, id_penitip: event.target.value });
+  const handlePenitipChange = (event) => {
+    setLeadObj((prevState) => ({
+      ...prevState,
+      id_penitip: event.target.value,
+    }));
   };
 
   const handleCategoryChange = (event) => {
-    setLeadObj({ ...leadObj, kategori: event.target.value });
+    setLeadObj((prevState) => ({ ...prevState, kategori: event.target.value }));
   };
 
   return (
@@ -136,7 +143,7 @@ function AddProductPage() {
             updateType="nama_produk"
             containerStyle="mt-4"
             labelTitle="Nama Produk"
-            placeholder="masukkan nama produk"
+            placeholder="Masukkan nama produk"
             updateFormValue={updateFormValue}
           />
         </div>
@@ -155,12 +162,11 @@ function AddProductPage() {
         <div className="grid grid-cols-2 gap-8">
           <DropdownInput
             value={leadObj.id_penitip}
-            onChange={HandlePenitipChange}
+            onChange={handlePenitipChange}
             options={namaPenitipList}
-            placeholder="Pilih penitip"
-            labelTitle="Pilih Penitp"
+            placeholder="Pilih Penitip"
+            labelTitle="Pilih Penitip"
           />
-
           <InputText
             type="date"
             defaultValue={leadObj.tanggal}
@@ -180,24 +186,22 @@ function AddProductPage() {
           placeholder="Pilih Resep"
           labelTitle="Resep"
         />
-
         <InputText
           type="number"
           defaultValue={leadObj.stok}
           updateType="stok"
           containerStyle="mt-4"
           labelTitle="Stok Produk"
-          placeholder="masukkan stok produk"
+          placeholder="Masukkan stok produk"
           updateFormValue={updateFormValue}
         />
-
         <InputText
           type="number"
           defaultValue={leadObj.harga}
           updateType="harga"
           containerStyle="mt-4"
           labelTitle="Harga Produk"
-          placeholder="masukkan harga produk"
+          placeholder="Masukkan harga produk"
           updateFormValue={updateFormValue}
         />
       </div>
@@ -211,7 +215,6 @@ function AddProductPage() {
           placeholder="Pilih gambar"
           updateFormValue={updateFormValue}
         />
-
         <TextArea
           defaultValue={leadObj.deskripsi}
           updateType="deskripsi"
@@ -221,6 +224,7 @@ function AddProductPage() {
           updateFormValue={updateFormValue}
         />
       </div>
+
       <div className="grid grid-cols-2 gap-4 mt-2 h-40">
         <div className="border border-gray-700 rounded-lg p-2 flex justify-center items-center">
           {leadObj.gambar ? (
@@ -231,11 +235,13 @@ function AddProductPage() {
               style={{ objectFit: "contain" }}
             />
           ) : (
-            <h1> Image Preview</h1>
+            <h1>Image Preview</h1>
           )}
         </div>
       </div>
+
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
+
       <div className="modal-action">
         <a className="btn btn-ghost" href="/produk">
           Cancel

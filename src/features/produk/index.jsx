@@ -15,7 +15,6 @@ import PencilSquare from "@heroicons/react/24/outline/PencilSquareIcon";
 
 const TopSideButtons = ({ applySearch }) => {
   const [searchText, setSearchText] = useState("");
-  const dispatch = useDispatch();
 
   useEffect(() => {
     applySearch(searchText);
@@ -99,56 +98,58 @@ function Produk() {
           <table className="table w-full">
             <thead>
               <tr>
-                <th className="text-center">Gambar</th>
-                <th className="text-center">Nama Produk</th>
-                <th className="text-center">Kategori</th>
-                <th className="text-center">Deskripsi</th>
-                <th className="text-center">Harga</th>
-                <th colSpan={2} className="text-center">
+                <th className="text-center border px-4 py-2">Gambar</th>
+                <th className="text-center border px-4 py-2">Nama Produk</th>
+                <th className="text-center border px-4 py-2">Kategori</th>
+                <th className="text-center border px-4 py-2">Deskripsi</th>
+                <th className="text-center border px-4 py-2">Harga</th>
+                <th colSpan={2} className="text-center border px-4 py-2">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {trans.map((l, k) => {
-                return (
-                  <tr key={k}>
-                    <td className="text-center">
-                      <div className="   space-x-3">
-                        <div className="avatar">
-                          <div className="w-28 h-28 rounded-lg">
-                            <img
-                              src={
-                                "http://localhost:8000/storage/produk/" +
-                                l.gambar
-                              }
-                              alt="Avatar"
-                            />
-                          </div>
+              {trans.map((l, k) => (
+                <tr key={k}>
+                  <td className="text-center border px-4 py-2">
+                    <div className="space-x-3">
+                      <div className="avatar">
+                        <div className="w-28 h-28 rounded-lg overflow-hidden">
+                          <img
+                            src={`http://localhost:8000/storage/produk/${l.gambar}`}
+                            alt="Avatar"
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                       </div>
-                    </td>
-                    <td className="text-center">{l.nama_produk}</td>
-                    <td className="text-center">{l.kategori}</td>
-                    <td className="text-center">{l.deskripsi}</td>
-                    <td className="text-center">${l.harga}</td>
-                    <td className="text-end">
-                      <button
-                        className="btn btn-square btn-ghost"
-                        onClick={() => handleDeleteProduct(l.id)}>
-                        <TrashIcon className="w-5" />
-                      </button>
-                    </td>
-                    <td className="text-start">
-                      <Link
-                        to={`/edit-produk/${l.id}`}
-                        className="btn btn-square btn-ghost">
-                        <PencilSquare className="w-5" />
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
+                    </div>
+                  </td>
+                  <td className="text-center border px-4 py-2">
+                    {l.nama_produk}
+                  </td>
+                  <td className="text-center border px-4 py-2">{l.kategori}</td>
+                  <td className="text-center border px-4 py-2">
+                    <div className="" title={l.deskripsi}>
+                      {l.deskripsi}
+                    </div>
+                  </td>
+                  <td className="text-center border px-4 py-2">${l.harga}</td>
+                  <td className="text-end border px-4 py-2">
+                    <button
+                      className="btn btn-square btn-ghost"
+                      onClick={() => handleDeleteProduct(l.id)}>
+                      <TrashIcon className="w-5" />
+                    </button>
+                  </td>
+                  <td className="text-start border px-4 py-2">
+                    <Link
+                      to={`/edit-produk/${l.id}`}
+                      className="btn btn-square btn-ghost">
+                      <PencilSquare className="w-5" />
+                    </Link>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
