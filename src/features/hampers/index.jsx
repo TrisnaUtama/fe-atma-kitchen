@@ -110,7 +110,7 @@ function Produk() {
               {trans.map((l, k) => {
                 return (
                   <tr key={k}>
-                    <td className="text-center">
+                    <td className="text-center border px-4 py-2">
                       <div className="   space-x-3">
                         <div className="avatar">
                           <div className="w-28 h-28 rounded-lg">
@@ -125,17 +125,17 @@ function Produk() {
                         </div>
                       </div>
                     </td>
-                    <td className="text-center">{l.nama_hampers}</td>
-                    <td className="text-center">{l.deskripsi}</td>
-                    <td className="text-center">${l.harga}</td>
-                    <td className="text-end">
+                    <td className="text-center border px-4 py-2">{l.nama_hampers}</td>
+                    <td className="text-center border px-4 py-2">{l.deskripsi}</td>
+                    <td className="text-center border px-4 py-2">${l.harga}</td>
+                    <td className="text-end  border px-4 py-2">
                       <button
                         className="btn btn-square btn-ghost"
                         onClick={() => handlerDeleteHampers(l.id)}>
                         <TrashIcon className="w-5" />
                       </button>
                     </td>
-                    <td className="text-start">
+                    <td className="text-start border px-4 py-2">
                       <Link
                         to={`/edit-hampers/${l.id}`}
                         className="btn btn-square btn-ghost">

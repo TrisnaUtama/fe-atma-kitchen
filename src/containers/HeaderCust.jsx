@@ -2,7 +2,6 @@ import { themeChange } from "theme-change";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import BellIcon from "@heroicons/react/24/outline/BellIcon";
-import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
 import SunIcon from "@heroicons/react/24/outline/SunIcon";
 import { openRightDrawer } from "../features/common/rightDrawerSlice";
@@ -10,11 +9,10 @@ import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
 import Avatar from "../assets/images/avatar.png";
 
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 function Header() {
   const dispatch = useDispatch();
-  const { noOfNotifications, pageTitle } = useSelector((state) => state.header);
+  const { noOfNotifications} = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(
     localStorage.getItem("theme")
   );
@@ -51,22 +49,13 @@ function Header() {
   }
 
   return (
-    // navbar fixed  flex-none justify-between bg-base-300  z-10 shadow-md
     <>
-      <div className="navbar sticky top-0 bg-base-100  z-10 shadow-md ">
+      <div className="navbar sticky top-0 bg-base-100  z-10 shadow-md">
         {/* Menu toogle for mobile view or small screen */}
         <div className="flex-1">
           <h1 className="text-2xl font-semibold ml-2">
             Hello {userLogin.nama}
           </h1>
-        </div>
-
-        <div className="justify-start flex-grow">
-          <Link to="dashboard">
-            <span className="transition-all ease-in-out delay-150 text-lg hover:-translate-y-1 hover:scale-110 hover:text-gray-50 hover:text-xl duration-300">
-              Produk
-            </span>
-          </Link>
         </div>
         <div className="flex items-center">
           {/* Light and dark theme selection toogle **/}
@@ -108,7 +97,7 @@ function Header() {
           <div className="dropdown dropdown-end ml-4">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={Avatar} alt="profile" />
+                <img className="" src={Avatar} alt="profile" />
               </div>
             </label>
             <ul

@@ -1,4 +1,5 @@
-import PageContent from "./PageContentCust";
+import PageContentCust from "./PageContentCust";
+import PageContent from "./PageContent";
 import LeftSidebar from "./LeftSidebar";
 import { useSelector, useDispatch } from "react-redux";
 import RightSidebar from "./RightSidebar";
@@ -33,9 +34,9 @@ function Layout() {
   return (
     <>
       {userType === "customer" ? (
-        <>
-          <PageContent />
-        </>
+        <div className="drawer  lg:drawer-open">
+          <PageContentCust />
+        </div>
       ) : (
         <>
           <div className="drawer  lg:drawer-open">

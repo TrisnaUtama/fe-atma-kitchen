@@ -6,10 +6,10 @@ export default function useAddBahanBaku() {
   const [validation, setValidation] = useState();
   const navigate = useNavigate();
   const handlerAddBahanBaku = useCallback(async (formData) => {
-    const { nama_bahan_baku, satuan } = formData;
+    const { nama_bahan_baku, satuan, stok } = formData;
     const formDataObj = new FormData();
     formDataObj.append("nama_bahan_baku", nama_bahan_baku);
-    // formDataObj.append("stok", stok);
+    formDataObj.append("stok", stok);
     formDataObj.append("satuan", satuan);
 
     try {
