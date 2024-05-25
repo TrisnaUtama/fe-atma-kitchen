@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Karyawan = lazy(() => import("../pages/protected/karyawan/karyawan"));
@@ -10,7 +10,7 @@ const EditKaryawanPage = lazy(() =>
   import("../pages/protected/karyawan/editKaryawan")
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
-const UbahPassword = lazy(() => import('../pages/ubahPassword'))
+// const UbahPassword = lazy(() => import("../pages/ubahPassword"));
 const DasboardCustomer = lazy(() =>
   import("../pages/protected/DashboardCustomer")
 );
@@ -54,12 +54,12 @@ const EditPembelian = lazy(() =>
 );
 
 //cari&DataCustomer
-const DataCustomer = lazy(()=>
+const DataCustomer = lazy(() =>
   import("../pages/protected/adminCustomer/historyCustomer")
 );
 
-const historyPesanan = lazy(()=>
-import("../pages/protected/adminCustomer/detailPesanan")
+const historyPesanan = lazy(() =>
+  import("../pages/protected/adminCustomer/detailPesanan")
 );
 
 const AddHampers = lazy(() => import("../pages/protected/hampers/AddHampers"));
@@ -83,13 +83,22 @@ const SettingProfile = lazy(() =>
   import("../pages/protected/profile/profileSetting")
 );
 const TranscationHistory = lazy(() =>
-  import("../pages/protected/profile/transactionHistory"));
+  import("../pages/protected/profile/transactionHistory")
+);
 
 const UpdateProfile = lazy(() =>
   import("../pages/protected/profile/editProfile")
 );
 const GajiUpdate = lazy(() => import("../pages/protected/owner/editGaji"));
 const EditGaji = lazy(() => import("../pages/protected/owner/editGajiOwner"));
+
+const getPengiriman = lazy(() =>
+  import("../pages/protected/adminPengiriman/detailPengiriman")
+);
+
+const getPembayaran = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailPembayaran")
+);
 
 const userType = localStorage.getItem("userType");
 
@@ -173,14 +182,22 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
-       {
+      {
         path: "/customer",
         component: DataCustomer,
       },
       {
         path: "/detailPesanan/:id",
         component: historyPesanan,
-      }
+      },
+      {
+        path: "/pengiriman",
+        component: getPengiriman,
+      },
+      {
+        path: "/getPembayaran",
+        component: getPembayaran,
+      },
     ];
     return routes;
   } else if (userType === "mo") {
@@ -251,8 +268,6 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
-
-     
     ];
     return routes;
   } else if (userType === "owner") {

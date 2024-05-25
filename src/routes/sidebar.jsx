@@ -37,7 +37,18 @@ if (userType === "admin") {
       path: "customer",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Data Customer",
-    }
+    },
+
+    {
+      path: "Pengiriman",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Input Pengiriman",
+    },
+    {
+      path: "getPembayaran",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Input Pembayaran",
+    },
   ];
 } else if (userType === "mo") {
   routes = [
