@@ -11,9 +11,7 @@ const EditKaryawanPage = lazy(() =>
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
 
-const DasboardCustomer = lazy(() =>
-  import("../pages/protected/DashboardCustomer")
-);
+
 const UbahPassword = lazy(() => import("../pages/ubahPassword"));
 
 const AddProductPage = lazy(() =>
