@@ -100,6 +100,7 @@ const getPengiriman = lazy(() =>
 
 const getPembayaran = lazy(() =>
   import("../pages/protected/adminPembayaran/detailPembayaran")
+);
 // customer
 const DashboardCust = lazy(() =>
   import("../pages/protected/customer/Dashboard")
