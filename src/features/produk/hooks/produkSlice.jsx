@@ -20,21 +20,23 @@ export default function useAddProduk() {
     const formDataObj = new FormData();
     console.log(stok);
     formDataObj.append("nama_produk", nama_produk);
-    formDataObj.append("id_penitip", id_penitip);
-    formDataObj.append("id_resep", id_resep);
-    formDataObj.append("harga", harga);
+    formDataObj.append("id_penitip", id_penitip || "");
+    formDataObj.append("id_resep", id_resep || "");
+    formDataObj.append("harga", harga || "");
     formDataObj.append("gambar", gambar);
     formDataObj.append("deskripsi", deskripsi);
     formDataObj.append("kategori", kategori);
-    formDataObj.append("tanggal", tanggal);
-    formDataObj.append("stok", stok);
+    formDataObj.append("tanggal", tanggal || '');
+    if (stok !== undefined) {
+      formDataObj.append("stok", stok);
+    }
 
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/v1/produk/addProduk`,
         formDataObj
       );
-      navigate('/produk')
+      navigate("/produk");
       console.log(response.data);
     } catch (error) {
       setValidation(error.response.data);

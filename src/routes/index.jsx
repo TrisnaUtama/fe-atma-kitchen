@@ -10,10 +10,12 @@ const EditKaryawanPage = lazy(() =>
   import("../pages/protected/karyawan/editKaryawan")
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
-// const UbahPassword = lazy(() => import("../pages/ubahPassword"));
+
 const DasboardCustomer = lazy(() =>
   import("../pages/protected/DashboardCustomer")
 );
+const UbahPassword = lazy(() => import("../pages/ubahPassword"));
+
 const AddProductPage = lazy(() =>
   import("../pages/protected/produk/AddProduk")
 );
@@ -98,6 +100,12 @@ const getPengiriman = lazy(() =>
 
 const getPembayaran = lazy(() =>
   import("../pages/protected/adminPembayaran/detailPembayaran")
+// customer
+const DashboardCust = lazy(() =>
+  import("../pages/protected/customer/Dashboard")
+);
+const DetailProduk = lazy(() =>
+  import("../pages/protected/customer/DetailProduk")
 );
 
 const userType = localStorage.getItem("userType");
@@ -298,7 +306,11 @@ const getRoutes = () => {
     routes = [
       {
         path: "/dashboardCustomer", // the url
-        component: DasboardCustomer, // view rendered
+        component: DashboardCust, // view rendered
+      },
+      {
+        path: "/detail-produk", // the url
+        component: DetailProduk, // view rendered
       },
       {
         path: "/settingProfile", // the url

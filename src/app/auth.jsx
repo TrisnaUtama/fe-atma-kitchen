@@ -9,8 +9,15 @@ export default function useLoginHandler() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (
+      localStorage.getItem("token") &&
+      userLogin.role === 1 &&
+      userLogin.role === 2 &&
+      userLogin.role === 3
+    ) {
       navigate("/dashboard");
+    } else if (localStorage.getItem("token")) {
+      navigate("/dashboardCustomer");
     }
   }, [navigate]);
 
@@ -34,6 +41,7 @@ export default function useLoginHandler() {
         setUserLogin(userData);
         setToken(accessToken);
         localStorage.setItem("token", accessToken);
+        localStorage.setItem("userLogin", JSON.stringify(userData));
 
         if (userData.id_saldo != null) {
           userData.id_role = false;
@@ -44,6 +52,7 @@ export default function useLoginHandler() {
         if (userData.id_saldo !== null && userData.id_role === false) {
           userType = "customer";
           localStorage.setItem("userType", userType);
+          console.log(userData);
           navigate("/dashboardCustomer");
         } else if (userData.id_role === 3 && userData.id_saldo === false) {
           userType = "mo";
@@ -71,34 +80,40 @@ export default function useLoginHandler() {
   return { loginHandler, token, validation, userLogin };
 }
 
-export async function sendEmailRequest(email){
-    try{
-      const response = await fetch('http://localhost:8000/api/v1/lupaPassword/create',{
+export async function sendEmailRequest(email) {
+  try {
+    const response = await fetch(
+      "http://localhost:8000/api/v1/lupaPassword/create",
+      {
         method: "POST",
-        headers:{
+        headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({email}),
-      });
-      const data = await response.json();
-      return {data, status: response.status};
-    }catch(error){
-      return error;
-    }
+        body: JSON.stringify({ email }),
+      }
+    );
+    const data = await response.json();
+    return { data, status: response.status };
+  } catch (error) {
+    return error;
+  }
 }
 
-export async function sendValidateToken(token){
-  try{
-    const response = await fetch(`http://localhost:8000/api/v1/validate/${token}`,{
-      method: "GET",
-      headers:{
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-    });
+export async function sendValidateToken(token) {
+  try {
+    const response = await fetch(
+      `http://localhost:8000/api/v1/validate/${token}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
     const data = await response.json();
-    return {data, status: response.status};
-  }catch(error){
+    return { data, status: response.status };
+  } catch (error) {
     return error;
   }
 }
