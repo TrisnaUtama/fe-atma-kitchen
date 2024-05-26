@@ -288,7 +288,7 @@ export default function DashboardCustomer() {
     setDataCart(updatedCart);
   };
 
-  console.log(listProduk);
+  console.log(dataCart);
 
   return (
     <div className="flex flex-col h-full">

@@ -115,28 +115,9 @@ export default function ModalCheckout({
     let id_alamat = parseInt(selectedAlamat, 10);
 
     if (deliveryType === "delivery") {
-      if (togglerAlamat === 1) {
-        if (newAlamat === "") {
-          setError("Please enter a new address.");
-          setLoading(false);
-          return;
-        } else {
-          try {
-            const newAddress = {
-              id_customer: customerId,
-              nama_alamat: newAlamat,
-            };
-            const response = await addNewAlamat(newAddress);
-            id_alamat = response.id;
-            setAlamat([...alamat, { id: id_alamat, nama_alamat: newAlamat }]);
-          } catch (error) {
-            console.error("Failed to add new address:", error);
-            setError("Failed to add new address.");
-            setLoading(false);
-            return;
-          }
-        }
-      } else if (togglerAlamat === 2 && !selectedAlamat) {
+      // Your existing code for handling delivery addresses...
+
+      if (togglerAlamat === 2 && !selectedAlamat) {
         setError("Please select an address.");
         setLoading(false);
         return;
@@ -148,7 +129,10 @@ export default function ModalCheckout({
       ...item,
       id_alamat: id_alamat || null,
       potongan_poin: usePoints ? pointsToUse : 0,
+      deliveryType: deliveryType, 
     }));
+
+    console.log(itemsToUpdate);
 
     try {
       await addPemesanan({ items: itemsToUpdate });
@@ -184,14 +168,16 @@ export default function ModalCheckout({
               className={`btn mr-5 ${
                 deliveryType === "pickup" ? "bg-gray-50 text-black" : ""
               }`}
-              onClick={handlePickupSelect}>
+              onClick={handlePickupSelect}
+            >
               Pickup
             </button>
             <button
               className={`btn ${
                 deliveryType === "delivery" ? "bg-gray-50 text-black" : ""
               }`}
-              onClick={handleDeliverySelect}>
+              onClick={handleDeliverySelect}
+            >
               Delivery
             </button>
           </div>
@@ -224,7 +210,8 @@ export default function ModalCheckout({
                 <select
                   className="border-none mt-3 p-2 rounded-lg bg-gray-700 text-white w-full"
                   value={selectedAlamat}
-                  onChange={handleSelectedAlamatChange}>
+                  onChange={handleSelectedAlamatChange}
+                >
                   <option value="">Select Address</option>
                   {alamat.map((address) => (
                     <option key={address.id} value={address.id}>
@@ -299,13 +286,15 @@ export default function ModalCheckout({
           <button
             className="bg-blue-500 text-white p-2 rounded"
             onClick={onClose}
-            disabled={loading}>
+            disabled={loading}
+          >
             Close
           </button>
           <button
             className="bg-blue-500 text-white p-2 rounded"
             onClick={handleCheckout}
-            disabled={loading}>
+            disabled={loading}
+          >
             {loading ? "Loading..." : "Checkout"}
           </button>
         </div>

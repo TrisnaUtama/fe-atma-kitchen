@@ -11,9 +11,9 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
 
   useEffect(() => {
     const today = new Date();
-    if (product.stok < 0 && (!limit || (limit.limit !== null && limit.limit > 0))) {
+    if (product.stok <= 0 && (!limit || limit.limit > 0)) {
       setSelectedKategori("Pre-Order");
-    } else if (limit && limit.limit < 0 && product.stok > 0) {
+    } else if (limit && limit.limit < 0 && product.stok >= 0) {
       setSelectedKategori("Ready Stok");
     } else {
       // setSelectedKategori(kategori[1]);

@@ -255,7 +255,7 @@ function Transaksi() {
                   <th className="text-center">Total</th>
                   <th className="text-center">Tip</th>
                   <th className="text-center">Jarak</th>
-                  <th className="text-center">Jarak</th>
+                  <th className="text-center">Bukti Pembayaran</th>
                   <th className="text-center">Ongkir</th>
                   {filterParam !== "pembayaran valid" && (
                     <th className="text-center">Action</th>
@@ -274,16 +274,24 @@ function Transaksi() {
 
                     <td className="text-center">{item.nama.no_telpn}</td>
                     <td className="text-center">
-                      {item.alamat[0].nama_alamat}
+                      {item.id_alamat == null
+                        ? "dipickup"
+                        : item.alamat[0].nama_alamat}
                     </td>
-                    <td className="text-center">{item.uang_customer}</td>
+                    <td className="text-center">
+                      {item.uang_customer ? item.uang_customer : "0"}
+                    </td>
                     <td className="text-center">
                       {item.detail_pemesanan.length > 0
                         ? item.detail_pemesanan[0].subtotal
                         : "0"}
                     </td>
-                    <td className="text-center">{item.tip}</td>
-                    <td className="text-center">{item.jarak_delivery}</td>
+                    <td className="text-center">
+                      {item.tip == null ? "0" : item.tip}
+                    </td>
+                    <td className="text-center">
+                      {item.jarak_delivery ? item.jarak_delivery : "dipickup"}
+                    </td>
                     <td className="text-center">
                       {item.bukti_pembayaran && (
                         <a
@@ -301,7 +309,9 @@ function Transaksi() {
                         </a>
                       )}
                     </td>
-                    <td className="text-center">{item.ongkir}</td>
+                    <td className="text-center">
+                      {item.ongkir ? item.ongkir : "dipickup"}
+                    </td>
                     {filterParam !== "pembayaran valid" && (
                       <td
                         className="text-center flex justify-center"
