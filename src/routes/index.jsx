@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Karyawan = lazy(() => import("../pages/protected/karyawan/karyawan"));
@@ -10,6 +10,8 @@ const EditKaryawanPage = lazy(() =>
   import("../pages/protected/karyawan/editKaryawan")
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
+
+
 const UbahPassword = lazy(() => import("../pages/ubahPassword"));
 
 const AddProductPage = lazy(() =>
@@ -90,9 +92,19 @@ const UpdateProfile = lazy(() =>
 const GajiUpdate = lazy(() => import("../pages/protected/owner/editGaji"));
 const EditGaji = lazy(() => import("../pages/protected/owner/editGajiOwner"));
 
+
 //KonfirmasiMO
 const KonfirmasiMO = lazy(()=>
 import("../pages/protected/konfirmasiMO/Konfirmasi")
+);
+
+
+const getPengiriman = lazy(() =>
+  import("../pages/protected/adminPengiriman/detailPengiriman")
+);
+
+const getPembayaran = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailPembayaran")
 );
 
 // customer
@@ -101,6 +113,12 @@ const DashboardCust = lazy(() =>
 );
 const DetailProduk = lazy(() =>
   import("../pages/protected/customer/DetailProduk")
+);
+const DetailHampers = lazy(() =>
+  import("../pages/protected/customer/DetailHampers")
+);
+const PemesananList = lazy(() =>
+  import("../pages/protected/customer/Pemesanan")
 );
 
 const listPembayaran = lazy(() =>
@@ -159,15 +177,15 @@ const getRoutes = () => {
       },
       {
         path: "/resep", // the url
-        component: Resep, // view rendered
+        component: Resep,
       },
       {
         path: "/tambahResep", // the url
-        component: TambahResep, // view rendered
+        component: TambahResep,
       },
       {
         path: "/editResep/:id", // the url
-        component: EditResep, // view rendered
+        component: EditResep,
       },
       {
         path: "/produk",
@@ -187,11 +205,11 @@ const getRoutes = () => {
       },
       {
         path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        component: SettingProfile,
       },
       {
         path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        component: UpdateProfile,
       },
       {
         path: "/customer",
@@ -200,6 +218,14 @@ const getRoutes = () => {
       {
         path: "/detailPesanan/:id",
         component: historyPesanan,
+      },
+      {
+        path: "/pengiriman",
+        component: getPengiriman,
+      },
+      {
+        path: "/getPembayaran",
+        component: getPembayaran,
       },
     ];
     return routes;
@@ -264,12 +290,12 @@ const getRoutes = () => {
         component: EditKaryawanPage,
       },
       {
-        path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        path: "/settingProfile",
+        component: SettingProfile,
       },
       {
-        path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        path: "/updateProfile",
+        component: UpdateProfile,
       },
 
       {
@@ -285,46 +311,51 @@ const getRoutes = () => {
         component: Dashboard,
       },
       {
-        path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        path: "/settingProfile",
+        component: SettingProfile,
       },
       {
-        path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        path: "/updateProfile",
+        component: UpdateProfile,
       },
       {
-        path: "/Gaji", // the url
-        component: GajiUpdate, // view renderedss
+        path: "/Gaji",
+        component: GajiUpdate,
       },
       {
-        path: "/editGaji/:id", // the url
-        component: EditGaji, // view renderedss
+        path: "/editGaji/:id",
+        component: EditGaji,
       },
     ];
     return routes;
   } else {
     routes = [
       {
-        path: "/dashboardCustomer", // the url
-        component: DashboardCust, // view rendered
+        path: "/dashboardCustomer",
+        component: DashboardCust,
       },
       {
-        path: "/detail-produk", // the url
-        component: DetailProduk, // view rendered
+        path: "/detail-produk/:id",
+        component: DetailProduk,
       },
       {
-        path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        path: "/detail-hampers/:id",
+        component: DetailHampers,
       },
       {
-        path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        path: "/settingProfile",
+        component: SettingProfile,
+      },
+      {
+        path: "/updateProfile",
+        component: UpdateProfile,
       },
       {
         path: "/transcationHistory",
         component: TranscationHistory,
       },
       {
+
         path: "/listPembayaran",
         component: listPembayaran,
       },
@@ -332,6 +363,11 @@ const getRoutes = () => {
         path: "/bayarPesanan",
         component: bayarPesanan,
       }
+
+        path: "/pemesananList",
+        component: PemesananList,
+      },
+
     ];
     return routes;
   }
