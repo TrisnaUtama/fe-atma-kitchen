@@ -66,6 +66,11 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Karyawan",
     },
+    {
+      path: "konfrimasiPesanan",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Konfirmasi Pesanan",
+    }
   ];
 } else if (userType === "owner") {
   routes = [

@@ -109,6 +109,9 @@ function Header() {
               <li className="">
                 <Link to={"/transcationHistory"}>Transcation History</Link>
               </li>
+              <li className="">
+                <Link to={"/listPembayaran"}>List Pembayaran</Link>
+              </li>
               <div className="divider mt-0 mb-0"></div>
               <li>
                 <a onClick={logoutUser}>Logout</a>

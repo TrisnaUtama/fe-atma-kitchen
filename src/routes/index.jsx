@@ -90,12 +90,25 @@ const UpdateProfile = lazy(() =>
 const GajiUpdate = lazy(() => import("../pages/protected/owner/editGaji"));
 const EditGaji = lazy(() => import("../pages/protected/owner/editGajiOwner"));
 
+//KonfirmasiMO
+const KonfirmasiMO = lazy(()=>
+import("../pages/protected/konfirmasiMO/Konfirmasi")
+);
+
 // customer
 const DashboardCust = lazy(() =>
   import("../pages/protected/customer/Dashboard")
 );
 const DetailProduk = lazy(() =>
   import("../pages/protected/customer/DetailProduk")
+);
+
+const listPembayaran = lazy(() =>
+  import("../pages/protected/customer/ListPesanan")
+);
+
+const bayarPesanan = lazy(() =>
+  import("../pages/protected/customer/bayarPesanan")
 );
 
 const userType = localStorage.getItem("userType");
@@ -258,6 +271,11 @@ const getRoutes = () => {
         path: "/updateProfile", // the url
         component: UpdateProfile, // view renderedss
       },
+
+      {
+        path: "/konfrimasiPesanan",
+        component: KonfirmasiMO,
+      }
     ];
     return routes;
   } else if (userType === "owner") {
@@ -306,6 +324,14 @@ const getRoutes = () => {
         path: "/transcationHistory",
         component: TranscationHistory,
       },
+      {
+        path: "/listPembayaran",
+        component: listPembayaran,
+      },
+      {
+        path: "/bayarPesanan",
+        component: bayarPesanan,
+      }
     ];
     return routes;
   }
