@@ -17,7 +17,7 @@ const TopSideButtons = ({
   searchText,
   setSearchText,
 }) => {
-  const locationFilters = ["Sudah Di Bayar"];
+  const locationFilters = ["pembayaran valid"];
 
   const showFiltersAndApply = (params) => {
     applyFilter(params);
@@ -106,7 +106,7 @@ function Transaksi() {
   };
 
   const applyFilter = async (params) => {
-    if (params === "Sudah Di Bayar") {
+    if (params === "pembayaran valid") {
       await prosesPesanan();
     } else {
       let filteredTransactions = trans.filter((t) => {
@@ -219,6 +219,10 @@ function Transaksi() {
     fetchTransaksi();
   }, []);
 
+  const getStatusBadgeClass = (status_pesanan) => {
+    return status_pesanan === "pembayaran valid" ? "badge badge-accent " : "";
+  };
+
   return (
     <>
       <TitleCard
@@ -251,8 +255,9 @@ function Transaksi() {
                   <th className="text-center">Total</th>
                   <th className="text-center">Tip</th>
                   <th className="text-center">Jarak</th>
+                  <th className="text-center">Jarak</th>
                   <th className="text-center">Ongkir</th>
-                  {filterParam !== "Sudah Di Bayar" && (
+                  {filterParam !== "pembayaran valid" && (
                     <th className="text-center">Action</th>
                   )}
                 </tr>
@@ -261,7 +266,12 @@ function Transaksi() {
                 {trans.map((item, index) => (
                   <tr key={index}>
                     <td className="text-center">{item.nama.nama}</td>
-                    <td className="text-center">{item.status_pesanan}</td>
+                    <td className={"text-center"}>
+                      <div className={getStatusBadgeClass(item.status_pesanan)}>
+                        {item.status_pesanan}
+                      </div>
+                    </td>
+
                     <td className="text-center">{item.nama.no_telpn}</td>
                     <td className="text-center">
                       {item.alamat[0].nama_alamat}
@@ -274,8 +284,25 @@ function Transaksi() {
                     </td>
                     <td className="text-center">{item.tip}</td>
                     <td className="text-center">{item.jarak_delivery}</td>
+                    <td className="text-center">
+                      {item.bukti_pembayaran && (
+                        <a
+                          href={`http://127.0.0.1:8000/storage/buktiBayar/${item.bukti_pembayaran}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <div className="flex justify-center items-center">
+                            <img
+                              src={`http://127.0.0.1:8000/storage/buktiBayar/${item.bukti_pembayaran}`}
+                              alt="Bukti Pembayaran"
+                              className="w-20 h-20 cursor-pointer"
+                            />
+                          </div>
+                        </a>
+                      )}
+                    </td>
                     <td className="text-center">{item.ongkir}</td>
-                    {filterParam !== "Sudah Di Bayar" && (
+                    {filterParam !== "pembayaran valid" && (
                       <td
                         className="text-center flex justify-center"
                         onClick={() => openAddNewLeadModal(item)}
