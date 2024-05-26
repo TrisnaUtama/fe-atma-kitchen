@@ -22,14 +22,21 @@ const JarakModal = ({ isOpen, onClose, onSave, initialData, paymentError }) => {
   }, [initialData]);
 
   const handleSave = async () => {
-    if (!jarak || parseFloat(jarak) <= 0) {
-      setErrorMessage("Pembayaran delivery harus lebih dari 0.");
+    if (!jarak || jarak <= 0) {
+      setErrorMessage(
+        "Pembayaran delivery harus sesuai dengan bukti pembayaran customer."
+      );
       return;
     }
 
-    if (parseFloat(jarak) !== parseFloat(initialData.uang_customer)) {
+    const subtotal = initialData.detail_pemesanan.reduce(
+      (acc, item) => acc + item.subtotal,
+      0
+    );
+
+    if (jarak < subtotal) {
       setErrorMessage(
-        "Pembayaran harus sama dengan uang customer yang diberikan."
+        "Pembayaran harus setidaknya sama dengan subtotal pesanan."
       );
       return;
     }
