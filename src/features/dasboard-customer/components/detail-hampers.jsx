@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getSpecificProduct } from "../hooks/produk.hooks";
+import { getSpecificHampers } from "../hooks/produk.hooks";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,16 +11,15 @@ import {
 
 export default function DetailProduk() {
   const { id } = useParams();
-  const [dataProduk, setdataProduk] = useState({});
-  
+  const [dataHampers, setdataHampers] = useState({});
 
   useEffect(() => {
-    const fetchProduk = async () => {
-      const produk = await getSpecificProduct(id);
-      setdataProduk(produk.data);
-      console.log(produk);
+    const fetchHampers = async () => {
+      const hampers = await getSpecificHampers(id);
+      setdataHampers(hampers.data);
+      console.log(hampers);
     };
-    fetchProduk();
+    fetchHampers();
   }, []);
 
   const formatToIDR = (number) => {
@@ -35,20 +34,19 @@ export default function DetailProduk() {
   };
 
   return (
-    <>
+    <div>
       <button
         className="bg-transparent p-3 rounded text-white font-semibold hover:bg-gray-700"
         onClick={handleGoBack}>
         Back
       </button>
-      <h1 className="text-center mt-10 text-5xl font-bold">Detail Produk</h1>
-
+      <h1 className="text-center mt-10 text-5xl font-bold">Detail Hampers</h1>
       <div className="h-screen flex items-center justify-center">
         <div className="grid grid-cols-2 mx-10">
           <div className="border border-gray-600 shadow-xl p-12 rounded-l-lg">
             <img
               className="w-full h-96 rounded-lg object-cover mt-3"
-              src={`http://localhost:8000/storage/produk/${dataProduk.gambar}`}
+              src={`http://localhost:8000/storage/hampers/${dataHampers.gambar}`}
               alt=""
             />
           </div>
@@ -62,21 +60,23 @@ export default function DetailProduk() {
               }}>
               <div className="w-32 h-14 rounded-lg bg-white">
                 <p className="text-center text-black text-2xl p-3 font-bold">
-                  {dataProduk.kategori}
+                  {dataHampers.kategori}
                 </p>
               </div>
               <p className="mt-5 font-bold text-2xl">
-                {dataProduk.nama_produk}
+                {dataHampers.nama_produk}
               </p>
               <div className="mt-10">
                 <p className="font-semibold text-xl">start from </p>
                 <p className="font-bold text-2xl">
-                  {formatToIDR(dataProduk.harga)}
+                  {formatToIDR(dataHampers.harga)}
                 </p>
               </div>
               <div className="mt-10">
                 <p className="font-semibold">Description : </p>
-                <p className="font-bold text-justify">{dataProduk.deskripsi}</p>
+                <p className="font-bold text-justify">
+                  {dataHampers.deskripsi}
+                </p>
               </div>
               <div className="mt-10">
                 <p className="font-semibold text-xl">
@@ -113,6 +113,6 @@ export default function DetailProduk() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

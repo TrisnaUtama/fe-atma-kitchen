@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   const dispatch = useDispatch();
-  const { noOfNotifications} = useSelector((state) => state.header);
+  const { noOfNotifications } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(
     localStorage.getItem("theme")
   );
@@ -108,6 +108,9 @@ function Header() {
               </li>
               <li className="">
                 <Link to={"/transcationHistory"}>Transcation History</Link>
+              </li>
+              <li className="">
+                <Link to={"/pemesananList"}>Pemesanan</Link>
               </li>
               <div className="divider mt-0 mb-0"></div>
               <li>

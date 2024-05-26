@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { themeChange } from "theme-change";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 // Importing pages
 const Layout = lazy(() => import("./containers/Layout"));
@@ -30,6 +30,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/*" element={<Layout />} />
         </Routes>
+        <ToastContainer position="bottom-right"/>
       </Router>
       <ToastContainer />
     </>
