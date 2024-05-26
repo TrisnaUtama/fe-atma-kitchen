@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Karyawan = lazy(() => import("../pages/protected/karyawan/karyawan"));
@@ -10,6 +10,8 @@ const EditKaryawanPage = lazy(() =>
   import("../pages/protected/karyawan/editKaryawan")
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
+
+
 const UbahPassword = lazy(() => import("../pages/ubahPassword"));
 
 const AddProductPage = lazy(() =>
@@ -90,6 +92,13 @@ const UpdateProfile = lazy(() =>
 const GajiUpdate = lazy(() => import("../pages/protected/owner/editGaji"));
 const EditGaji = lazy(() => import("../pages/protected/owner/editGajiOwner"));
 
+const getPengiriman = lazy(() =>
+  import("../pages/protected/adminPengiriman/detailPengiriman")
+);
+
+const getPembayaran = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailPembayaran")
+);
 // customer
 const DashboardCust = lazy(() =>
   import("../pages/protected/customer/Dashboard")
@@ -193,6 +202,14 @@ const getRoutes = () => {
       {
         path: "/detailPesanan/:id",
         component: historyPesanan,
+      },
+      {
+        path: "/pengiriman",
+        component: getPengiriman,
+      },
+      {
+        path: "/getPembayaran",
+        component: getPembayaran,
       },
     ];
     return routes;
