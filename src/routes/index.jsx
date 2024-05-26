@@ -11,7 +11,6 @@ const EditKaryawanPage = lazy(() =>
 );
 const Produk = lazy(() => import("../pages/protected/produk/Produk"));
 
-
 const UbahPassword = lazy(() => import("../pages/ubahPassword"));
 
 const AddProductPage = lazy(() =>
@@ -92,12 +91,10 @@ const UpdateProfile = lazy(() =>
 const GajiUpdate = lazy(() => import("../pages/protected/owner/editGaji"));
 const EditGaji = lazy(() => import("../pages/protected/owner/editGajiOwner"));
 
-
 //KonfirmasiMO
-const KonfirmasiMO = lazy(()=>
-import("../pages/protected/konfirmasiMO/Konfirmasi")
+const KonfirmasiMO = lazy(() =>
+  import("../pages/protected/konfirmasiMO/Konfirmasi")
 );
-
 
 const getPengiriman = lazy(() =>
   import("../pages/protected/adminPengiriman/detailPengiriman")
@@ -301,7 +298,7 @@ const getRoutes = () => {
       {
         path: "/konfrimasiPesanan",
         component: KonfirmasiMO,
-      }
+      },
     ];
     return routes;
   } else if (userType === "owner") {
@@ -355,19 +352,17 @@ const getRoutes = () => {
         component: TranscationHistory,
       },
       {
-
         path: "/listPembayaran",
         component: listPembayaran,
       },
       {
         path: "/bayarPesanan",
         component: bayarPesanan,
-      }
-
+      },
+      {
         path: "/pemesananList",
         component: PemesananList,
       },
-
     ];
     return routes;
   }
