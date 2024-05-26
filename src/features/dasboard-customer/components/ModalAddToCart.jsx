@@ -7,17 +7,16 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
   const [minDateTime, setMinDateTime] = useState("");
   const [dateTimeError, setDateTimeError] = useState(false);
 
-  const limit =
-    product.limit && product.limit.length > 0 ? product.limit[0] : null;
+  const limit = product.limit && product.limit.length > 0 ? product.limit[0] : null;
 
   useEffect(() => {
     const today = new Date();
-    if (product.stok < 0 && (!limit || limit.limit > 0)) {
+    if (product.stok < 0 && (!limit || (limit.limit !== null && limit.limit > 0))) {
       setSelectedKategori("Pre-Order");
     } else if (limit && limit.limit < 0 && product.stok > 0) {
       setSelectedKategori("Ready Stok");
     } else {
-      setSelectedKategori(kategori[1]);
+      // setSelectedKategori(kategori[1]);
     }
 
     if (selectedKategori === "Pre-Order" && limit) {
@@ -88,13 +87,13 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
             onChange={(e) => setSelectedKategori(e.target.value)}
             className="p-2 rounded-lg bg-gray-700 text-white w-full"
             disabled={
-              !limit || !limit.limit || (limit.limit < 0 && product.stok < 0)
+              !limit || (limit.limit !== null && limit.limit < 0 && product.stok < 0)
             }>
             {kategori.map((kat, index) => (
               <option
                 key={index}
                 value={kat}
-                disabled={kat === "Pre-Order" && (!limit || !limit.limit)}>
+                disabled={kat === "Pre-Order" && !limit}>
                 {kat}
               </option>
             ))}

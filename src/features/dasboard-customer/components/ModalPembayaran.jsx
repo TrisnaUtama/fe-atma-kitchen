@@ -9,7 +9,7 @@ const BuktiPembayaran = React.forwardRef(({ data, onClose }, ref) => {
     documentTitle: "Bukti Pembayaran",
     onAfterPrint: () => {
       alert("Print successful!");
-      onClose(); 
+      onClose();
     },
   });
 

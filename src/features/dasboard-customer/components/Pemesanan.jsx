@@ -115,39 +115,28 @@ function PemesananList() {
                       : transaction.potongan_poin}
                   </td>
                   <td className="text-center border px-4 py-2">
-                    {transaction.status_pesanan === "dikonfirmasi admin" ? (
+                    {transaction.status_pesanan === "sudah di bayar" ? (
                       <div className="bg-yellow-500 p-1 text-md rounded-lg text-black">
                         {transaction.status_pesanan}
                       </div>
-                    ) : transaction.status_pesanan === "menunggu pembayaran" ? (
+                    ) : transaction.status_pesanan === "pembayaran valid" ? (
                       <div className="bg-purple-500 rounded-lg p-1 text-md text-black">
                         {transaction.status_pesanan}
                       </div>
-                    ) : transaction.status_pesanan === "sudah dibayar" ? (
-                      <div className="bg-blue-500 rounded-lg p-1 text-md text-black">
-                        {transaction.status_pesanan}
-                      </div>
                     ) : (
-                      <div className="bg-green-500 rounded-lg p-1 text-md text-black">
-                        {transaction.status_pesanan}
-                      </div>
+                      transaction.status_pesanan === "diterima" && (
+                        <div className="bg-blue-500 rounded-lg p-1 text-md text-black">
+                          {transaction.status_pesanan}
+                        </div>
+                      )
                     )}
                   </td>
                   <td className="text-center border px-4 py-2">
-                    {transaction.status_pesanan === "menunggu pembayaran" ? (
-                      <button
-                        className="btn btn-square btn-ghost"
-                        onClick={() => handlePencilSquareClick(transaction)}>
-                        <PencilSquare className="w-5" />
-                      </button>
-                    ) : transaction.status_pesanan === "sudah dibayar" ||
-                      transaction.status_pesanan === "pembayaran valid" ? (
-                      <button
-                        className="btn btn-square btn-ghost"
-                        onClick={() => handlePencilSquareClick(transaction)}>
-                        <PencilSquare className="w-5" />
-                      </button>
-                    ) : null}
+                    <button
+                      className="btn btn-square btn-ghost"
+                      onClick={() => handlePencilSquareClick(transaction)}>
+                      <PencilSquare className="w-5" />
+                    </button>
                   </td>
                 </tr>
               ))}
