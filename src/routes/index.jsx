@@ -97,6 +97,12 @@ const DashboardCust = lazy(() =>
 const DetailProduk = lazy(() =>
   import("../pages/protected/customer/DetailProduk")
 );
+const DetailHampers = lazy(() =>
+  import("../pages/protected/customer/DetailHampers")
+);
+const PemesananList = lazy(() =>
+  import("../pages/protected/customer/Pemesanan")
+);
 
 const userType = localStorage.getItem("userType");
 
@@ -146,15 +152,15 @@ const getRoutes = () => {
       },
       {
         path: "/resep", // the url
-        component: Resep, // view rendered
+        component: Resep,
       },
       {
         path: "/tambahResep", // the url
-        component: TambahResep, // view rendered
+        component: TambahResep,
       },
       {
         path: "/editResep/:id", // the url
-        component: EditResep, // view rendered
+        component: EditResep,
       },
       {
         path: "/produk",
@@ -174,11 +180,11 @@ const getRoutes = () => {
       },
       {
         path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        component: SettingProfile,
       },
       {
         path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        component: UpdateProfile,
       },
       {
         path: "/customer",
@@ -251,12 +257,12 @@ const getRoutes = () => {
         component: EditKaryawanPage,
       },
       {
-        path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        path: "/settingProfile",
+        component: SettingProfile,
       },
       {
-        path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        path: "/updateProfile",
+        component: UpdateProfile,
       },
     ];
     return routes;
@@ -267,44 +273,52 @@ const getRoutes = () => {
         component: Dashboard,
       },
       {
-        path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        path: "/settingProfile",
+        component: SettingProfile,
       },
       {
-        path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        path: "/updateProfile",
+        component: UpdateProfile,
       },
       {
-        path: "/Gaji", // the url
-        component: GajiUpdate, // view renderedss
+        path: "/Gaji",
+        component: GajiUpdate,
       },
       {
-        path: "/editGaji/:id", // the url
-        component: EditGaji, // view renderedss
+        path: "/editGaji/:id",
+        component: EditGaji,
       },
     ];
     return routes;
   } else {
     routes = [
       {
-        path: "/dashboardCustomer", // the url
-        component: DashboardCust, // view rendered
+        path: "/dashboardCustomer",
+        component: DashboardCust,
       },
       {
-        path: "/detail-produk", // the url
-        component: DetailProduk, // view rendered
+        path: "/detail-produk/:id",
+        component: DetailProduk,
       },
       {
-        path: "/settingProfile", // the url
-        component: SettingProfile, // view rendered
+        path: "/detail-hampers/:id",
+        component: DetailHampers,
       },
       {
-        path: "/updateProfile", // the url
-        component: UpdateProfile, // view renderedss
+        path: "/settingProfile",
+        component: SettingProfile,
+      },
+      {
+        path: "/updateProfile",
+        component: UpdateProfile,
       },
       {
         path: "/transcationHistory",
         component: TranscationHistory,
+      },
+      {
+        path: "/pemesananList",
+        component: PemesananList,
       },
     ];
     return routes;
