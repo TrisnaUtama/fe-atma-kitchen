@@ -108,7 +108,9 @@ function Transaksi() {
                     <td className="text-center">{item.status_pesanan}</td>
                     <td className="text-center">{item.nama.no_telpn}</td>
                     <td className="text-center">
-                      {item.alamat[0].nama_alamat}
+                      {item.id_alamat == null
+                        ? "di-pickup"
+                        : item.alamat[0].nama_alamat}
                     </td>
                     <td className="text-center">{item.jarak_delivery}</td>
                     <td
