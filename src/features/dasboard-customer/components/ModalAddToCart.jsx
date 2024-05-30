@@ -19,10 +19,8 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
     } else if (limit && limit.limit <= 0 && product.stok > 0) {
       newSelectedKategori = "Ready Stok";
     } else {
-      newSelectedKategori = kategori[0];
+      setSelectedKategori(selectedKategori);
     }
-
-    setSelectedKategori(newSelectedKategori);
 
     if (newSelectedKategori === "Pre-Order" && limit) {
       const twoDaysAfter = new Date(today);
@@ -50,6 +48,8 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
     );
     onClose();
   };
+
+  console.log(selectedKategori);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 mx-10">
@@ -92,9 +92,9 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
             onChange={(e) => setSelectedKategori(e.target.value)}
             className="p-2 rounded-lg bg-gray-700 text-white w-full"
             disabled={
-              !limit || !limit.limit || (limit.limit < 0 && product.stok < 0)
-            }
-          >
+              !limit ||
+              (limit.limit !== null && limit.limit < 0 && product.stok < 0)
+            }>
             {kategori.map((kat, index) => (
               <option
                 key={index}
