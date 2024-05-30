@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import TitleCard from "../../../components/Cards/TitleCard";
 import SearchBar from "../../../components/Input/SearchBar";
 import axios from "axios";
-import PencilSquare from "@heroicons/react/24/outline/PencilSquareIcon";
-import BuktiPembayaran from "./ModalPembayaran";
+import Receipt from "./ModalPembayaran";
 
 const TopSideButtons = ({ applySearch }) => {
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     applySearch(searchText);
-  }, [searchText]);
+  }, [searchText, applySearch]);
 
   return (
     <div className="inline-block float-right">
@@ -27,7 +26,6 @@ function PemesananList() {
   const token = localStorage.getItem("token");
   const [trans, setTrans] = useState([]);
   const [listPemesanan, setListPemesanan] = useState([]);
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
   const userLogin = JSON.parse(localStorage.getItem("userLogin"));
 
   useEffect(() => {
@@ -46,17 +44,30 @@ function PemesananList() {
     };
 
     fetchPemesanan();
-  }, []);
+  }, [token, userLogin.id]);
 
-  const applySearch = (value) => {
-    let filteredTransactions = listPemesanan.filter((t) => {
-      return t.status_pesanan.toLowerCase().includes(value.toLowerCase());
-    });
-    setTrans(filteredTransactions);
-  };
+  const applySearch = useCallback(
+    (value) => {
+      let filteredTransactions = listPemesanan.filter((t) => {
+        return (
+          ["sudah di bayar", "pembayaran valid", "diterima"].includes(
+            t.status_pesanan
+          ) && t.status_pesanan.toLowerCase().includes(value.toLowerCase())
+        );
+      });
+      setTrans(filteredTransactions);
+    },
+    [listPemesanan]
+  );
 
-  const handlePencilSquareClick = (transaction) => {
-    setSelectedTransaction(transaction);
+  const handlePrint = (transaction) => {
+    const printContents = document.getElementById(
+      `receipt-to-print-${transaction.id}`
+    ).innerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
   };
 
   return (
@@ -73,16 +84,6 @@ function PemesananList() {
                 <th className="text-center border px-4 py-2">
                   Tanggal Pemesanan
                 </th>
-                <th className="text-center border px-4 py-2">
-                  Tanggal Dibayar
-                </th>
-                <th className="text-center border px-4 py-2">
-                  Tanggal Diambil
-                </th>
-                <th className="text-center border px-4 py-2">Jarak Delivery</th>
-                <th className="text-center border px-4 py-2">Poin Pesanan</th>
-                <th className="text-center border px-4 py-2">Potongan Poin</th>
-                <th className="text-center border px-4 py-2">Status Pesanan</th>
                 <th className="text-center border px-4 py-2">Action</th>
               </tr>
             </thead>
@@ -96,46 +97,10 @@ function PemesananList() {
                     {transaction.tanggal_pemesanan}
                   </td>
                   <td className="text-center border px-4 py-2">
-                    {transaction.tanggal_pembayaran}
-                  </td>
-                  <td className="text-center border px-4 py-2">
-                    {transaction.tanggal_diambil}
-                  </td>
-                  <td className="text-center border px-4 py-2">
-                    {transaction.jarak_delivery == null
-                      ? 0
-                      : transaction.jarak_delivery}
-                  </td>
-                  <td className="text-center border px-4 py-2">
-                    {transaction.poin_pesanan}
-                  </td>
-                  <td className="text-center border px-4 py-2">
-                    {transaction.potongan_poin == null
-                      ? 0
-                      : transaction.potongan_poin}
-                  </td>
-                  <td className="text-center border px-4 py-2">
-                    {transaction.status_pesanan === "sudah di bayar" ? (
-                      <div className="bg-yellow-500 p-1 text-md rounded-lg text-black">
-                        {transaction.status_pesanan}
-                      </div>
-                    ) : transaction.status_pesanan === "pembayaran valid" ? (
-                      <div className="bg-purple-500 rounded-lg p-1 text-md text-black">
-                        {transaction.status_pesanan}
-                      </div>
-                    ) : (
-                      transaction.status_pesanan === "diterima" && (
-                        <div className="bg-blue-500 rounded-lg p-1 text-md text-black">
-                          {transaction.status_pesanan}
-                        </div>
-                      )
-                    )}
-                  </td>
-                  <td className="text-center border px-4 py-2">
                     <button
-                      className="btn btn-square btn-ghost"
-                      onClick={() => handlePencilSquareClick(transaction)}>
-                      <PencilSquare className="w-5" />
+                      className="btn text-md"
+                      onClick={() => handlePrint(transaction)}>
+                      Print
                     </button>
                   </td>
                 </tr>
@@ -144,12 +109,16 @@ function PemesananList() {
           </table>
         </div>
       </TitleCard>
-      {selectedTransaction && (
-        <BuktiPembayaran
-          data={selectedTransaction}
-          onClose={() => setSelectedTransaction(null)}
-        />
-      )}
+      <div style={{ display: "none" }}>
+        {trans.map((transaction) => (
+          <div
+            key={transaction.id}
+            id={`receipt-to-print-${transaction.id}`}
+            style={{ display: "none" }}>
+            <Receipt transaction={transaction} />
+          </div>
+        ))}
+      </div>
     </>
   );
 }

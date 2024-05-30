@@ -7,7 +7,8 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
   const [minDateTime, setMinDateTime] = useState("");
   const [dateTimeError, setDateTimeError] = useState(false);
 
-  const limit = product.limit && product.limit.length > 0 ? product.limit[0] : null;
+  const limit =
+    product.limit && product.limit.length > 0 ? product.limit[0] : null;
 
   useEffect(() => {
     const today = new Date();
@@ -16,7 +17,7 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
     } else if (limit && limit.limit < 0 && product.stok >= 0) {
       setSelectedKategori("Ready Stok");
     } else {
-      // setSelectedKategori(kategori[1]);
+      setSelectedKategori(selectedKategori);
     }
 
     if (selectedKategori === "Pre-Order" && limit) {
@@ -45,6 +46,8 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
     );
     onClose();
   };
+
+  console.log(selectedKategori);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 mx-10">
@@ -87,7 +90,8 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
             onChange={(e) => setSelectedKategori(e.target.value)}
             className="p-2 rounded-lg bg-gray-700 text-white w-full"
             disabled={
-              !limit || (limit.limit !== null && limit.limit < 0 && product.stok < 0)
+              !limit ||
+              (limit.limit !== null && limit.limit < 0 && product.stok < 0)
             }>
             {kategori.map((kat, index) => (
               <option
