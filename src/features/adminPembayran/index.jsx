@@ -185,7 +185,7 @@ function Transaksi() {
   const handleSave = async (bayar) => {
     if (!currentTrans) return;
 
-    const { id } = currentTrans; // Assuming the transaction has an ID field
+    const { id } = currentTrans;
 
     try {
       const response = await axios.post(
@@ -207,7 +207,6 @@ function Transaksi() {
         console.log(response.data.message);
         closeModal();
       } else {
-        // Handle insufficient payment
         setPaymentError(response.data.message);
       }
     } catch (error) {
@@ -282,9 +281,17 @@ function Transaksi() {
                       {item.uang_customer ? item.uang_customer : "0"}
                     </td>
                     <td className="text-center">
-                      {item.detail_pemesanan.length > 0
-                        ? item.detail_pemesanan[0].subtotal
-                        : "0"}
+                      {item.detail_pemesanan.length > 0 ? (
+                        <>
+                          {console.log(item.detail_pemesanan.length)}
+                          {item.detail_pemesanan.reduce(
+                            (total, detail) => total + detail.subtotal,
+                            0
+                          )}
+                        </>
+                      ) : (
+                        "0"
+                      )}
                     </td>
                     <td className="text-center">
                       {item.tip == null ? "0" : item.tip}

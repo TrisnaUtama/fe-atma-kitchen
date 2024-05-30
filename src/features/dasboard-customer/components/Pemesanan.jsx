@@ -68,6 +68,7 @@ function PemesananList() {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
+    window.location.reload();
   };
 
   return (
@@ -75,7 +76,8 @@ function PemesananList() {
       <TitleCard
         title="List Pemesanan"
         topMargin="mt-2"
-        TopSideButtons={<TopSideButtons applySearch={applySearch} />}>
+        TopSideButtons={<TopSideButtons applySearch={applySearch} />}
+      >
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <thead>
@@ -99,7 +101,8 @@ function PemesananList() {
                   <td className="text-center border px-4 py-2">
                     <button
                       className="btn text-md"
-                      onClick={() => handlePrint(transaction)}>
+                      onClick={() => handlePrint(transaction)}
+                    >
                       Print
                     </button>
                   </td>
@@ -114,7 +117,8 @@ function PemesananList() {
           <div
             key={transaction.id}
             id={`receipt-to-print-${transaction.id}`}
-            style={{ display: "none" }}>
+            style={{ display: "none" }}
+          >
             <Receipt transaction={transaction} />
           </div>
         ))}

@@ -12,22 +12,24 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
 
   useEffect(() => {
     const today = new Date();
+
+    let newSelectedKategori;
     if (product.stok <= 0 && (!limit || limit.limit > 0)) {
-      setSelectedKategori("Pre-Order");
-    } else if (limit && limit.limit < 0 && product.stok >= 0) {
-      setSelectedKategori("Ready Stok");
+      newSelectedKategori = "Pre-Order";
+    } else if (limit && limit.limit <= 0 && product.stok > 0) {
+      newSelectedKategori = "Ready Stok";
     } else {
       setSelectedKategori(selectedKategori);
     }
 
-    if (selectedKategori === "Pre-Order" && limit) {
+    if (newSelectedKategori === "Pre-Order" && limit) {
       const twoDaysAfter = new Date(today);
       twoDaysAfter.setDate(today.getDate() + 2);
       setMinDateTime(twoDaysAfter.toISOString().slice(0, 16));
     } else {
       setMinDateTime(today.toISOString().slice(0, 16));
     }
-  }, [selectedKategori, limit, product.stok]);
+  }, [limit, product.stok, kategori, setMinDateTime, setSelectedKategori]);
 
   const handleAddToCart = () => {
     if (!orderDateTime) {
@@ -97,7 +99,8 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
               <option
                 key={index}
                 value={kat}
-                disabled={kat === "Pre-Order" && !limit}>
+                disabled={kat === "Pre-Order" && (!limit || !limit.limit)}
+              >
                 {kat}
               </option>
             ))}
@@ -126,12 +129,14 @@ const AddToCartModal = ({ onClose, addToCart, product }) => {
         <div className="flex justify-end space-x-4">
           <button
             className="bg-blue-500 text-white p-2 rounded"
-            onClick={onClose}>
+            onClick={onClose}
+          >
             Close
           </button>
           <button
             className="bg-blue-500 text-white p-2 rounded"
-            onClick={handleAddToCart}>
+            onClick={handleAddToCart}
+          >
             Add
           </button>
         </div>

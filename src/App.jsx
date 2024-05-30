@@ -11,6 +11,7 @@ const Login = lazy(() => import("./pages/Login"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const Register = lazy(() => import("./pages/Register"));
 const UbahPassword = lazy(() => import("./pages/ubahPassword"));
+const DasboardUmum = lazy(()=> import("./pages/protected/landingPage"));
 
 function App() {
   useEffect(() => {
@@ -21,7 +22,8 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<DasboardUmum/>} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route
             path="/forgot-password/change-password/:token"
