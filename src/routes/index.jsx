@@ -104,6 +104,10 @@ const getPembayaran = lazy(() =>
   import("../pages/protected/adminPembayaran/detailPembayaran")
 );
 
+const updateStatusPesanan = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailPesanan")
+);
+
 // customer
 const DashboardCust = lazy(() =>
   import("../pages/protected/customer/Dashboard")
@@ -223,6 +227,10 @@ const getRoutes = () => {
       {
         path: "/getPembayaran",
         component: getPembayaran,
+      },
+      {
+        path: "/updateStatusPesanan",
+        component: updateStatusPesanan,
       },
     ];
     return routes;
