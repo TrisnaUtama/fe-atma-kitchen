@@ -61,6 +61,11 @@ if (userType === "admin") {
           icon: <Squares2X2Icon className={submenuIconClasses} />,
           name: "Update Status Pembayaran",
         },
+        {
+          path: "showTelatBayar",
+          icon: <Squares2X2Icon className={submenuIconClasses} />,
+          name: "Show Telat Bayar",
+        },
       ],
     },
   ];
@@ -130,6 +135,10 @@ if (userType === "admin") {
       name: "Gaji & Bonus",
     },
     {
+      path: "laporanBahanBaku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Bahan Baku Periode",
+
       path: "laporan-produk-bulanan",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Laporan Produk Bulanan",
@@ -138,6 +147,7 @@ if (userType === "admin") {
       path: "laporan-bahan-baku",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Laporan Bahan Baku",
+
     },
   ];
 } else {

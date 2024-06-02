@@ -108,6 +108,10 @@ const updateStatusPesanan = lazy(() =>
   import("../pages/protected/adminPembayaran/detailPesanan")
 );
 
+const showTelatBayar = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailShowTelatBayar")
+);
+
 // customer
 const DashboardCust = lazy(() =>
   import("../pages/protected/customer/Dashboard")
@@ -122,6 +126,10 @@ const PemesananList = lazy(() =>
   import("../pages/protected/customer/Pemesanan")
 );
 
+const konfirmasiPenerimaan = lazy(() =>
+  import("../pages/protected/customer/Penerimaan")
+);
+
 const listPembayaran = lazy(() =>
   import("../pages/protected/customer/ListPesanan")
 );
@@ -129,6 +137,9 @@ const listPembayaran = lazy(() =>
 const bayarPesanan = lazy(() =>
   import("../pages/protected/customer/bayarPesanan")
 );
+
+const laporanBahanBaku = lazy(() =>
+  import("../pages/protected/laporanBahanBaku/laporan")
 
 const PemrosesanPesanan = lazy(() =>
   import("../pages/protected/Status-Pemesanan(MO)/main-page")
@@ -245,6 +256,10 @@ const getRoutes = () => {
       {
         path: "/updateStatusPesanan",
         component: updateStatusPesanan,
+      },
+      {
+        path: "/showTelatBayar",
+        component: showTelatBayar,
       },
     ];
     return routes;
@@ -363,6 +378,8 @@ const getRoutes = () => {
         component: EditGaji,
       },
       {
+        path: "/laporanBahanBaku",
+        component: laporanBahanBaku,
         path: "/laporan-produk-bulanan",
         component: LaporanProdukBulanan,
       },
@@ -409,6 +426,10 @@ const getRoutes = () => {
       {
         path: "/pemesananList",
         component: PemesananList,
+      },
+      {
+        path: "/konfirmasiPenerimaan",
+        component: konfirmasiPenerimaan,
       },
     ];
     return routes;
