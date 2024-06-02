@@ -49,6 +49,11 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Input Pembayaran",
     },
+    {
+      path: "konfirmasiSaldo",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Konfirmasi Saldo",
+    },
   ];
 } else if (userType === "mo") {
   routes = [
@@ -81,6 +86,21 @@ if (userType === "admin") {
       path: "konfrimasiPesanan",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Konfirmasi Pesanan",
+    },
+    {
+      path: "listPenitip",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Penitip",
+    },
+    {
+      path: "pemasukanPengeluaran",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Pemasukan Pengeluaran",
+    },
+    {
+      path: "laporanPresensi",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Presensi",
     }
   ];
 } else if (userType === "owner") {

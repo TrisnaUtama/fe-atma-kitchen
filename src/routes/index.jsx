@@ -100,9 +100,35 @@ const getPengiriman = lazy(() =>
   import("../pages/protected/adminPengiriman/detailPengiriman")
 );
 
+//LaporanPenitip
+const ListPenitip = lazy(()=>
+import("../pages/protected/LaporanPenitip/ListLaporanPenitip")
+);
+const  DetailLaporan = lazy(()=>
+import("../pages/protected/LaporanPenitip/DetailLaporanPenitip")
+);
+
+//PemasukanPengeluaran
+const LaporanPenitip = lazy(()=>
+import("../pages/protected/LaporanPemasukanPengeluaran/listLaporanPemasukanPengeluaran")
+);
+
+//LaporanPresensi
+const LaporanPresensi = lazy(()=>
+import("../pages/protected/LaporanPresensi/listLaporanPresensi")
+);
+
+
+
 const getPembayaran = lazy(() =>
   import("../pages/protected/adminPembayaran/detailPembayaran")
 );
+
+//konfirmasiAdminSaldo
+const KonfirmasiAdminSaldo = lazy(() =>
+  import("../pages/protected/adminSaldo/listSaldo")
+);
+
 
 // customer
 const DashboardCust = lazy(() =>
@@ -224,6 +250,11 @@ const getRoutes = () => {
         path: "/getPembayaran",
         component: getPembayaran,
       },
+
+      {
+        path: "/konfirmasiSaldo",
+        component: KonfirmasiAdminSaldo,
+      }
     ];
     return routes;
   } else if (userType === "mo") {
@@ -299,6 +330,24 @@ const getRoutes = () => {
         path: "/konfrimasiPesanan",
         component: KonfirmasiMO,
       },
+
+      {
+        path:"/listPenitip",
+        component: ListPenitip,
+      },
+      {
+        path:"/detailLaporan/:id",
+        component: DetailLaporan,
+      },
+      {
+        path:"/pemasukanPengeluaran",
+        component: LaporanPenitip,
+      },
+      {
+        path: "/laporanPresensi",
+        component: LaporanPresensi,
+      }
+
     ];
     return routes;
   } else if (userType === "owner") {

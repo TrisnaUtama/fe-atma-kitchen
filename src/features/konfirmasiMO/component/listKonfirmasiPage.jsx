@@ -57,8 +57,7 @@ function KonfirmasiPesanan() {
             );
 
             if (response.status === 200) {
-                toast.success(`${modalAction === 'tolak' ? 'Rejection' : 'Confirmation'} successful!`);
-                // Remove the confirmed/rejected item from the list
+                toast.success(`${modalAction === 'Confirmation'} successful!`);
                 setKonfirmasiPesanan(prevState =>
                     prevState.filter(historyItem =>
                         !historyItem.detail_pemesanan.some(detailItem => detailItem.id_pemesanan === selectedId)
