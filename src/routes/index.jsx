@@ -140,6 +140,19 @@ const bayarPesanan = lazy(() =>
 
 const laporanBahanBaku = lazy(() =>
   import("../pages/protected/laporanBahanBaku/laporan")
+
+const PemrosesanPesanan = lazy(() =>
+  import("../pages/protected/Status-Pemesanan(MO)/main-page")
+);
+
+const PemakaianBahanBaku = lazy(() =>
+  import("../pages/protected/bahan-baku-usage/page")
+);
+const LaporanProdukBulanan = lazy(() =>
+  import("../pages/protected/laporan/Produk")
+);
+const LaporanBahanBaku = lazy(() =>
+  import("../pages/protected/laporan/BahanBaku")
 );
 
 const userType = localStorage.getItem("userType");
@@ -323,6 +336,23 @@ const getRoutes = () => {
         path: "/konfrimasiPesanan",
         component: KonfirmasiMO,
       },
+
+      {
+        path: "/pemrosesan-pesanan",
+        component: PemrosesanPesanan,
+      },
+      {
+        path: "/pemakaian-bahan-baku",
+        component: PemakaianBahanBaku,
+      },
+      {
+        path: "/laporan-produk-bulanan",
+        component: LaporanProdukBulanan,
+      },
+      {
+        path: "/laporan-bahan-baku",
+        component: LaporanBahanBaku,
+      },
     ];
     return routes;
   } else if (userType === "owner") {
@@ -350,6 +380,12 @@ const getRoutes = () => {
       {
         path: "/laporanBahanBaku",
         component: laporanBahanBaku,
+        path: "/laporan-produk-bulanan",
+        component: LaporanProdukBulanan,
+      },
+      {
+        path: "/laporan-bahan-baku",
+        component: LaporanBahanBaku,
       },
     ];
     return routes;
