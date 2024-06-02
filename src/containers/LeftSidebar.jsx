@@ -5,8 +5,6 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import logo from "../assets/images/logoAtma.jpg";
 
-import logo from "../assets/images/logoAtma.jpg"
-
 function LeftSidebar() {
   const location = useLocation();
 

@@ -121,6 +121,11 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Laporan Bahan Baku",
     },
+    {
+      path: "laporanBahanBaku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Bahan Baku Periode",
+    },
   ];
 } else if (userType === "owner") {
   routes = [
@@ -138,7 +143,8 @@ if (userType === "admin") {
       path: "laporanBahanBaku",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Laporan Bahan Baku Periode",
-
+    },
+    {
       path: "laporan-produk-bulanan",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Laporan Produk Bulanan",
@@ -147,7 +153,6 @@ if (userType === "admin") {
       path: "laporan-bahan-baku",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Laporan Bahan Baku",
-
     },
   ];
 } else {

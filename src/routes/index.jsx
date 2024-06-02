@@ -140,6 +140,7 @@ const bayarPesanan = lazy(() =>
 
 const laporanBahanBaku = lazy(() =>
   import("../pages/protected/laporanBahanBaku/laporan")
+);
 
 const PemrosesanPesanan = lazy(() =>
   import("../pages/protected/Status-Pemesanan(MO)/main-page")
@@ -353,6 +354,10 @@ const getRoutes = () => {
         path: "/laporan-bahan-baku",
         component: LaporanBahanBaku,
       },
+      {
+        path: "/laporanBahanBaku",
+        component: laporanBahanBaku,
+      },
     ];
     return routes;
   } else if (userType === "owner") {
@@ -380,6 +385,8 @@ const getRoutes = () => {
       {
         path: "/laporanBahanBaku",
         component: laporanBahanBaku,
+      },
+      {
         path: "/laporan-produk-bulanan",
         component: LaporanProdukBulanan,
       },
