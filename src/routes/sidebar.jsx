@@ -61,6 +61,11 @@ if (userType === "admin") {
           icon: <Squares2X2Icon className={submenuIconClasses} />,
           name: "Update Status Pembayaran",
         },
+        {
+          path: "showTelatBayar",
+          icon: <Squares2X2Icon className={submenuIconClasses} />,
+          name: "Show Telat Bayar",
+        },
       ],
     },
   ];
@@ -108,6 +113,11 @@ if (userType === "admin") {
       path: "Gaji",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Gaji & Bonus",
+    },
+    {
+      path: "laporanBahanBaku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Bahan Baku Periode",
     },
   ];
 } else {

@@ -108,6 +108,10 @@ const updateStatusPesanan = lazy(() =>
   import("../pages/protected/adminPembayaran/detailPesanan")
 );
 
+const showTelatBayar = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailShowTelatBayar")
+);
+
 // customer
 const DashboardCust = lazy(() =>
   import("../pages/protected/customer/Dashboard")
@@ -122,12 +126,20 @@ const PemesananList = lazy(() =>
   import("../pages/protected/customer/Pemesanan")
 );
 
+const konfirmasiPenerimaan = lazy(() =>
+  import("../pages/protected/customer/Penerimaan")
+);
+
 const listPembayaran = lazy(() =>
   import("../pages/protected/customer/ListPesanan")
 );
 
 const bayarPesanan = lazy(() =>
   import("../pages/protected/customer/bayarPesanan")
+);
+
+const laporanBahanBaku = lazy(() =>
+  import("../pages/protected/laporanBahanBaku/laporan")
 );
 
 const userType = localStorage.getItem("userType");
@@ -232,6 +244,10 @@ const getRoutes = () => {
         path: "/updateStatusPesanan",
         component: updateStatusPesanan,
       },
+      {
+        path: "/showTelatBayar",
+        component: showTelatBayar,
+      },
     ];
     return routes;
   } else if (userType === "mo") {
@@ -331,6 +347,10 @@ const getRoutes = () => {
         path: "/editGaji/:id",
         component: EditGaji,
       },
+      {
+        path: "/laporanBahanBaku",
+        component: laporanBahanBaku,
+      },
     ];
     return routes;
   } else {
@@ -370,6 +390,10 @@ const getRoutes = () => {
       {
         path: "/pemesananList",
         component: PemesananList,
+      },
+      {
+        path: "/konfirmasiPenerimaan",
+        component: konfirmasiPenerimaan,
       },
     ];
     return routes;

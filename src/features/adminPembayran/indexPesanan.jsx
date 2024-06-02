@@ -188,7 +188,6 @@ function Transaksi() {
       );
 
       if (response.data.status) {
-        // Update the status locally
         setTrans((prevTrans) =>
           prevTrans.map((item) =>
             item.id === id

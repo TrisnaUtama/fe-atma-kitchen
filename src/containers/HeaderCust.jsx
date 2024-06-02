@@ -83,7 +83,8 @@ function Header() {
           {/* Notification icon */}
           <button
             className="btn btn-ghost ml-4  btn-circle"
-            onClick={() => openNotification()}>
+            onClick={() => openNotification()}
+          >
             <div className="indicator">
               <BellIcon className="h-6 w-6" />
               {noOfNotifications > 0 ? (
@@ -102,7 +103,8 @@ function Header() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
               <li className="justify-between">
                 <Link to={"/settingProfile"}>Profile Setting</Link>
               </li>
@@ -110,11 +112,11 @@ function Header() {
                 <Link to={"/transcationHistory"}>Transcation History</Link>
               </li>
               <li className="">
-
                 <Link to={"/listPembayaran"}>List Pembayaran</Link>
 
                 <Link to={"/pemesananList"}>Pemesanan</Link>
 
+                <Link to={"/konfirmasiPenerimaan"}>Konfirmasi Penerimaan</Link>
               </li>
               <div className="divider mt-0 mb-0"></div>
               <li>
