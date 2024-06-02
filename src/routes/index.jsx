@@ -108,7 +108,7 @@ const  DetailLaporan = lazy(()=>
 import("../pages/protected/LaporanPenitip/DetailLaporanPenitip")
 );
 
-//PemasukanPengeluaran
+//Pengeluaran
 const LaporanPenitip = lazy(()=>
 import("../pages/protected/LaporanPemasukanPengeluaran/listLaporanPemasukanPengeluaran")
 );
@@ -124,9 +124,19 @@ const getPembayaran = lazy(() =>
   import("../pages/protected/adminPembayaran/detailPembayaran")
 );
 
+
 //konfirmasiAdminSaldo
 const KonfirmasiAdminSaldo = lazy(() =>
   import("../pages/protected/adminSaldo/listSaldo")
+);
+
+
+const updateStatusPesanan = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailPesanan")
+);
+
+const showTelatBayar = lazy(() =>
+  import("../pages/protected/adminPembayaran/detailShowTelatBayar")
 );
 
 
@@ -144,12 +154,33 @@ const PemesananList = lazy(() =>
   import("../pages/protected/customer/Pemesanan")
 );
 
+const konfirmasiPenerimaan = lazy(() =>
+  import("../pages/protected/customer/Penerimaan")
+);
+
 const listPembayaran = lazy(() =>
   import("../pages/protected/customer/ListPesanan")
 );
 
 const bayarPesanan = lazy(() =>
   import("../pages/protected/customer/bayarPesanan")
+);
+
+const laporanBahanBaku = lazy(() =>
+  import("../pages/protected/laporanBahanBaku/laporan")
+
+const PemrosesanPesanan = lazy(() =>
+  import("../pages/protected/Status-Pemesanan(MO)/main-page")
+);
+
+const PemakaianBahanBaku = lazy(() =>
+  import("../pages/protected/bahan-baku-usage/page")
+);
+const LaporanProdukBulanan = lazy(() =>
+  import("../pages/protected/laporan/Produk")
+);
+const LaporanBahanBaku = lazy(() =>
+  import("../pages/protected/laporan/BahanBaku")
 );
 
 const userType = localStorage.getItem("userType");
@@ -251,10 +282,21 @@ const getRoutes = () => {
         component: getPembayaran,
       },
 
+
       {
         path: "/konfirmasiSaldo",
         component: KonfirmasiAdminSaldo,
       }
+
+      {
+        path: "/updateStatusPesanan",
+        component: updateStatusPesanan,
+      },
+      {
+        path: "/showTelatBayar",
+        component: showTelatBayar,
+      },
+
     ];
     return routes;
   } else if (userType === "mo") {
@@ -332,6 +374,7 @@ const getRoutes = () => {
       },
 
       {
+
         path:"/listPenitip",
         component: ListPenitip,
       },
@@ -346,7 +389,25 @@ const getRoutes = () => {
       {
         path: "/laporanPresensi",
         component: LaporanPresensi,
-      }
+      },
+
+
+      {
+        path: "/pemrosesan-pesanan",
+        component: PemrosesanPesanan,
+      },
+      {
+        path: "/pemakaian-bahan-baku",
+        component: PemakaianBahanBaku,
+      },
+      {
+        path: "/laporan-produk-bulanan",
+        component: LaporanProdukBulanan,
+      },
+      {
+        path: "/laporan-bahan-baku",
+        component: LaporanBahanBaku,
+      },
 
     ];
     return routes;
@@ -371,6 +432,16 @@ const getRoutes = () => {
       {
         path: "/editGaji/:id",
         component: EditGaji,
+      },
+      {
+        path: "/laporanBahanBaku",
+        component: laporanBahanBaku,
+        path: "/laporan-produk-bulanan",
+        component: LaporanProdukBulanan,
+      },
+      {
+        path: "/laporan-bahan-baku",
+        component: LaporanBahanBaku,
       },
     ];
     return routes;
@@ -411,6 +482,10 @@ const getRoutes = () => {
       {
         path: "/pemesananList",
         component: PemesananList,
+      },
+      {
+        path: "/konfirmasiPenerimaan",
+        component: konfirmasiPenerimaan,
       },
     ];
     return routes;

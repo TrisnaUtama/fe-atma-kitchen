@@ -3,9 +3,7 @@ import TitleCard from "../../components/Cards/TitleCard";
 import SearchBar from "../../components/Input/SearchBar";
 import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import PencilSquare from "@heroicons/react/24/outline/PencilSquareIcon";
 import { useDispatch } from "react-redux";
-import AddPembayaran from "./AddPembayran";
 import axios from "axios";
 
 const TopSideButtons = ({
@@ -85,22 +83,8 @@ function Transaksi() {
   const [error, setError] = useState(null);
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [currentTrans, setCurrentTrans] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [paymentError, setPaymentError] = useState(null); // For handling payment errors
+
   const dispatch = useDispatch();
-
-  const openAddNewLeadModal = (transItem) => {
-    setCurrentTrans(transItem);
-    setIsModalOpen(true);
-    console.log(transItem);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setCurrentTrans(null);
-    setPaymentError(null); // Clear the payment error when closing the modal
-  };
 
   const removeFilter = async () => {
     await fetchTransaksi(); // Re-fetch the original data
@@ -133,7 +117,7 @@ function Transaksi() {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/v1/detailPemesanan/getStatusPesanan"
+        "http://127.0.0.1:8000/api/v1/detailPemesanan/getStatusDiproses"
       );
       const fetchedTransaksi = response.data.data;
       console.log(fetchedTransaksi);
@@ -160,7 +144,7 @@ function Transaksi() {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/v1/detailPemesanan/getStatus"
+        "http://127.0.0.1:8000/api/v1/detailPemesanan/getStatusDiproses"
       );
       const fetchedTransaksi = response.data.data;
       console.log(fetchedTransaksi);
@@ -183,15 +167,19 @@ function Transaksi() {
     }
   };
 
-  const handleSave = async (bayar) => {
-    if (!currentTrans) return;
+  useEffect(() => {
+    fetchTransaksi();
+  }, []);
 
-    const { id } = currentTrans;
+  const getStatusBadgeClass = (status_pesanan) => {
+    return status_pesanan === "pembayaran valid" ? "badge badge-accent " : "";
+  };
 
+  const handlePickup = async (id) => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/v1/detailPemesanan/addPembayaran/${id}`,
-        { uang_customer: bayar },
+        `http://127.0.0.1:8000/api/v1/detailPemesanan/updateStatus/${id}`,
+        { status_pesanan: "siap di-pickup" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -202,31 +190,54 @@ function Transaksi() {
       if (response.data.status) {
         setTrans((prevTrans) =>
           prevTrans.map((item) =>
-            item.id === id ? { ...item, uang_customer: bayar } : item
+            item.id === id
+              ? { ...item, status_pesanan: "siap di-pickup" }
+              : item
           )
         );
         console.log(response.data.message);
-        closeModal();
       } else {
-        setPaymentError(response.data.message);
+        console.error(response.data.message);
       }
     } catch (error) {
-      console.error("Failed to update pembayaran:", error);
+      console.error("Failed to update status:", error);
     }
   };
 
-  useEffect(() => {
-    fetchTransaksi();
-  }, []);
+  const handleKirim = async (id) => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/api/v1/detailPemesanan/updateStatus/${id}`,
+        { status_pesanan: "sedang dikirim" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-  const getStatusBadgeClass = (status_pesanan) => {
-    return status_pesanan === "pembayaran valid" ? "badge badge-accent " : "";
+      if (response.data.status) {
+        // Update the status locally
+        setTrans((prevTrans) =>
+          prevTrans.map((item) =>
+            item.id === id
+              ? { ...item, status_pesanan: "sedang dikirim" }
+              : item
+          )
+        );
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Failed to update status:", error);
+    }
   };
 
   return (
     <>
       <TitleCard
-        title="List Pembayaran"
+        title="Detail Pesanan"
         topMargin="mt-2"
         TopSideButtons={
           <TopSideButtons
@@ -249,14 +260,8 @@ function Transaksi() {
                 <tr>
                   <th className="text-center">Nama</th>
                   <th className="text-center">Status Pemesanan</th>
-                  <th className="text-center">Nomer Telepon</th>
                   <th className="text-center">Alamat</th>
-                  <th className="text-center">Uang Customer</th>
-                  <th className="text-center">Total</th>
-                  <th className="text-center">Tip</th>
-                  <th className="text-center">Jarak</th>
                   <th className="text-center">Bukti Pembayaran</th>
-                  <th className="text-center">Ongkir</th>
                   {filterParam !== "pembayaran valid" && (
                     <th className="text-center">Action</th>
                   )}
@@ -271,34 +276,10 @@ function Transaksi() {
                         {item.status_pesanan}
                       </div>
                     </td>
-
-                    <td className="text-center">{item.nama.no_telpn}</td>
                     <td className="text-center">
                       {item.id_alamat == null
                         ? "dipickup"
                         : item.alamat[0].nama_alamat}
-                    </td>
-                    <td className="text-center">
-                      {item.uang_customer ? item.uang_customer : "0"}
-                    </td>
-                    <td className="text-center">
-                      {item.detail_pemesanan.length > 0 ? (
-                        <>
-                          {console.log(item.detail_pemesanan.length)}
-                          {item.detail_pemesanan.reduce(
-                            (total, detail) => total + detail.subtotal,
-                            0
-                          )}
-                        </>
-                      ) : (
-                        "0"
-                      )}
-                    </td>
-                    <td className="text-center">
-                      {item.tip == null ? "0" : item.tip}
-                    </td>
-                    <td className="text-center">
-                      {item.jarak_delivery ? item.jarak_delivery : "dipickup"}
                     </td>
                     <td className="text-center">
                       {item.bukti_pembayaran && (
@@ -317,15 +298,25 @@ function Transaksi() {
                         </a>
                       )}
                     </td>
-                    <td className="text-center">
-                      {item.ongkir ? item.ongkir : "dipickup"}
-                    </td>
                     {filterParam !== "pembayaran valid" && (
-                      <td
-                        className="text-center flex justify-center"
-                        onClick={() => openAddNewLeadModal(item)}
-                      >
-                        <PencilSquare className="w-5" />
+                      <td className="text-center">
+                        <div className="flex justify-center">
+                          {item.jarak_delivery === null ? (
+                            <button
+                              className="btn btn-xs btn-secondary"
+                              onClick={() => handlePickup(item.id)}
+                            >
+                              Siap Di-Pickup
+                            </button>
+                          ) : (
+                            <button
+                              className="btn btn-xs btn-primary"
+                              onClick={() => handleKirim(item.id)}
+                            >
+                              Sedang Dikirim
+                            </button>
+                          )}
+                        </div>
                       </td>
                     )}
                   </tr>
@@ -335,15 +326,6 @@ function Transaksi() {
           </div>
         )}
       </TitleCard>
-      {isModalOpen && (
-        <AddPembayaran
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          onSave={handleSave}
-          initialData={currentTrans}
-          paymentError={paymentError} // Pass the payment error to the modal
-        />
-      )}
     </>
   );
 }

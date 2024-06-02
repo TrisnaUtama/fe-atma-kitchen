@@ -19,6 +19,7 @@ function KonfirmasiPesanan() {
         const fetchData = async () => {
             try {
                 const data = await getListKonfrimasi();
+                console.log(data.data);
                 setKonfirmasiPesanan(data || []);
             } catch (error) {
                 console.error(error);
@@ -57,7 +58,9 @@ function KonfirmasiPesanan() {
             );
 
             if (response.status === 200) {
+
                 toast.success(`${modalAction === 'Confirmation'} successful!`);
+
                 setKonfirmasiPesanan(prevState =>
                     prevState.filter(historyItem =>
                         !historyItem.detail_pemesanan.some(detailItem => detailItem.id_pemesanan === selectedId)

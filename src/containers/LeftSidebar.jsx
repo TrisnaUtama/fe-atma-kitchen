@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import routes from "../routes/sidebar";
+import SidebarSubmenu from "./SidebarSubmenu";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import logo from "../assets/images/logoAtma.jpg";
+
+import logo from "../assets/images/logoAtma.jpg"
 
 function LeftSidebar() {
   const location = useLocation();
@@ -25,31 +29,39 @@ function LeftSidebar() {
             <Link to="#">
               <img
                 className="mask mask-squircle w-10"
-                src="/logoatma.jpg"
+                src={logo}
                 alt="Atma Kitchen Logo"
               />
               Atma Kitchen
             </Link>
           </li>
-          {routes.map((route, k) => (
-            <li className="" key={k}>
-              <NavLink
-                end
-                to={route.path}
-                className={({ isActive }) =>
-                  `${isActive ? "font-semibold bg-base-200" : "font-normal"}`
-                }
-              >
-                {route.icon} {route.name}
-                {location.pathname === route.path && (
-                  <span
-                    className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary"
-                    aria-hidden="true"
-                  ></span>
+          {routes.map((route, k) => {
+            return (
+              <li className="" key={k}>
+                {route.submenu ? (
+                  <SidebarSubmenu {...route} />
+                ) : (
+                  <NavLink
+                    end
+                    to={route.path}
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? "font-semibold  bg-base-200 " : "font-normal"
+                      }`
+                    }
+                  >
+                    {route.icon} {route.name}
+                    {location.pathname === route.path ? (
+                      <span
+                        className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary "
+                        aria-hidden="true"
+                      ></span>
+                    ) : null}
+                  </NavLink>
                 )}
-              </NavLink>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </>
       </ul>
     </div>
