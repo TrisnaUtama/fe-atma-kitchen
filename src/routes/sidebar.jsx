@@ -1,7 +1,10 @@
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
+import Cog6ToothIcon from "@heroicons/react/24/outline/Cog6ToothIcon";
 import axios from "axios";
 
 const iconClasses = `h-6 w-6`;
+const submenuIconClasses = `h-5 w-5`;
+
 const userType = localStorage.getItem("userType");
 let routes = [];
 
@@ -38,16 +41,27 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Data Customer",
     },
-
     {
-      path: "Pengiriman",
-      icon: <Squares2X2Icon className={iconClasses} />,
-      name: "Input Pengiriman",
-    },
-    {
-      path: "getPembayaran",
-      icon: <Squares2X2Icon className={iconClasses} />,
-      name: "Input Pembayaran",
+      path: "",
+      icon: <Cog6ToothIcon className={`${iconClasses} inline`} />, // icon component
+      name: "Pembayaran",
+      submenu: [
+        {
+          path: "Pengiriman",
+          icon: <Squares2X2Icon className={iconClasses} />,
+          name: "Input Pengiriman",
+        },
+        {
+          path: "getPembayaran",
+          icon: <Squares2X2Icon className={submenuIconClasses} />,
+          name: "Input Pembayaran",
+        },
+        {
+          path: "updateStatusPesanan",
+          icon: <Squares2X2Icon className={submenuIconClasses} />,
+          name: "Update Status Pembayaran",
+        },
+      ],
     },
   ];
 } else if (userType === "mo") {
