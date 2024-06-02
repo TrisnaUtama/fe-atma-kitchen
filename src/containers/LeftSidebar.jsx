@@ -4,6 +4,8 @@ import SidebarSubmenu from "./SidebarSubmenu";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
+import logo from "../assets/images/logoAtma.jpg"
+
 function LeftSidebar() {
   const location = useLocation();
 
@@ -26,7 +28,7 @@ function LeftSidebar() {
             <Link to="#">
               <img
                 className="mask mask-squircle w-10"
-                src="/logoatma.jpg"
+                src={logo}
                 alt="Atma Kitchen Logo"
               />
               Atma Kitchen

@@ -8,6 +8,8 @@ import SunIcon from "@heroicons/react/24/outline/SunIcon";
 import { openRightDrawer } from "../features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
 
+import avatar from "../assets/images/avatar.png"
+
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -103,7 +105,7 @@ function Header() {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 <img
-                  src={"http://localhost:8000/storage/avatar.png"}
+                  src={avatar}
                   alt="profile"
                 />
               </div>

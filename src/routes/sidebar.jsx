@@ -96,6 +96,26 @@ if (userType === "admin") {
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Konfirmasi Pesanan",
     },
+    {
+      path: "pemrosesan-pesanan",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Pemrosesan Pesanan",
+    },
+    {
+      path: "pemakaian-bahan-baku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Pemakaian Bahan Baku",
+    },
+    {
+      path: "laporan-produk-bulanan",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Produk Bulanan",
+    },
+    {
+      path: "laporan-bahan-baku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Bahan Baku",
+    },
   ];
 } else if (userType === "owner") {
   routes = [
@@ -108,6 +128,16 @@ if (userType === "admin") {
       path: "Gaji",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Gaji & Bonus",
+    },
+    {
+      path: "laporan-produk-bulanan",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Produk Bulanan",
+    },
+    {
+      path: "laporan-bahan-baku",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Bahan Baku",
     },
   ];
 } else {
