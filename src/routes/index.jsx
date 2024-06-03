@@ -156,6 +156,29 @@ const LaporanBahanBaku = lazy(() =>
   import("../pages/protected/laporan/BahanBaku")
 );
 
+//LaporanPenitip
+const ListPenitip = lazy(() =>
+  import("../pages/protected/LaporanPenitip/ListLaporanPenitip")
+);
+const DetailLaporan = lazy(() =>
+  import("../pages/protected/LaporanPenitip/DetailLaporanPenitip")
+);
+
+//Pengeluaran
+const LaporanPenitip = lazy(() =>
+  import(
+    "../pages/protected/LaporanPemasukanPengeluaran/listLaporanPemasukanPengeluaran"
+  )
+);
+
+//LaporanPresensi
+const LaporanPresensi = lazy(() =>
+  import("../pages/protected/LaporanPresensi/listLaporanPresensi")
+);
+
+const KonfirmasiAdminSaldo = lazy(() =>
+  import("../pages/protected/adminSaldo/listSaldo")
+);
 const userType = localStorage.getItem("userType");
 
 const getRoutes = () => {
@@ -262,6 +285,10 @@ const getRoutes = () => {
         path: "/showTelatBayar",
         component: showTelatBayar,
       },
+      {
+        path: "/konfirmasiSaldo",
+        component: KonfirmasiAdminSaldo,
+      },
     ];
     return routes;
   } else if (userType === "mo") {
@@ -337,7 +364,22 @@ const getRoutes = () => {
         path: "/konfrimasiPesanan",
         component: KonfirmasiMO,
       },
-
+      {
+        path: "/listPenitip",
+        component: ListPenitip,
+      },
+      {
+        path: "/detailLaporan/:id",
+        component: DetailLaporan,
+      },
+      {
+        path: "/pemasukanPengeluaran",
+        component: LaporanPenitip,
+      },
+      {
+        path: "/laporanPresensi",
+        component: LaporanPresensi,
+      },
       {
         path: "/pemrosesan-pesanan",
         component: PemrosesanPesanan,
@@ -373,6 +415,22 @@ const getRoutes = () => {
       {
         path: "/updateProfile",
         component: UpdateProfile,
+      },
+      {
+        path: "/listPenitip",
+        component: ListPenitip,
+      },
+      {
+        path: "/detailLaporan/:id",
+        component: DetailLaporan,
+      },
+      {
+        path: "/pemasukanPengeluaran",
+        component: LaporanPenitip,
+      },
+      {
+        path: "/laporanPresensi",
+        component: LaporanPresensi,
       },
       {
         path: "/Gaji",

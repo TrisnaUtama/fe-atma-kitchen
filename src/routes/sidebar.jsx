@@ -68,6 +68,12 @@ if (userType === "admin") {
         },
       ],
     },
+    {
+      path: "konfirmasiSaldo",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Konfirmasi Saldo",
+    },
+    ,
   ];
 } else if (userType === "mo") {
   routes = [
@@ -95,6 +101,21 @@ if (userType === "admin") {
       path: "karyawan",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Karyawan",
+    },
+    {
+      path: "listPenitip",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Penitip",
+    },
+    {
+      path: "pemasukanPengeluaran",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Pemasukan Pengeluaran",
+    },
+    {
+      path: "laporanPresensi",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Presensi",
     },
     {
       path: "konfrimasiPesanan",
@@ -138,6 +159,21 @@ if (userType === "admin") {
       path: "Gaji",
       icon: <Squares2X2Icon className={iconClasses} />,
       name: "Gaji & Bonus",
+    },
+    {
+      path: "listPenitip",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Penitip",
+    },
+    {
+      path: "pemasukanPengeluaran",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Pemasukan Pengeluaran",
+    },
+    {
+      path: "laporanPresensi",
+      icon: <Squares2X2Icon className={iconClasses} />,
+      name: "Laporan Presensi",
     },
     {
       path: "laporanBahanBaku",

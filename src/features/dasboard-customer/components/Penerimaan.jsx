@@ -6,6 +6,7 @@ import { closeModal } from "../../common/modalSlice";
 import { Button, Modal } from "flowbite-react";
 import { HiCheck } from "react-icons/hi";
 import { toast } from "react-toastify";
+
 function PemesananList() {
   const token = localStorage.getItem("token");
   const [trans, setTrans] = useState([]);
@@ -68,7 +69,6 @@ function PemesananList() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        // transition: Bounce,
       });
 
       dispatch(closeModal());
@@ -163,11 +163,16 @@ function PemesananList() {
             <div className="flex justify-center gap-4">
               <Button
                 color="success"
+                className="bg-green-500 hover:bg-green-700"
                 onClick={() => handleSelesai(selectedOrderId)}
               >
-                {"Yes, I'm sure"}
+                Yes, I'm sure
               </Button>
-              <Button color="gray" onClick={() => setOpenModal(false)}>
+              <Button
+                color="gray"
+                className="bg-red-500 hover:bg-red-700"
+                onClick={() => setOpenModal(false)}
+              >
                 No, cancel
               </Button>
             </div>
