@@ -1,39 +1,36 @@
-import {useState, useRef} from 'react'
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import LandingIntro from './LandingIntro'
 import ErrorText from  '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
+import useRegisterCustomer from '../../app/register'
+
 
 function Register(){
 
+    const { registerCustomer, registrationError } = useRegisterCustomer();
     const INITIAL_REGISTER_OBJ = {
-        name : "",
+        nama : "",
+        no_telpn : "",
+        tanggal_lahir : "",
+        email : "",
         password : "",
-        emailId : ""
+
     }
 
     const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
     const [registerObj, setRegisterObj] = useState(INITIAL_REGISTER_OBJ)
-
-    const submitForm = (e) =>{
-        e.preventDefault()
-        setErrorMessage("")
-
-        if(registerObj.name.trim() === "")return setErrorMessage("Name is required! (use any value)")
-        if(registerObj.emailId.trim() === "")return setErrorMessage("Email Id is required! (use any value)")
-        if(registerObj.password.trim() === "")return setErrorMessage("Password is required! (use any value)")
-        else{
+    
+        const submitForm = async (e) => {
+            e.preventDefault();
             setLoading(true)
-            // Call API to check user credentials and save token in localstorage
-            localStorage.setItem("token", "DumyTokenHere")
+            await registerCustomer(registerObj);
             setLoading(false)
-            window.location.href = '/app/welcome'
-        }
-    }
+        };
+    
 
     const updateFormValue = ({updateType, value}) => {
-        setErrorMessage("")
+        // setErrorMessage("")
         setRegisterObj({...registerObj, [updateType] : value})
     }
 
@@ -49,16 +46,19 @@ function Register(){
                     <form onSubmit={(e) => submitForm(e)}>
 
                         <div className="mb-4">
+                            <InputText defaultValue={registerObj.nama} updateType="nama" containerStyle="mt-4" labelTitle="Name" updateFormValue={updateFormValue}/>
 
-                            <InputText defaultValue={registerObj.name} updateType="name" containerStyle="mt-4" labelTitle="Name" updateFormValue={updateFormValue}/>
+                            <InputText defaultValue={registerObj.no_telpn} updateType="no_telpn" containerStyle="mt-4" labelTitle="No Telepon" updateFormValue={updateFormValue}/>
 
-                            <InputText defaultValue={registerObj.emailId} updateType="emailId" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue}/>
+                            <InputText defaultValue={registerObj.tanggal_lahir}type="date" updateType="tanggal_lahir" containerStyle="mt-4" labelTitle="Tanggal Lahir" updateFormValue={updateFormValue}/>
+
+                            <InputText defaultValue={registerObj.email} type="email" updateType="email" containerStyle="mt-4" labelTitle="email" updateFormValue={updateFormValue}/>
 
                             <InputText defaultValue={registerObj.password} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue}/>
 
                         </div>
 
-                        <ErrorText styleClass="mt-8">{errorMessage}</ErrorText>
+                        <ErrorText styleClass="mt-8">{registrationError}</ErrorText>
                         <button type="submit" className={"btn mt-2 w-full btn-primary" + (loading ? " loading" : "")}>Register</button>
 
                         <div className='text-center mt-4'>Already have an account? <Link to="/"><span className="  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">Login</span></Link></div>
